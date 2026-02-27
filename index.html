@@ -73,32 +73,36 @@
 
         #printContainer { display: none; }
 
-        /* 2. تنسيقات الطباعة المعدلة للكمبيوتر */
+        /* 2. تنسيقات الطباعة النهائية الموحدة للهاتف والكمبيوتر */
         @media print {
             body > *:not(#printContainer) { display: none !important; }
-
+            
             @page { size: A4; margin: 0; }
 
-            html, body {
-                height: auto; margin: 0 !important; padding: 0 !important; overflow: visible !important;
-                font-family: 'Calibri', sans-serif !important;
+            html, body { 
+                height: auto !important; 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                overflow: visible !important; /* هذا الحز المسؤول عن ظهور الصفحة البيضاء في الهاتف */
                 background: white !important;
             }
 
             #printContainer {
-                display: block !important; width: 210mm; background: white;
-                padding: 3.5mm 5mm; margin: 0 auto; box-sizing: border-box;
+                display: block !important; 
+                width: 100% !important; /* ليتناسب مع عرض شاشة الهاتف */
+                max-width: 210mm; /* لضبط الحجم عند الطباعة من الكمبيوتر */
+                padding: 5mm !important; 
+                margin: 0 auto !important; 
+                box-sizing: border-box !important;
             }
 
             .print-page { width: 100%; page-break-after: always; display: block !important; }
             .print-page:last-child { page-break-after: avoid; }
 
             .p-title {
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                font-size: 16px; font-weight: 800; border-bottom: 2.2px solid #000;
-                padding-bottom: 2px; margin-bottom: 5px; line-height: 1.2;
+                display: flex !important; justify-content: space-between !important;
+                align-items: center !important; font-size: 16px; font-weight: 800;
+                border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 5px;
                 color: #000 !important; direction: rtl !important;
             }
 
@@ -107,15 +111,14 @@
                 border-collapse: collapse; border: 1.5px solid black !important;
             }
 
-            .p-table td {
-                display: table-cell !important; border: 1.5px solid black !important;
+            .p-table td, .p-table th {
+                display: table-cell !important; border: 1px solid black !important;
                 text-align: center; font-size: 13px; font-weight: 900;
-                height: 21px; padding: 0; vertical-align: middle; line-height: 1;
-                color: #000 !important;
+                padding: 4px 2px; color: #000 !important;
             }
 
-            .col-amt { width: 5%; background: #f0f0f0 !important; -webkit-print-color-adjust: exact; }
-            .col-name { width: 18%; white-space: nowrap; overflow: hidden; }
+            .col-amt { background: #f0f0f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; width: 5%; }
+            .col-name { width: 18%; }
         }
     </style>
 </head>
@@ -506,20 +509,49 @@
         
         async function printStatementOnly() {
             const stBody = document.getElementById('stBody');
-            if (!stBody || stBody.innerText.includes("جاري")) { showToast("⚠️ برجاء الانتظار"); return; }
-            const area = document.getElementById('printContainer'), dateNow = formatDate(document.getElementById('globalDate').value);
+            if (!stBody || stBody.innerText.includes("جاري")) { 
+                showToast("⚠️ برجاء الانتظار حتى تحميل البيانات"); 
+                return; 
+            }
+            const area = document.getElementById('printContainer');
+            const dateNow = formatDate(document.getElementById('globalDate').value);
             const merchantName = document.getElementById('stTitle').innerText;
+
+            // بناء محتوى الطباعة
             area.innerHTML = `
-                <div class="p-title" style="display: block !important; text-align: center !important; border-bottom: 2px solid #000; margin-bottom: 10px; padding-bottom: 10px;">
-                    <div style="font-size: 22px; font-weight: 900; margin-bottom: 5px;">${merchantName}</div>
-                    <div style="font-size: 11px; font-weight: 400;">تاريخ الطباعة: ${dateNow}</div>
-                </div>
-                <table class="p-table">
-                    <thead><tr><th style="border:1px solid #000">التاريخ</th><th style="border:1px solid #000">سمك</th><th style="border:1px solid #000">فارغ</th><th style="border:1px solid #000">الباقي</th></tr></thead>
-                    <tbody>${stBody.innerHTML}</tbody>
-                </table>`;
-            const oldTitle = document.title; document.title = merchantName; 
-            setTimeout(() => { window.print(); setTimeout(() => { document.title = oldTitle; area.innerHTML = ""; }, 1000); }, 250);
+                <div class="print-page">
+                    <div class="p-title" style="display: flex !important; justify-content: space-between !important; border-bottom: 2px solid #000; margin-bottom: 10px; padding-bottom: 5px;">
+                        <span style="font-size: 18px; font-weight: 900;">${merchantName}</span>
+                        <span style="font-size: 14px;">تاريخ الطباعة: ${dateNow}</span>
+                    </div>
+                    <table class="p-table">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>سمك</th>
+                                <th>فارغ</th>
+                                <th>الباقي</th>
+                            </tr>
+                        </thead>
+                        <tbody>${stBody.innerHTML}</tbody>
+                    </table>
+                </div>`;
+
+            const oldTitle = document.title;
+            document.title = merchantName; 
+            
+            // إظهار الحاوية فوراً قبل الطباعة
+            area.style.display = 'block';
+
+            // زيادة الوقت لـ 500ms لضمان الرندرة في الموبايل والكمبيوتر
+            setTimeout(() => {
+                window.print();
+                setTimeout(() => { 
+                    document.title = oldTitle; 
+                    area.innerHTML = ""; 
+                    area.style.display = 'none'; 
+                }, 1000);
+            }, 500); 
         }
 
         async function printDaily8() {
