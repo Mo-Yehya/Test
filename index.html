@@ -73,75 +73,34 @@
 
         #printContainer { display: none; }
 
-        /* ------------------------------------------------------------------------- */
-        /* 🛡️ إعدادات الطباعة النهائية لحل مشكلة الصفحة البيضاء والقص في الموبايل */
-        /* ------------------------------------------------------------------------- */
+        /* 🛡️ إعدادات الطباعة */
         @media print {
-            body > *:not(#printContainer) {
-                display: none !important;
-            }
-
-            @page {
-                size: A4;
-                margin: 0;
-            }
-
+            body > *:not(#printContainer) { display: none !important; }
+            @page { size: A4; margin: 0; }
             html, body {
-                height: auto !important;
-                overflow: visible !important;
-                background: white !important;
-                font-family: 'Calibri', sans-serif !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
+                height: auto !important; overflow: visible !important;
+                background: white !important; font-family: 'Calibri', sans-serif !important;
             }
-
             #printContainer {
-                display: block !important;
-                width: 210mm !important; 
-                padding: 4mm 6mm 0 4mm !important;
-                margin: 0 !important;
-                box-sizing: border-box;
-                position: fixed !important; /* ثابت لضمان التقاط المحتوى في الـ PDF */
-                top: 0 !important;
-                left: 0 !important;
-                z-index: 99999;
-                background: white;
+                display: block !important; width: 210mm !important; 
+                padding: 4mm 6mm 0 4mm !important; margin: 0 !important;
+                box-sizing: border-box; position: fixed !important; 
+                top: 0 !important; left: 0 !important; z-index: 99999; background: white;
             }
-
-            .print-page {
-                width: 100%;
-                page-break-after: always !important;
-            }
-
+            .print-page { width: 100%; page-break-after: always !important; }
             .p-title {
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                font-size: 16px; font-weight: 800; border-bottom: 2.2px solid #000;
-                padding-bottom: 5px; margin-bottom: 5px; line-height: 1.2;
-                color: #000 !important;
-                direction: rtl !important;
+                display: flex !important; justify-content: space-between !important;
+                align-items: center !important; font-size: 16px; font-weight: 800; 
+                border-bottom: 2.2px solid #000; padding-bottom: 5px; margin-bottom: 5px; 
+                line-height: 1.2; color: #000 !important; direction: rtl !important;
             }
-
-            .p-table {
-                display: table !important;
-                width: 100% !important;
-                table-layout: fixed;
-                border-collapse: collapse;
-                border: 1.5px solid black !important;
-            }
-
+            .p-table { display: table !important; width: 100% !important; table-layout: fixed; border-collapse: collapse; border: 1.5px solid black !important; }
             .p-table td {
-                display: table-cell !important;
-                border: 1px solid black !important;
-                text-align: center;
-                font-size: 13px; font-weight: 900;
-                height: 21.3px !important; 
-                padding: 0;
-                vertical-align: middle;
+                display: table-cell !important; border: 1px solid black !important;
+                text-align: center; font-size: 13px; font-weight: 900;
+                height: 21.3px !important; padding: 0; vertical-align: middle;
                 color: #000 !important;
             }
-
             .col-amt { width: 8%; background: #f0f0f0 !important; color: #000 !important; }
             .col-name { width: 18%; white-space: nowrap; overflow: hidden; color: #000 !important; }
         }
@@ -459,11 +418,24 @@
             document.getElementById('stBody').innerHTML = hist.map(h => `<tr><td>${h.date}</td><td>${h.sales || '-'}</td><td>${h.payments || '-'}</td><td style="font-weight:900;">${Math.round(h.balance).toLocaleString()}</td></tr>`).join('');
         }
         function closeSt() { document.getElementById('stModal').style.display = 'none'; }
+        
         function printStatementOnly() {
-            const area = document.getElementById('printContainer'), dateNow = formatDate(document.getElementById('globalDate').value);
-            area.innerHTML = `<div class="p-title"><span>${document.getElementById('stTitle').innerText}</span><span>تاريخ الطباعة: ${dateNow}</span></div><table class="p-table"><thead><tr><th>التاريخ</th><th>خروج</th><th>دخول</th><th>الباقي</th></tr></thead><tbody>${document.getElementById('stBody').innerHTML}</tbody></table>`;
+            const area = document.getElementById('printContainer');
+            const dateNow = formatDate(document.getElementById('globalDate').value);
+            const name = document.getElementById('stTitle').innerText;
+            area.innerHTML = `
+                <div class="p-title">
+                    <span>${name}</span>
+                    <span>تاريخ الطباعة: ${dateNow}</span>
+                </div>
+                <table class="p-table">
+                    <thead><tr><th>التاريخ</th><th>خروج</th><th>دخول</th><th>الباقي</th></tr></thead>
+                    <tbody>${document.getElementById('stBody').innerHTML}</tbody>
+                </table>`;
             window.print();
+            window.onafterprint = () => { area.innerHTML = ""; };
         }
+
         async function printDaily8() {
             const btn = document.getElementById('btnPrintDaily');
             const originalText = btn.innerText;
@@ -478,8 +450,7 @@
                 const dateObj = new Date(dateInput);
                 const dateNow = formatDate(dateInput);
                 const printTotal = debts.reduce((sum, r) => sum + parseFloat(r.balance), 0);
-                const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-                const dayName = days[dateObj.getDay()];
+                const dayName = new Date(dateInput).toLocaleDateString('ar-EG', {weekday: 'long'});
                 
                 let finalHtml = ""; 
                 const rowsP = 50, itemsP = 200;
@@ -515,19 +486,14 @@
                 const oldTitle = document.title;
                 document.title = `B-${dateObj.getDate()}-${dateObj.getMonth() + 1}`;
                 
-                // 🛡️ الحل: ننتظر وقت كافي للموبايل قبل أمر الطباعة
                 setTimeout(() => {
                     window.print();
-                    btn.innerText = originalText; 
-                    btn.disabled = false;
-                    
-                    // 🛡️ التعديل الأهم: لا نمسح الحاوية فوراً
-                    // ننتظر حتى ينتهي المستخدم من شاشة الطباعة تماماً
+                    btn.innerText = originalText; btn.disabled = false;
                     window.onafterprint = () => {
                         document.title = oldTitle;
-                        area.innerHTML = ""; // المسح يتم فقط بعد إغلاق شاشة الطباعة بنجاح
+                        area.innerHTML = "";
                     };
-                }, 1500);
+                }, 1200);
 
             } catch (error) {
                 showToast("❌ حدث خطأ");
@@ -536,6 +502,7 @@
         }
 
         window.onkeydown = (e) => { if (e.key === 'Enter' && document.getElementById('confirmModal').style.display === 'flex') { finalSave(); } };
+        function selectMerchant(name) { document.getElementById('custName').value = name; document.getElementById('searchRes').style.display = 'none'; document.getElementById('amount').focus(); }
     </script>
 </body>
 
