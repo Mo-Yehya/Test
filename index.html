@@ -464,7 +464,6 @@
             area.innerHTML = `<div class="p-title"><span>${document.getElementById('stTitle').innerText}</span><span>تاريخ الطباعة: ${dateNow}</span></div><table class="p-table"><thead><tr><th>التاريخ</th><th>خروج</th><th>دخول</th><th>الباقي</th></tr></thead><tbody>${document.getElementById('stBody').innerHTML}</tbody></table>`;
             window.print();
         }
-
         async function printDaily8() {
             const btn = document.getElementById('btnPrintDaily');
             const originalText = btn.innerText;
@@ -516,11 +515,19 @@
                 const oldTitle = document.title;
                 document.title = `B-${dateObj.getDate()}-${dateObj.getMonth() + 1}`;
                 
+                // 🛡️ الحل: ننتظر وقت كافي للموبايل قبل أمر الطباعة
                 setTimeout(() => {
                     window.print();
-                    btn.innerText = originalText; btn.disabled = false;
-                    setTimeout(() => { document.title = oldTitle; area.innerHTML = ""; }, 2000);
-                }, 1200);
+                    btn.innerText = originalText; 
+                    btn.disabled = false;
+                    
+                    // 🛡️ التعديل الأهم: لا نمسح الحاوية فوراً
+                    // ننتظر حتى ينتهي المستخدم من شاشة الطباعة تماماً
+                    window.onafterprint = () => {
+                        document.title = oldTitle;
+                        area.innerHTML = ""; // المسح يتم فقط بعد إغلاق شاشة الطباعة بنجاح
+                    };
+                }, 1500);
 
             } catch (error) {
                 showToast("❌ حدث خطأ");
