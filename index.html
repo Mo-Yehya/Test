@@ -516,19 +516,11 @@
                 const oldTitle = document.title;
                 document.title = `B-${dateObj.getDate()}-${dateObj.getMonth() + 1}`;
                 
-                // 🛡️ الحل: ننتظر وقت كافي للموبايل قبل أمر الطباعة
                 setTimeout(() => {
                     window.print();
-                    btn.innerText = originalText; 
-                    btn.disabled = false;
-                    
-                    // 🛡️ التعديل الأهم: لا نمسح الحاوية فوراً
-                    // ننتظر حتى ينتهي المستخدم من شاشة الطباعة تماماً
-                    window.onafterprint = () => {
-                        document.title = oldTitle;
-                        area.innerHTML = ""; // المسح يتم فقط بعد إغلاق شاشة الطباعة بنجاح
-                    };
-                }, 1500);
+                    btn.innerText = originalText; btn.disabled = false;
+                    setTimeout(() => { document.title = oldTitle; area.innerHTML = ""; }, 2000);
+                }, 1200);
 
             } catch (error) {
                 showToast("❌ حدث خطأ");
