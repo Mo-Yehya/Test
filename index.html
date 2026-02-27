@@ -74,7 +74,7 @@
         #printContainer { display: none; }
 
         /* ------------------------------------------------------------------------- */
-        /* 🛡️ إعدادات الطباعة النهائية لحل مشكلة الصفحة البيضاء والقص في الموبايل */
+        /* 🛡️ إعدادات الطباعة النهائية لحل مشكلة القص والهوامش */
         /* ------------------------------------------------------------------------- */
         @media print {
             body > *:not(#printContainer) {
@@ -97,15 +97,12 @@
 
             #printContainer {
                 display: block !important;
-                width: 210mm !important; 
-                padding: 4mm 6mm 0 4mm !important;
-                margin: 0 !important;
+                /* تقليل العرض الإجمالي لتوفير هوامش أمان تمنع القص */
+                width: 198mm !important; 
+                padding: 6mm 8mm 0 8mm !important;
+                margin: 0 auto !important; /* توسيط الحاوية في الصفحة */
                 box-sizing: border-box;
-                position: fixed !important; /* ثابت لضمان التقاط المحتوى في الـ PDF */
-                top: 0 !important;
-                left: 0 !important;
-                z-index: 99999;
-                background: white;
+                position: static !important;
             }
 
             .print-page {
@@ -118,7 +115,7 @@
                 justify-content: space-between !important;
                 align-items: center !important;
                 font-size: 16px; font-weight: 800; border-bottom: 2.2px solid #000;
-                padding-bottom: 5px; margin-bottom: 5px; line-height: 1.2;
+                padding-bottom: 2px; margin-bottom: 5px; line-height: 1.2;
                 color: #000 !important;
                 direction: rtl !important;
             }
@@ -142,8 +139,9 @@
                 color: #000 !important;
             }
 
-            .col-amt { width: 8%; background: #f0f0f0 !important; color: #000 !important; }
-            .col-name { width: 18%; white-space: nowrap; overflow: hidden; color: #000 !important; }
+            /* تعديل عرض الأعمدة ليكون متناسقاً داخل العرض الجديد */
+            .col-amt { width: 9%; background: #f0f0f0 !important; color: #000 !important; }
+            .col-name { width: 16%; white-space: nowrap; overflow: hidden; color: #000 !important; }
         }
     </style>
 </head>
@@ -310,7 +308,12 @@
         async function fetchReports() {
             const dStr = formatDate(document.getElementById('globalDate').value);
             const reportDiv = document.getElementById('reportData');
-            reportDiv.innerHTML = `<div style="text-align:center; padding:50px; font-weight:800; color:var(--primary-blue);">🔄 جاري تحديث وتحميل البيانات...</div>`;
+            
+            reportDiv.innerHTML = `<div style="text-align:center; padding:50px; font-weight:800; color:var(--primary-blue);">
+                <div style="margin-bottom:10px;">🔄 جاري تحديث وتحميل البيانات...</div>
+                <small style="font-weight:400; color:#666;">برجاء الانتظار ثواني</small>
+            </div>`;
+
             try {
                 const res = await fetch(`${SCRIPT_URL}?date=${dStr}&sheet=${CURRENT_SHEET}`);
                 const data = await res.json();
@@ -339,7 +342,8 @@
             for (let name in data) {
                 if (data[name] > 0) {
                     html += `<tr><td>${name}</td><td>${Math.round(data[name]).toLocaleString()}</td></tr>`;
-                    total += data[name]; count++;
+                    total += data[name];
+                    count++;
                 }
             }
             html += `</table>`;
@@ -399,7 +403,9 @@
             Array.from(items).forEach((it, i) => {
                 const isActive = i === selectedIdx;
                 it.classList.toggle('active', isActive);
-                if (isActive) it.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                if (isActive) {
+                    it.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
             });
         }
 
@@ -421,7 +427,9 @@
         function finalSave() {
             const rawAmt = amtInp.value.replace(/,/g, "");
             const payload = { type: 'transaction', targetSheet: CURRENT_SHEET, action: currentMode, customer: custInp.value.trim(), amount: rawAmt, globalDate: formatDate(document.getElementById('globalDate').value) };
-            custInp.value = ''; amtInp.value = ''; closeConfirm(); custInp.focus();
+            custInp.value = ''; amtInp.value = '';
+            closeConfirm();
+            custInp.focus();
             fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }).then(() => { fetchReports(); });
         }
 
@@ -461,7 +469,7 @@
         function closeSt() { document.getElementById('stModal').style.display = 'none'; }
         function printStatementOnly() {
             const area = document.getElementById('printContainer'), dateNow = formatDate(document.getElementById('globalDate').value);
-            area.innerHTML = `<div class="p-title"><span>${document.getElementById('stTitle').innerText}</span><span>تاريخ الطباعة: ${dateNow}</span></div><table class="p-table"><thead><tr><th>التاريخ</th><th>خروج</th><th>دخول</th><th>الباقي</th></tr></thead><tbody>${document.getElementById('stBody').innerHTML}</tbody></table>`;
+            area.innerHTML = `<div class="p-title">${document.getElementById('stTitle').innerText} <br> <span style="font-size:12px;">تاريخ الطباعة: ${dateNow}</span></div><table class="p-table"><thead><tr><th>التاريخ</th><th>خروج</th><th>دخول</th><th>الباقي</th></tr></thead><tbody>${document.getElementById('stBody').innerHTML}</tbody></table>`;
             window.print();
         }
 
@@ -518,13 +526,19 @@
                 
                 setTimeout(() => {
                     window.print();
-                    btn.innerText = originalText; btn.disabled = false;
-                    setTimeout(() => { document.title = oldTitle; area.innerHTML = ""; }, 2000);
+                    btn.innerText = originalText; 
+                    btn.disabled = false;
+                    
+                    setTimeout(() => { 
+                        document.title = oldTitle; 
+                        area.innerHTML = ""; 
+                    }, 2000);
                 }, 1200);
 
             } catch (error) {
-                showToast("❌ حدث خطأ");
-                btn.innerText = originalText; btn.disabled = false;
+                showToast("❌ حدث خطأ أثناء التجهيز");
+                btn.innerText = originalText; 
+                btn.disabled = false;
             }
         }
 
