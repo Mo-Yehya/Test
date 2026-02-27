@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ELMAJD Boxes |المجد</title>
+    <title>ELMAJD Boxes | المجد</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 
     <style>
@@ -73,36 +73,49 @@
 
         #printContainer { display: none; }
 
-        /* 🛡️ إعدادات الطباعة */
+        /* 2. تنسيقات الطباعة المعدلة للكمبيوتر */
         @media print {
             body > *:not(#printContainer) { display: none !important; }
+
             @page { size: A4; margin: 0; }
+
             html, body {
-                height: auto !important; overflow: visible !important;
-                background: white !important; font-family: 'Calibri', sans-serif !important;
+                height: auto; margin: 0 !important; padding: 0 !important; overflow: visible !important;
+                font-family: 'Calibri', sans-serif !important;
+                background: white !important;
             }
+
             #printContainer {
-                display: block !important; width: 210mm !important; 
-                padding: 4mm 6mm 0 4mm !important; margin: 0 !important;
-                box-sizing: border-box; position: fixed !important; 
-                top: 0 !important; left: 0 !important; z-index: 99999; background: white;
+                display: block !important; width: 210mm; background: white;
+                padding: 3.5mm 5mm; margin: 0 auto; box-sizing: border-box;
             }
-            .print-page { width: 100%; page-break-after: always !important; }
+
+            .print-page { width: 100%; page-break-after: always; display: block !important; }
+            .print-page:last-child { page-break-after: avoid; }
+
             .p-title {
-                display: flex !important; justify-content: space-between !important;
-                align-items: center !important; font-size: 16px; font-weight: 800; 
-                border-bottom: 2.2px solid #000; padding-bottom: 5px; margin-bottom: 5px; 
-                line-height: 1.2; color: #000 !important; direction: rtl !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                font-size: 16px; font-weight: 800; border-bottom: 2.2px solid #000;
+                padding-bottom: 2px; margin-bottom: 5px; line-height: 1.2;
+                color: #000 !important; direction: rtl !important;
             }
-            .p-table { display: table !important; width: 100% !important; table-layout: fixed; border-collapse: collapse; border: 1.5px solid black !important; }
+
+            .p-table {
+                display: table !important; width: 100% !important; table-layout: fixed;
+                border-collapse: collapse; border: 1.5px solid black !important;
+            }
+
             .p-table td {
-                display: table-cell !important; border: 1px solid black !important;
+                display: table-cell !important; border: 1.5px solid black !important;
                 text-align: center; font-size: 13px; font-weight: 900;
-                height: 21.3px !important; padding: 0; vertical-align: middle;
+                height: 21px; padding: 0; vertical-align: middle; line-height: 1;
                 color: #000 !important;
             }
-            .col-amt { width: 8%; background: #f0f0f0 !important; color: #000 !important; }
-            .col-name { width: 18%; white-space: nowrap; overflow: hidden; color: #000 !important; }
+
+            .col-amt { width: 5%; background: #f0f0f0 !important; -webkit-print-color-adjust: exact; }
+            .col-name { width: 18%; white-space: nowrap; overflow: hidden; }
         }
     </style>
 </head>
@@ -134,14 +147,14 @@
 
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:10px;">
                     <div>
-                        <button class="btn btn-navy" onclick="openModal('out')">📤 خروج بوكس</button>
+                        <button class="btn btn-navy" onclick="openModal('out')">📤 سمـــك</button>
                         <div id="totalOutBox" onclick="showDailySummary('out')" style="background: #e1f5fe; padding: 10px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px dashed var(--primary-blue);">
                             <small>إجمالي الخارج اليوم</small><br>
                             <strong id="dayTotalOut">0</strong>
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-blue" onclick="openModal('in')">📥 دخول بوكس</button>
+                        <button class="btn btn-blue" onclick="openModal('in')">📥 فـــارغ</button>
                         <div id="totalInBox" onclick="showDailySummary('in')" style="background: #e0f2f1; padding: 10px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px dashed var(--cyan);">
                             <small>إجمالي الداخل اليوم</small><br>
                             <strong id="dayTotalIn">0</strong>
@@ -170,7 +183,7 @@
 
     <footer>
         <div class="footer-logo">M</div>
-        <div class="footer-text">المجد للبوكس - جميع الحقوق محفوظة © 2026</div>
+        <div class="footer-text">المجد - جميع الحقوق محفوظة © 2026</div>
     </footer>
 
     <div id="summaryModal" class="modal">
@@ -231,11 +244,16 @@
         <div class="modal-content" style="max-width: 600px;"><span class="close-x" onclick="closeSt()">&times;</span>
             <h3 id="stTitle"></h3>
             <div style="max-height: 350px; overflow-y: auto;">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead style="background:#f1f5f9;">
-                        <tr><th>التاريخ</th><th>خروج</th><th>دخول</th><th>الباقي</th></tr>
+                <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+                    <thead style="background:#f1f5f9; position: sticky; top: 0; z-index: 10;">
+                        <tr>
+                            <th style="padding:12px; border:1px solid #ddd; width: 30%; color: #000;">التاريخ</th>
+                            <th style="padding:12px; border:1px solid #ddd; width: 23%; color: #000;">سمـــك</th>
+                            <th style="padding:12px; border:1px solid #ddd; width: 23%; color: #000;">فـــارغ</th>
+                            <th style="padding:12px; border:1px solid #ddd; width: 24%; color: #000;">الباقي</th>
+                        </tr>
                     </thead>
-                    <tbody id="stBody"></tbody>
+                    <tbody id="stBody" style="text-align: center;"></tbody>
                 </table>
             </div><button class="btn btn-navy" onclick="printStatementOnly()" style="margin-top:20px;">📄 طباعة كشف البوكس</button>
         </div>
@@ -269,7 +287,12 @@
         async function fetchReports() {
             const dStr = formatDate(document.getElementById('globalDate').value);
             const reportDiv = document.getElementById('reportData');
-            reportDiv.innerHTML = `<div style="text-align:center; padding:50px; font-weight:800; color:var(--primary-blue);">🔄 جاري تحديث وتحميل البيانات...</div>`;
+            
+            reportDiv.innerHTML = `<div style="text-align:center; padding:50px; font-weight:800; color:var(--primary-blue);">
+                <div style="margin-bottom:10px;">🔄 جاري تحديث وتحميل البيانات...</div>
+                <small style="font-weight:400; color:#666;">برجاء الانتظار ثواني</small>
+            </div>`;
+
             try {
                 const res = await fetch(`${SCRIPT_URL}?date=${dStr}&sheet=${CURRENT_SHEET}`);
                 const data = await res.json();
@@ -293,12 +316,20 @@
             const data = type === 'out' ? salesCache : collCache;
             const title = type === 'out' ? "تفاصيل خروج البوكس" : "تفاصيل دخول البوكس";
             const body = document.getElementById('summaryBody');
-            let html = `<table class="summary-table"><tr><th>التاجر</th><th>العدد</th></tr>`;
+            let html = `<table class="summary-table"><tr><th>التاجر</th><th>العدد</th><th>إجراء</th></tr>`;
             let total = 0, count = 0;
             for (let name in data) {
                 if (data[name] > 0) {
-                    html += `<tr><td>${name}</td><td>${Math.round(data[name]).toLocaleString()}</td></tr>`;
-                    total += data[name]; count++;
+                    html += `<tr>
+                        <td>${name}</td>
+                        <td>${Math.round(data[name]).toLocaleString()}</td>
+                        <td>
+                            <button onclick="editTransaction('${name}', '${type}')" style="background:none; border:none; cursor:pointer; margin-left:10px;">✏️</button>
+                            <button onclick="deleteTodayTransaction('${name}', '${type}')" style="background:none; border:none; cursor:pointer;">🗑️</button>
+                        </td>
+                    </tr>`;
+                    total += data[name];
+                    count++;
                 }
             }
             html += `</table>`;
@@ -307,6 +338,29 @@
             body.innerHTML = html;
             document.getElementById('summaryTotalFooter').innerText = `عدد التجار: ${count} | الإجمالي: ${Math.round(total).toLocaleString()}`;
             document.getElementById('summaryModal').style.display = 'flex';
+        }
+
+        async function deleteTodayTransaction(name, type) {
+            if(!confirm(`هل تريد حذف معاملة ${name} لهذا اليوم؟`)) return;
+            const payload = { 
+                type: 'transaction', 
+                targetSheet: CURRENT_SHEET, 
+                action: type, 
+                customer: name, 
+                amount: 0, 
+                globalDate: formatDate(document.getElementById('globalDate').value) 
+            };
+            showToast("جاري الحذف...");
+            await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            closeSummary();
+            fetchReports();
+        }
+
+        function editTransaction(name, type) {
+            closeSummary();
+            openModal(type);
+            custInp.value = name;
+            selectMerchant(name);
         }
 
         function closeSummary() { document.getElementById('summaryModal').style.display = 'none'; }
@@ -354,6 +408,15 @@
             }
         };
 
+        function selectMerchant(name) {
+            custInp.value = name;
+            resDiv.style.display = 'none';
+            selectedIdx = -1;
+            let existingVal = (currentMode === 'out') ? (salesCache[name] || 0) : (collCache[name] || 0);
+            amtInp.value = existingVal > 0 ? Math.round(existingVal).toLocaleString('en-US') : '';
+            amtInp.focus();
+        }
+
         function highlight(items) {
             Array.from(items).forEach((it, i) => {
                 const isActive = i === selectedIdx;
@@ -380,8 +443,13 @@
         function finalSave() {
             const rawAmt = amtInp.value.replace(/,/g, "");
             const payload = { type: 'transaction', targetSheet: CURRENT_SHEET, action: currentMode, customer: custInp.value.trim(), amount: rawAmt, globalDate: formatDate(document.getElementById('globalDate').value) };
-            custInp.value = ''; amtInp.value = ''; closeConfirm(); custInp.focus();
-            fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }).then(() => { fetchReports(); });
+            custInp.value = ''; amtInp.value = '';
+            closeConfirm();
+            custInp.focus();
+            fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }).then(() => { 
+                showToast("تم الحفظ بنجاح ✅");
+                fetchReports(); 
+            });
         }
 
         function openManageModal() { document.getElementById('manageModal').style.display = 'flex'; buildManageList(reportStore); }
@@ -412,28 +480,46 @@
         async function deleteMerchant(n) { if (!confirm(`حذف ${n}؟`)) return; await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: 'delete_customer', name: n }) }); fetchReports().then(() => buildManageList(reportStore)); }
 
         async function openStatement(name) {
-            document.getElementById('stTitle').innerText = name; document.getElementById('stModal').style.display = 'flex';
-            const res = await fetch(`${SCRIPT_URL}?type=statement&name=${encodeURIComponent(name)}&sheet=${CURRENT_SHEET}`);
-            const hist = await res.json();
-            document.getElementById('stBody').innerHTML = hist.map(h => `<tr><td>${h.date}</td><td>${h.sales || '-'}</td><td>${h.payments || '-'}</td><td style="font-weight:900;">${Math.round(h.balance).toLocaleString()}</td></tr>`).join('');
+            document.getElementById('stTitle').innerText = name;
+            document.getElementById('stModal').style.display = 'flex';
+            const stBody = document.getElementById('stBody');
+            stBody.innerHTML = `<tr><td colspan="4" style="padding:50px; color:var(--primary-blue); font-weight:800; text-align:center;">🔄 جاري تحميل كشف الحساب...</td></tr>`;
+            try {
+                const res = await fetch(`${SCRIPT_URL}?type=statement&name=${encodeURIComponent(name)}&sheet=${CURRENT_SHEET}`);
+                const hist = await res.json();
+                if (hist && hist.length > 0) {
+                    stBody.innerHTML = hist.map(h => `
+                        <tr>
+                            <td style="padding:10px; border:1px solid #eee; color: #333;">${h.date}</td>
+                            <td style="padding:10px; border:1px solid #eee; color: #2d6a4f; font-weight: 800;">${h.sales || '-'}</td>
+                            <td style="padding:10px; border:1px solid #eee; color: #c1121f; font-weight: 800;">${h.payments || '-'}</td>
+                            <td style="padding:10px; border:1px solid #eee; font-weight:900; background:#f8f9fa; color: #000;">${Math.round(h.balance).toLocaleString()}</td>
+                        </tr>`).join('');
+                } else {
+                    stBody.innerHTML = `<tr><td colspan="4" style="padding:20px; text-align:center;">لا توجد معاملات مسجلة</td></tr>`;
+                }
+            } catch (e) {
+                stBody.innerHTML = `<tr><td colspan="4" style="padding:20px; color:red; text-align:center;">❌ فشل تحميل البيانات</td></tr>`;
+            }
         }
         function closeSt() { document.getElementById('stModal').style.display = 'none'; }
         
-        function printStatementOnly() {
-            const area = document.getElementById('printContainer');
-            const dateNow = formatDate(document.getElementById('globalDate').value);
-            const name = document.getElementById('stTitle').innerText;
+        async function printStatementOnly() {
+            const stBody = document.getElementById('stBody');
+            if (!stBody || stBody.innerText.includes("جاري")) { showToast("⚠️ برجاء الانتظار"); return; }
+            const area = document.getElementById('printContainer'), dateNow = formatDate(document.getElementById('globalDate').value);
+            const merchantName = document.getElementById('stTitle').innerText;
             area.innerHTML = `
-                <div class="p-title">
-                    <span>${name}</span>
-                    <span>تاريخ الطباعة: ${dateNow}</span>
+                <div class="p-title" style="display: block !important; text-align: center !important; border-bottom: 2px solid #000; margin-bottom: 10px; padding-bottom: 10px;">
+                    <div style="font-size: 22px; font-weight: 900; margin-bottom: 5px;">${merchantName}</div>
+                    <div style="font-size: 11px; font-weight: 400;">تاريخ الطباعة: ${dateNow}</div>
                 </div>
                 <table class="p-table">
-                    <thead><tr><th>التاريخ</th><th>خروج</th><th>دخول</th><th>الباقي</th></tr></thead>
-                    <tbody>${document.getElementById('stBody').innerHTML}</tbody>
+                    <thead><tr><th style="border:1px solid #000">التاريخ</th><th style="border:1px solid #000">سمك</th><th style="border:1px solid #000">فارغ</th><th style="border:1px solid #000">الباقي</th></tr></thead>
+                    <tbody>${stBody.innerHTML}</tbody>
                 </table>`;
-            window.print();
-            window.onafterprint = () => { area.innerHTML = ""; };
+            const oldTitle = document.title; document.title = merchantName; 
+            setTimeout(() => { window.print(); setTimeout(() => { document.title = oldTitle; area.innerHTML = ""; }, 1000); }, 250);
         }
 
         async function printDaily8() {
@@ -450,7 +536,8 @@
                 const dateObj = new Date(dateInput);
                 const dateNow = formatDate(dateInput);
                 const printTotal = debts.reduce((sum, r) => sum + parseFloat(r.balance), 0);
-                const dayName = new Date(dateInput).toLocaleDateString('ar-EG', {weekday: 'long'});
+                const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+                const dayName = days[dateObj.getDay()];
                 
                 let finalHtml = ""; 
                 const rowsP = 50, itemsP = 200;
@@ -469,13 +556,12 @@
                         }
                         if (hasD) rows += `<tr>${tr}</tr>`;
                     }
-                    
                     finalHtml += `<div class="print-page">
                         <div class="p-title">
-                            <span>العدد: ${Math.round(printTotal).toLocaleString()}</span>
+                            <span>${Math.round(printTotal).toLocaleString()}</span>
                             <span>${dayName}</span>
-                            <span>EL<span style="color:#C7331C;">M</span>AJD <span style="color:#C7331C;">Boxes</span></span>
-                            <span>ال<span style="color:#C7331C;">م</span>جــــــــــــــــد</span>
+                            <span>EL<span style="color:#C7331C;">M</span>AJD | <span style="color:#C7331C;">BOXES</span></span>
+                            <span>ال<span style="color:#C7331C;">ــــــــــــم</span>جـــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــد</span>
                             <span> ${dateNow}</span>
                         </div>
                         <table class="p-table"><tbody>${rows}</tbody></table>
@@ -486,23 +572,38 @@
                 const oldTitle = document.title;
                 document.title = `B-${dateObj.getDate()}-${dateObj.getMonth() + 1}`;
                 
+                // إضافة تأخير بسيط للكمبيوتر لضمان رندرة الجدول
                 setTimeout(() => {
                     window.print();
-                    btn.innerText = originalText; btn.disabled = false;
-                    window.onafterprint = () => {
-                        document.title = oldTitle;
-                        area.innerHTML = "";
-                    };
-                }, 1200);
+                    setTimeout(() => { document.title = oldTitle; area.innerHTML = ""; }, 1000);
+                }, 500);
 
             } catch (error) {
-                showToast("❌ حدث خطأ");
+                showToast("❌ حدث خطأ أثناء التجهيز");
+            } finally {
                 btn.innerText = originalText; btn.disabled = false;
             }
         }
 
         window.onkeydown = (e) => { if (e.key === 'Enter' && document.getElementById('confirmModal').style.display === 'flex') { finalSave(); } };
-        function selectMerchant(name) { document.getElementById('custName').value = name; document.getElementById('searchRes').style.display = 'none'; document.getElementById('amount').focus(); }
+        window.addEventListener('keydown', (e) => {
+            if (e.key === '+' || e.key === 'Add') {
+                if (document.getElementById('modal').style.display === 'flex') {
+                    e.preventDefault();
+                    if (document.activeElement.id === 'custName') {
+                        const items = resDiv.getElementsByClassName('search-item');
+                        if (selectedIdx > -1) selectMerchant(items[selectedIdx].innerText);
+                        else if (custInp.value) amtInp.focus();
+                    } else if (document.activeElement.id === 'amount') {
+                        finalSave(); 
+                    }
+                } else if (document.getElementById('confirmModal').style.display === 'flex') {
+                    e.preventDefault(); finalSave();
+                } else if (document.getElementById('manageModal').style.display === 'flex' && document.activeElement.id === 'newCust') {
+                    e.preventDefault(); addNewMerchant();
+                }
+            }
+        });
     </script>
 </body>
 
