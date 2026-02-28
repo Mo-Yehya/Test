@@ -81,7 +81,6 @@
 
             html, body {
                 height: auto; margin: 0 !important; padding: 0 !important; overflow: visible !important;
-                overflow: visible !important; /* هذا السطر هو الأهم لظهور البيانات في الهاتف */
                 font-family: 'Calibri', sans-serif !important;
                 background: white !important;
             }
@@ -506,20 +505,14 @@
         function closeSt() { document.getElementById('stModal').style.display = 'none'; }
         
         async function printStatementOnly() {
-            const stBody = document.getElementById('stBody');
-            
-            // التحقق من وجود بيانات
-            if (!stBody || stBody.innerText.includes("جاري")) { 
-                showToast("⚠️ برجاء الانتظار حتى تحميل البيانات بالكامل"); 
-                return; 
-            }
+            const area = document.getElementById('printContainer'), dateNow = formatDate(document.getElementById('globalDate').value);
+            area.innerHTML = `<div class="p-title">${document.getElementById('stTitle').innerText} <br> <span style="font-size:12px;">تاريخ الطباعة: ${dateNow}</span></div><table class="p-table"><thead><tr><th>التاريخ</th><th>صادر</th><th>محصل</th><th>الرصيد</th></tr></thead><tbody>${document.getElementById('stBody').innerHTML}</tbody></table>`;
+            window.print();
 
-            const area = document.getElementById('printContainer');
-            const dateNow = formatDate(document.getElementById('globalDate').value);
-            const merchantName = document.getElementById('stTitle').innerText;
+
 
             // بناء "الفورم" أو القالب الثابت بالتنسيق الذي تريده
-            area.innerHTML = `
+          /*  area.innerHTML = `
                 <div class="print-page" style="padding: 15px; direction: rtl; font-family: Calibri, sans-serif;">
                     
                     <div style="background: #003566; color: white; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; border-bottom: 5px solid #48cae4;">
@@ -547,24 +540,7 @@
                     <div style="margin-top: 30px; border-top: 1px solid #ccc; padding-top: 10px; text-align: left; font-size: 12px; color: #777;">
                         نظام المجد لإدارة البوكس © 2026 - مراجعة العهدة اليومية
                     </div>
-                </div>`;
-
-            // إجراءات الطباعة
-            const oldTitle = document.title;
-            document.title = merchantName; // تغيير اسم ملف الـ PDF ليكون اسم التاجر
-            
-            // إظهار الحاوية مؤقتاً للطباعة
-            area.style.display = 'block';
-
-            setTimeout(() => {
-                window.print();
-                // تنظيف وإعادة الوضع للأصل
-                setTimeout(() => { 
-                    document.title = oldTitle; 
-                    area.innerHTML = ""; 
-                    area.style.display = 'none'; 
-                }, 1000);
-            }, 500); // وقت كافٍ للموبايل لرسم الجدول (500 مللي ثانية)
+                </div>`;   */              
         }
 
         async function printDaily8() {
