@@ -6,6 +6,7 @@
     <title>ELMAJD Boxes | المجد</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         :root {
@@ -256,7 +257,7 @@
                     </thead>
                     <tbody id="stBody" style="text-align: center;"></tbody>
                 </table>
-            </div><button class="btn btn-navy" onclick="printStatementOnly()" style="margin-top:20px;">📄 حفظ صورة من الكشف 📥</button>
+            </div><button class="btn btn-navy" onclick="printStatementOnly()" style="margin-top:20px;">📄 حفظ الكشف </button>
         </div>
     </div>
 
@@ -505,69 +506,78 @@
         }
         function closeSt() { document.getElementById('stModal').style.display = 'none'; }
         
+
+
        async function printStatementOnly() {
+    const { jsPDF } = window.jspdf;
     const stBody = document.getElementById('stBody');
     const rows = Array.from(stBody.querySelectorAll('tr'));
-    if (rows.length === 0 || stBody.innerText.includes("جاري")) { showToast("⚠️ لا توجد بيانات"); return; }
     
+    if (rows.length === 0 || stBody.innerText.includes("جاري")) { 
+        showToast("⚠️ لا توجد بيانات للتحويل"); 
+        return; 
+    }
+    
+    showToast("📄 جاري تجهيز ملف PDF احترافي...");
+
     const merchantName = document.getElementById('stTitle').innerText;
     const dateNow = formatDate(document.getElementById('globalDate').value);
     const area = document.getElementById('printContainer');
     
-    // الإعدادات: كل كم سطر نأخذ صورة؟ (50 سطر مثالي جداً للجودة)
-    const rowsPerPage = 50; 
+    const rowsPerPage = 45; // عدد الأسطر المثالي في كل صفحة PDF
     const totalPages = Math.ceil(rows.length / rowsPerPage);
+    const pdf = new jsPDF('p', 'mm', 'a4'); // إنشاء ملف A4
 
-    showToast(`📸 جاري تجهيز ${totalPages} صور للكشف...`);
+    area.style.display = 'block';
 
     for (let i = 0; i < totalPages; i++) {
         const start = i * rowsPerPage;
-        const end = start + rowsPerPage;
-        const pageRows = rows.slice(start, end).map(tr => 
-            `<tr style="border-bottom: 1px solid #f0f0f0;">${tr.innerHTML}</tr>`
+        const pageRows = rows.slice(start, start + rowsPerPage).map(tr => 
+            `<tr style="border-bottom: 1px solid #eee;">${tr.innerHTML}</tr>`
         ).join('');
 
-        // بناء القالب لكل صفحة
+        // بناء شكل الصفحة داخل الـ PDF
         area.innerHTML = `
-            <div id="captureArea" style="direction:rtl; padding:20px; background:#ffffff; width:380px; box-sizing:border-box; color:#333;">
-                <div style="border-right: 4px solid #0077b6; padding-right: 15px; margin-bottom: 20px;">
-                    <h2 style="margin: 0; font-size: 18px; color: #023e8a;">${merchantName}</h2>
-                    <div style="font-size: 10px; color: #888;">صفحة (${i + 1} من ${totalPages}) • ${dateNow}</div>
+            <div id="pdfPage" style="direction:rtl; padding:15mm; background:#fff; width:210mm; min-height:297mm; font-family:sans-serif; box-sizing:border-box;">
+                <div style="border-right: 5px solid #0077b6; padding-right: 20px; margin-bottom: 25px;">
+                    <h1 style="margin: 0; font-size: 24px; color: #023e8a;">${merchantName}</h1>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        كشف حساب عهدة • صفحة (${i + 1} من ${totalPages}) • استخراج: ${dateNow}
+                    </div>
                 </div>
-                <table style="width: 100%; border-collapse: collapse;">
+                <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                     <thead>
-                        <tr style="border-bottom: 2px solid #023e8a;">
-                            <th style="padding: 10px 5px; font-size: 12px; color: #023e8a;">التاريخ</th>
-                            <th style="padding: 10px 5px; font-size: 12px; color: #2d6a4f;">سمـــك</th>
-                            <th style="padding: 10px 5px; font-size: 12px; color: #c1121f;">فـــارغ</th>
-                            <th style="padding: 10px 5px; font-size: 12px; color: #000;">الباقــي</th>
+                        <tr style="background: #f8f9fa; border-bottom: 2px solid #023e8a;">
+                            <th style="padding: 12px; border: 1px solid #000; font-size: 14px; color: #023e8a;">التاريخ</th>
+                            <th style="padding: 12px; border: 1px solid #000; font-size: 14px; color: #2d6a4f;">صادر</th>
+                            <th style="padding: 12px; border: 1px solid #000; font-size: 14px; color: #c1121f;">محصل</th>
+                            <th style="padding: 12px; border: 1px solid #000; font-size: 14px; color: #000;">الرصيد</th>
                         </tr>
                     </thead>
-                    <tbody style="text-align: center; font-size: 12px;">
+                    <tbody style="text-align: center; font-size: 13px;">
                         ${pageRows}
                     </tbody>
                 </table>
+                <div style="position: absolute; bottom: 15mm; left: 15mm; font-size: 10px; color: #aaa;">نظام المجد لإدارة البوكس © 2026</div>
             </div>`;
 
-        area.style.display = 'block';
-
-        // تصوير الصفحة الحالية
-        const canvas = await html2canvas(document.getElementById('captureArea'), {
-            scale: 3,
-            useCORS: true,
-            backgroundColor: "#ffffff"
+        const canvas = await html2canvas(document.getElementById('pdfPage'), {
+            scale: 2, // جودة متوازنة للـ PDF
+            useCORS: true
         });
 
-        const link = document.createElement('a');
-        link.download = `كشف_${merchantName}_${i + 1}.png`;
-        link.href = canvas.toDataURL("image/png", 1.0);
-        link.click();
-
-        area.innerHTML = ""; // تنظيف تمهيداً للصفحة التالية
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        
+        if (i > 0) pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297); // وضع الصورة على كامل صفحة الـ A4
     }
 
+    // حفظ الملف النهائي
+    pdf.save(`كشف_${merchantName}_${dateNow}.pdf`);
+    
     area.style.display = 'none';
-    showToast("✅ تم حفظ الكشف");
+    area.innerHTML = "";
+    showToast("✅ تم حفظ ملف PDF بنجاح");
 }
 
 
