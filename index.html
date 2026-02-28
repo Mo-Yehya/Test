@@ -256,7 +256,7 @@
                     </thead>
                     <tbody id="stBody" style="text-align: center;"></tbody>
                 </table>
-            </div><button class="btn btn-navy" onclick="printStatementOnly()" style="margin-top:20px;">📄 طباعة كشف البوكس</button>
+            </div><button class="btn btn-navy" onclick="printStatementOnly()" style="margin-top:20px;">📄 حفظ صورة من الكشف 📥</button>
         </div>
     </div>
 
@@ -505,70 +505,72 @@
         }
         function closeSt() { document.getElementById('stModal').style.display = 'none'; }
         
-        async function printStatementOnly() {
+       async function printStatementOnly() {
     const stBody = document.getElementById('stBody');
-    if (!stBody || stBody.innerText.includes("جاري")) { showToast("⚠️ برجاء الانتظار"); return; }
+    const rows = Array.from(stBody.querySelectorAll('tr'));
+    if (rows.length === 0 || stBody.innerText.includes("جاري")) { showToast("⚠️ لا توجد بيانات"); return; }
     
-    showToast("📸 جاري تجهيز صورة الكشف...");
-
-    const area = document.getElementById('printContainer');
     const merchantName = document.getElementById('stTitle').innerText;
     const dateNow = formatDate(document.getElementById('globalDate').value);
+    const area = document.getElementById('printContainer');
+    
+    // الإعدادات: كل كم سطر نأخذ صورة؟ (50 سطر مثالي جداً للجودة)
+    const rowsPerPage = 50; 
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
 
-    // بناء "الفورم" بتنسيق مضغوط ومباشر لضمان عمل مكتبة التصوير
-    area.innerHTML = `
-        <div id="captureArea" style="direction:rtl; padding:20px; background:#ffffff; width:600px; font-family:sans-serif; color:#000;">
-            <div style="background:#003566; color:#ffffff; padding:15px; border-radius:10px; text-align:center; margin-bottom:15px; border-bottom:5px solid #48cae4;">
-                <h2 style="margin:0; font-size:24px;">كشف عهدة البوكس التفصيلي</h2>
-                <div style="display:flex; justify-content:space-between; margin-top:10px; font-size:14px; border-top:1px dashed #fff; padding-top:10px;">
-                    <span>التاجر: <strong>${merchantName}</strong></span>
-                    <span>التاريخ: <strong>${dateNow}</strong></span>
+    showToast(`📸 جاري تجهيز ${totalPages} صور للكشف...`);
+
+    for (let i = 0; i < totalPages; i++) {
+        const start = i * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageRows = rows.slice(start, end).map(tr => 
+            `<tr style="border-bottom: 1px solid #f0f0f0;">${tr.innerHTML}</tr>`
+        ).join('');
+
+        // بناء القالب لكل صفحة
+        area.innerHTML = `
+            <div id="captureArea" style="direction:rtl; padding:20px; background:#ffffff; width:380px; box-sizing:border-box; color:#333;">
+                <div style="border-right: 4px solid #0077b6; padding-right: 15px; margin-bottom: 20px;">
+                    <h2 style="margin: 0; font-size: 18px; color: #023e8a;">${merchantName}</h2>
+                    <div style="font-size: 10px; color: #888;">صفحة (${i + 1} من ${totalPages}) • ${dateNow}</div>
                 </div>
-            </div>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #023e8a;">
+                            <th style="padding: 10px 5px; font-size: 12px; color: #023e8a;">التاريخ</th>
+                            <th style="padding: 10px 5px; font-size: 12px; color: #2d6a4f;">سمـــك</th>
+                            <th style="padding: 10px 5px; font-size: 12px; color: #c1121f;">فـــارغ</th>
+                            <th style="padding: 10px 5px; font-size: 12px; color: #000;">الباقــي</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: center; font-size: 12px;">
+                        ${pageRows}
+                    </tbody>
+                </table>
+            </div>`;
 
-            <table style="width:100%; border-collapse:collapse; border:2px solid #000; background:#fff;">
-                <thead>
-                    <tr style="background:#e9ecef; color:#000;">
-                        <th style="border:1.5px solid #000; padding:10px;">التاريخ</th>
-                        <th style="border:1.5px solid #000; padding:10px; color:#2d6a4f;">سمـــك (خارج)</th>
-                        <th style="border:1.5px solid #000; padding:10px; color:#c1121f;">فـــارغ (داخل)</th>
-                        <th style="border:1.5px solid #000; padding:10px; background:#fff3b0;">الرصيد المتبقي</th>
-                    </tr>
-                </thead>
-                <tbody style="font-size:16px; font-weight:bold; text-align:center;">
-                    ${stBody.innerHTML} 
-                </tbody>
-            </table>
+        area.style.display = 'block';
 
-            <div style="margin-top:20px; text-align:left; font-size:12px; color:#666;">
-                طُبع بواسطة نظام المجد لإدارة البوكس © 2026
-            </div>
-        </div>`;
+        // تصوير الصفحة الحالية
+        const canvas = await html2canvas(document.getElementById('captureArea'), {
+            scale: 3,
+            useCORS: true,
+            backgroundColor: "#ffffff"
+        });
 
-    // إظهار الحاوية مؤقتاً للتصوير
-    area.style.display = 'block';
-
-    // تنفيذ التصوير باستخدام المكتبة
-    html2canvas(document.getElementById('captureArea'), {
-        scale: 3, // جودة عالية
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#ffffff"
-    }).then(canvas => {
         const link = document.createElement('a');
-        link.download = `كشف-${merchantName}.png`;
-        link.href = canvas.toDataURL("image/png");
+        link.download = `كشف_${merchantName}_${i + 1}.png`;
+        link.href = canvas.toDataURL("image/png", 1.0);
         link.click();
-        
-        // تنظيف وإخفاء
-        area.style.display = 'none';
-        area.innerHTML = "";
-        showToast("✅ تم حفظ الكشف كصورة في الاستوديو");
-    }).catch(err => {
-        showToast("❌ حدث خطأ أثناء التصوير");
-        area.style.display = 'none';
-    });
+
+        area.innerHTML = ""; // تنظيف تمهيداً للصفحة التالية
+    }
+
+    area.style.display = 'none';
+    showToast("✅ تم حفظ الكشف");
 }
+
+
 
         async function printDaily8() {
             const btn = document.getElementById('btnPrintDaily');
