@@ -1,1 +1,727 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Volt Café | Menu & Location</title>
 
+    <!-- ✅ FIX 7: SEO & Social Meta Tags -->
+    <meta name="description" content="Volt Café — قائمة الطعام والمشروبات لفروع بلطيم وكفر الشيخ. اكتشف أفضل كافيه في المنطقة.">
+    <meta name="theme-color" content="#00d2ff">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph (Facebook / WhatsApp share) -->
+    <meta property="og:title" content="Volt Café ⚡ Menu">
+    <meta property="og:description" content="تصفح منيو Volt Café — مشروبات، إضافات، وأسعار فروع بلطيم وكفر الشيخ.">
+    <meta property="og:image" content="Sources/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_EG">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Volt Café ⚡">
+    <meta name="twitter:description" content="تصفح منيو Volt Café الآن">
+    <meta name="twitter:image" content="Sources/logo.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link id="favicon" rel="icon" type="image/png" href="Sources/logo.png">
+
+    <style>
+        @font-face {
+            font-family: 'OMEGLE';
+            src: url('Sources/OMEGLE.ttf') format('truetype');
+            font-weight: normal; font-style: normal;
+        }
+
+        :root {
+            --volt-blue: #00d2ff;
+            --volt-dark: #020617;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(0, 210, 255, 0.12);
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--volt-dark);
+            background: radial-gradient(circle at 50% -10%, #1e293b 0%, #020617 85%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh; overflow-x: hidden; position: relative;
+            touch-action: manipulation;
+            /* ✅ FIX 4: flex layout so footer sticks to bottom */
+            display: flex;
+            flex-direction: column;
+        }
+
+        #spark-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+        /* ✅ FIX 4: pages take all available space so footer is pushed down */
+        .page { display: none; width: 100%; flex-direction: column; align-items: center; padding: 40px 0 20px; position: relative; z-index: 1; flex: 1; }
+        .page.active { display: flex; }
+
+        .header { text-align: center; margin-bottom: 35px; animation: fadeInDown 1s ease-out; }
+        .logo-wrapper {
+            width: 95px; height: 95px; margin: 0 auto; border-radius: 50%;
+            border: 2px solid rgba(0, 210, 255, 0.4); display: flex; justify-content: center; align-items: center;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(8px);
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+        .logo-wrapper img { width: 70%; filter: drop-shadow(0 0 8px var(--volt-blue)); }
+        h1 { font-family: 'OMEGLE', sans-serif; font-size: 1.9rem; letter-spacing: 6px; margin: 15px 0 0; background: linear-gradient(180deg, #fff 30%, #a2e9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 100; }
+
+        .menu-grid { width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 45px; }
+        .menu-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 15px 18px; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(15px); animation: fadeInUp 0.8s ease-out backwards; cursor: pointer; }
+        .menu-card:active { transform: scale(0.98); background: rgba(255, 255, 255, 0.05); }
+        .card-info strong { font-family: 'OMEGLE', sans-serif; font-size: 1rem; display: block; font-weight: 100; }
+        .card-info small { font-size: 0.7rem; color: #94a3b8; }
+        .action-btn { color: var(--volt-blue); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: rgba(0, 210, 255, 0.06); border: 1px solid rgba(0, 210, 255, 0.2); transition: 0.3s; }
+        .btn-group { display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; cursor: pointer; }
+        .btn-label { font-size: 0.65rem; color: #94a3b8; }
+
+        .menu-section { width: 95%; max-width: 500px; margin-bottom: 45px; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; }
+        .section-line { flex-grow: 1; height: 1px; background: linear-gradient(90deg, var(--volt-blue), transparent); opacity: 0.6; }
+        .section-title-wrap { display: flex; align-items: center; gap: 10px; }
+        .section-emoji {
+            font-size: 1.6rem;
+            line-height: 1;
+            display: flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px;
+            background: rgba(0, 210, 255, 0.07);
+            border: 1px solid rgba(0, 210, 255, 0.18);
+            border-radius: 12px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 6px rgba(0,210,255,0.3));
+        }
+        .section-title { font-family: 'OMEGLE', sans-serif; font-size: 1.4rem; color: #fff; font-weight: 100; }
+
+        /* Category Banner */
+        .cat-banner {
+            width: 100%;
+            height: 140px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,210,255,0.15);
+        }
+        .cat-banner img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .cat-banner img.loaded { opacity: 1; }
+        /* gradient overlay فوق الصورة علشان النص يقرأ */
+        .cat-banner-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to left,
+                rgba(2,6,23,0.85) 0%,
+                rgba(2,6,23,0.4) 50%,
+                transparent 100%
+            );
+            display: flex; align-items: flex-end;
+            padding: 16px 18px;
+            gap: 10px;
+        }
+        .cat-banner-overlay .section-emoji {
+            font-size: 1.5rem;
+            background: rgba(0,210,255,0.12);
+            border: 1px solid rgba(0,210,255,0.25);
+            border-radius: 10px;
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            backdrop-filter: blur(6px);
+        }
+        .cat-banner-overlay .section-title {
+            font-size: 1.3rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+        /* skeleton للبانر */
+        .cat-banner-skeleton {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(0,210,255,0.06) 25%, rgba(0,210,255,0.13) 50%, rgba(0,210,255,0.06) 75%);
+            background-size: 200% 200%;
+            animation: shimmer 1.4s infinite;
+            transition: opacity 0.4s;
+        }
+        .cat-banner-skeleton.hidden { opacity: 0; pointer-events: none; }
+        /* Item card — base */
+        .item-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(0,210,255,0.15);
+            border-radius: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: stretch;
+            backdrop-filter: blur(15px);
+            width: 100%;
+            transition: 0.25s;
+            overflow: hidden;
+            cursor: pointer;
+            min-height: 90px;
+        }
+        .item-card:active { transform: scale(0.97); background: rgba(0,210,255,0.08); }
+
+        /* الجانب النصي */
+        .item-card .info-side {
+            flex: 1;
+            padding: 18px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+        }
+        .item-name { font-size: 1.05rem; font-weight: 400; line-height: 1.3; }
+        .price-val {
+            font-family: 'OMEGLE', sans-serif;
+            font-size: 1.25rem;
+            color: var(--volt-blue);
+            font-weight: 100;
+        }
+
+        /* صورة المنتج */
+        .item-img-wrap {
+            width: 95px;
+            min-width: 95px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(0,210,255,0.04);
+            border-right: 1px solid rgba(0,210,255,0.12);
+        }
+        .item-img-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.4s, transform 0.4s;
+            opacity: 0;
+        }
+        .item-img-wrap img.loaded { opacity: 1; }
+        .item-img-wrap img:hover { transform: scale(1.06); }
+
+        /* skeleton للصورة أثناء التحميل */
+        .img-skeleton {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(0,210,255,0.06) 25%, rgba(0,210,255,0.12) 50%, rgba(0,210,255,0.06) 75%);
+            background-size: 200% 200%;
+            animation: shimmer 1.4s infinite;
+            transition: opacity 0.3s;
+        }
+        .img-skeleton.hidden { opacity: 0; pointer-events: none; }
+
+        /* placeholder لو مفيش صورة */
+        .img-placeholder {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            opacity: 0.25;
+        }
+        .promo-note { font-size: 1rem; color: var(--volt-blue); text-align: center; margin: 20px auto; border: 1px dashed var(--volt-blue); padding: 15px 30px; border-radius: 50px; background: rgba(0, 210, 255, 0.02); font-weight: bold; }
+
+        /* ✅ FIX 5: Skeleton Loading */
+        .skeleton-wrapper { width: 95%; max-width: 500px; margin-bottom: 20px; }
+        .skeleton-title { height: 32px; width: 140px; border-radius: 8px; background: linear-gradient(90deg, rgba(0,210,255,0.08) 25%, rgba(0,210,255,0.15) 50%, rgba(0,210,255,0.08) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; margin-bottom: 18px; }
+        .skeleton-card { height: 72px; border-radius: 20px; background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; margin-bottom: 12px; border: 1px solid rgba(0,210,255,0.08); }
+        .skeleton-card:nth-child(2) { animation-delay: 0.1s; }
+        .skeleton-card:nth-child(3) { animation-delay: 0.2s; }
+        .skeleton-card:nth-child(4) { animation-delay: 0.3s; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        /* ✅ FIX 6: Empty State for cart */
+        .empty-state {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 30px 20px; gap: 12px; opacity: 0.7;
+        }
+        .empty-state i { font-size: 2.5rem; color: var(--volt-blue); opacity: 0.5; }
+        .empty-state p { font-family: 'OMEGLE', sans-serif; font-size: 0.85rem; color: #94a3b8; margin: 0; font-weight: 100; letter-spacing: 1px; }
+
+        /* Error state */
+        .error-state {
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
+            padding: 40px 20px; text-align: center;
+        }
+        .error-state i { font-size: 2rem; color: #ef4444; }
+        .error-state p { color: #94a3b8; font-size: 0.9rem; margin: 0; }
+        .retry-btn { background: rgba(0,210,255,0.1); border: 1px solid var(--volt-blue); color: var(--volt-blue); padding: 10px 25px; border-radius: 50px; font-family: 'OMEGLE', sans-serif; font-size: 0.8rem; cursor: pointer; letter-spacing: 1px; }
+        .retry-btn:active { background: var(--volt-blue); color: var(--volt-dark); }
+
+        /* Cart & Modals */
+        .cart-fab { position: fixed; bottom: 35px; left: 25px; width: 70px; height: 70px; background: var(--volt-blue); border-radius: 50%; display: none; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0 10px 30px rgba(0, 210, 255, 0.5); }
+        .cart-count { position: absolute; top: -5px; right: -5px; background: #ff3e3e; color: white; border-radius: 50%; width: 26px; height: 26px; font-size: 0.8rem; display: flex; justify-content: center; align-items: center; border: 3px solid var(--volt-dark); font-weight: bold; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 2000; display: none; justify-content: center; align-items: center; }
+        .modal-card { width: 85%; max-width: 360px; background: #0f172a; border: 1px solid var(--volt-blue); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; max-height: 75vh; animation: slideUp 0.3s ease-out; }
+        .scroll-area { overflow-y: auto; display: flex; flex-direction: column; gap: 10px; flex-grow: 1; padding-right: 5px; }
+        .scroll-area::-webkit-scrollbar { width: 4px; }
+        .scroll-area::-webkit-scrollbar-thumb { background: var(--volt-blue); border-radius: 10px; }
+        .choice-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(0, 210, 255, 0.2); color: #fff; padding: 15px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .choice-btn:active { background: var(--volt-blue); color: var(--volt-dark); }
+
+        /* ✅ FIX 4: Footer always at bottom */
+        .footer {
+            text-align: center;
+            color: #475569;
+            font-family: 'OMEGLE', sans-serif;
+            font-size: 0.85rem;
+            padding: 15px 0 20px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            font-weight: 100;
+            border-top: 1px solid rgba(0, 210, 255, 0.05);
+            margin-top: auto;
+        }
+        .footer-text { margin-bottom: 8px; }
+        .footer a { color: var(--volt-blue); text-decoration: none; font-weight: 100 !important; }
+        .footer-logos { display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .footer-logos img { height: 20px; width: auto; opacity: 0.9; }
+        .footer-sep { color: rgba(255,255,255,0.1); font-size: 0.9rem; }
+
+        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); border-color: rgba(0, 210, 255, 0.4); } 50% { box-shadow: 0 0 35px rgba(0, 210, 255, 0.7); border-color: rgba(0, 210, 255, 0.8); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <canvas id="spark-canvas"></canvas>
+
+    <!-- HOME PAGE -->
+    <div id="page-home" class="page active">
+        <div class="header">
+            <div class="logo-wrapper"><img id="main-logo" src="" alt="Volt Logo"></div>
+            <h1>VOLT CAFÉ</h1>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-card" style="animation-delay: 0.2s;" onclick="showBranch('resort')">
+                <div class="card-info">
+                    <strong>فرع مصيف - بلطيم</strong>
+                    <small>Baltim Resort Branch</small>
+                </div>
+                <div class="actions" style="display:flex; gap:12px;">
+                    <a href="https://maps.app.goo.gl/z9sJR5hJefRrtxXa7" class="btn-group" onclick="event.stopPropagation()">
+                        <div class="action-btn"><i class="fas fa-location-dot"></i></div>
+                        <span class="btn-label">الموقع</span>
+                    </a>
+                    <div class="btn-group">
+                        <div class="action-btn"><i class="fas fa-utensils"></i></div>
+                        <span class="btn-label">المنيو</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card" style="animation-delay: 0.3s;" onclick="showBranch('kfs')">
+                <div class="card-info">
+                    <strong>فرع نادي ماتريكس - كفر الشيخ</strong>
+                    <small>Kafr El Sheikh Branch</small>
+                </div>
+                <div class="actions" style="display:flex; gap:12px;">
+                    <a href="#" class="btn-group" onclick="event.stopPropagation()">
+                        <div class="action-btn"><i class="fas fa-location-dot"></i></div>
+                        <span class="btn-label">الموقع</span>
+                    </a>
+                    <div class="btn-group">
+                        <div class="action-btn"><i class="fas fa-utensils"></i></div>
+                        <span class="btn-label">المنيو</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card coming-soon" style="opacity:0.4; border-style:dashed;">
+                <div class="card-info"><strong>فرع جديد</strong><small>Coming Soon ..</small></div>
+                <div style="color: #475569;"><i class="fas fa-hourglass-half"></i></div>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:30px; margin-bottom:5px;">
+            <a href="https://www.facebook.com/VoltCafe.eg" class="btn-group" target="_blank" style="color:#fff; text-decoration:none;">
+                <div class="action-btn" style="width:52px; height:52px; background:rgba(255,255,255,0.03);"><i class="fab fa-facebook-f"></i></div>
+                <span style="font-size:0.7rem;">Facebook</span>
+            </a>
+            <div class="btn-group" style="cursor: not-allowed; pointer-events: none; opacity: 0.5;">
+                <div class="action-btn" style="width:52px; height:52px; background:rgba(255,255,255,0.03);"><i class="fas fa-info-circle"></i></div>
+                <span style="font-size:0.7rem;">About</span>
+            </div>
+            <a href="https://www.instagram.com/voltcafe.eg" class="btn-group" target="_blank" style="color:#fff; text-decoration:none;">
+                <div class="action-btn" style="width:52px; height:52px; background:rgba(255,255,255,0.03);"><i class="fab fa-instagram"></i></div>
+                <span style="font-size:0.7rem;">Instagram</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- BRANCH MENU PAGE -->
+    <div id="page-branch" class="page">
+        <header class="header">
+            <div class="logo-wrapper"><img class="branch-logo-img" src="" alt="Volt Logo"></div>
+            <h1 id="branch-title">VOLT MENU</h1>
+        </header>
+
+        <!-- ✅ FIX 5: Skeleton loader shown while fetching -->
+        <div id="menu-skeleton" style="width:95%; max-width:500px; display:flex; flex-direction:column; gap:12px;">
+            <div class="skeleton-wrapper">
+                <div class="skeleton-title"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+            <div class="skeleton-wrapper">
+                <div class="skeleton-title"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+        </div>
+
+        <div id="menu-container" style="width:100%; display:flex; flex-direction:column; align-items:center;"></div>
+        <div class="promo-note" id="promo-note" style="display:none;">إضافة أي فليفر 5 جنية</div>
+    </div>
+
+    <!-- Cart FAB -->
+    <div class="cart-fab" id="cart-fab" onclick="showCart()">
+        <i class="fas fa-shopping-basket" style="color: #020617; font-size: 1.8rem;"></i>
+        <div class="cart-count" id="cart-count">0</div>
+    </div>
+
+    <!-- Selection Modal -->
+    <div id="selection-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <div class="action-btn" onclick="closeModal('selection-modal')"><i class="fas fa-times"></i></div>
+                <h3 id="selection-title" style="margin:0; font-family:'OMEGLE'; color:var(--volt-blue);">اختر طلبك</h3>
+            </div>
+            <div class="scroll-area" id="selection-options-container"></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <div class="action-btn" onclick="closeModal('cart-modal')"><i class="fas fa-times"></i></div>
+                <h3 style="margin:0; font-family:'OMEGLE'; color:var(--volt-blue); flex-grow: 1; text-align: center;">اختياراتك</h3>
+            </div>
+            <!-- ✅ FIX 6: empty state shown when cart is empty -->
+            <div class="scroll-area" id="cart-items-list"></div>
+            <div id="cart-total-row" style="display:flex; justify-content:space-between; padding-top:15px; border-top:1px solid var(--volt-blue); font-family:'OMEGLE'; font-size:1.5rem;">
+                <span>الإجمالي:</span><span id="total-amount">0 EGP</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <div class="action-btn" onclick="closeModal('about-modal')"><i class="fas fa-times"></i></div>
+                <h3 style="margin:0; font-family:'OMEGLE'; color:var(--volt-blue); font-weight: 100; letter-spacing: 2px;">About Partners</h3>
+            </div>
+            <div class="scroll-area">
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(0,210,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 15px; display: flex; flex-direction: row-reverse; align-items: center; justify-content: space-between;">
+                    <img src="https://unavatar.io/instagram/moyehiia" onerror="this.src='Sources/logo.png'" style="width: 55px; height: 55px; border-radius: 50%; border: 1px solid var(--volt-blue); object-fit: cover; background: #000;">
+                    <div style="text-align: right; flex-grow: 1; margin-left: 15px;">
+                        <div style="font-family:'OMEGLE'; color:var(--volt-blue); font-size: 0.75rem; margin-bottom: 2px; font-weight: 100; letter-spacing: 1px;">GM & Partner</div>
+                        <div style="font-size: 1.1rem; font-weight: bold; color: #fff; margin-bottom: 8px;">محمد يحى</div>
+                        <div style="display: flex; gap: 15px; justify-content: flex-start;">
+                            <a href="https://www.instagram.com/moyehiia/" target="_blank" style="color: #fff; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                            <a href="tel:01033339299" style="color: var(--volt-blue); font-size: 1.2rem;"><i class="fas fa-phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(0,210,255,0.1); padding: 15px; border-radius: 15px; display: flex; flex-direction: row-reverse; align-items: center; justify-content: space-between;">
+                    <img src="https://unavatar.io/instagram/abdallah_shkfa217" onerror="this.src='Sources/logo.png'" style="width: 55px; height: 55px; border-radius: 50%; border: 1px solid var(--volt-blue); object-fit: cover; background: #000;">
+                    <div style="text-align: right; flex-grow: 1; margin-left: 15px;">
+                        <div style="font-family:'OMEGLE'; color:var(--volt-blue); font-size: 0.75rem; margin-bottom: 2px; font-weight: 100; letter-spacing: 1px;">Partner</div>
+                        <div style="font-size: 1.1rem; font-weight: bold; color: #fff; margin-bottom: 8px;">عبد الله أسامة</div>
+                        <div style="display: flex; gap: 15px; justify-content: flex-start;">
+                            <a href="https://www.instagram.com/abdallah_shkfa217/" target="_blank" style="color: #fff; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                            <a href="tel:01008943851" style="color: var(--volt-blue); font-size: 1.2rem;"><i class="fas fa-phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ FIX 4: Footer always visible, rendered once outside pages -->
+    <footer class="footer">
+        <div class="footer-text">VOLT CAFE © 2026 | BY <a href="https://www.instagram.com/moyehiia" target="_blank">MOYEHIIA</a></div>
+        <div class="footer-logos">
+            <img src="Sources/MyLog.png" alt="Designer Logo">
+            <span class="footer-sep">|</span>
+            <img src="Sources/logo.png" alt="Volt Logo">
+        </div>
+    </footer>
+
+    <script>
+        const SOURCES = {
+            logo: 'Sources/logo.png',
+            menu_kfs: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqP7h1Sg74RXEdCUtKt7I2NtmoY390jVo6l4ccPugWMtcmKAnKc0BMyvJV9MXwNC5m-YiIACP1hgKy/pub?gid=979020993&single=true&output=csv',
+            menu_resort: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqP7h1Sg74RXEdCUtKt7I2NtmoY390jVo6l4ccPugWMtcmKAnKc0BMyvJV9MXwNC5m-YiIACP1hgKy/pub?gid=1002128215&single=true&output=csv'
+        };
+
+        document.getElementById('main-logo').src = SOURCES.logo;
+        document.querySelectorAll('.branch-logo-img').forEach(img => img.src = SOURCES.logo);
+
+        let basket = [];
+        let menuData = [];
+        let currentBranchUrl = '';
+
+        function showBranch(type) {
+            document.getElementById('page-home').style.display = 'none';
+            const branchPage = document.getElementById('page-branch');
+            branchPage.classList.add('active');
+            document.getElementById('branch-title').innerText = type === 'resort' ? 'MENU - BALTIM' : 'MENU - KFS';
+            currentBranchUrl = type === 'resort' ? SOURCES.menu_resort : SOURCES.menu_kfs;
+            initMenu(currentBranchUrl);
+            window.scrollTo(0, 0);
+        }
+
+        async function initMenu(url) {
+            const container = document.getElementById('menu-container');
+            const skeleton = document.getElementById('menu-skeleton');
+            const promoNote = document.getElementById('promo-note');
+
+            // ✅ FIX 5: show skeleton, hide real content
+            container.innerHTML = '';
+            skeleton.style.display = 'flex';
+            promoNote.style.display = 'none';
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network error');
+                const csvData = await response.text();
+                const rows = csvData.split('\n').map(row => row.split(','));
+                const categories = {};
+                menuData = [];
+
+                for (let i = 1; i < rows.length; i++) {
+                    const [category, name, price, note, image, catImage] = rows[i];
+                    if (!category || !name) continue;
+                    const cleanNote = note ? note.trim().replace(/"/g, '') : "";
+                    const flavorList = cleanNote.includes('،') ? cleanNote.split('،') : (cleanNote.includes(',') ? cleanNote.split(',') : []);
+                    const priceRaw = price.trim();
+                    const priceList = priceRaw.includes(':') ? priceRaw.split(':') : [priceRaw];
+                    const imageUrl = image ? image.trim().replace(/"/g, '') : "";
+                    // كولومن 6 = صورة الكاتيجوري (بانر) — بيتأخد من أول صف في الكاتيجوري بس
+                    const catImageUrl = catImage ? catImage.trim().replace(/"/g, '') : "";
+
+                    const itemObj = {
+                        id: i, name: name.trim(), prices: priceList.map(p => p.trim()),
+                        note: cleanNote, flavors: flavorList.map(f => f.trim()).filter(f => f !== ""),
+                        image: imageUrl
+                    };
+                    menuData.push(itemObj);
+                    if (!categories[category]) {
+                        categories[category] = { items: [], banner: catImageUrl };
+                    }
+                    // خد أول قيمة للبانر فقط
+                    if (catImageUrl && !categories[category].banner) {
+                        categories[category].banner = catImageUrl;
+                    }
+                    categories[category].items.push(itemObj);
+                }
+
+                // ✅ FIX 5: hide skeleton, show real content
+                skeleton.style.display = 'none';
+                promoNote.style.display = 'block';
+
+                container.innerHTML = Object.keys(categories).map(cat => {
+                    const emojiMatch = cat.match(/^(\p{Emoji_Presentation}|\p{Extended_Pictographic})\s*/u);
+                    const emoji = emojiMatch ? emojiMatch[0].trim() : null;
+                    const catName = emoji ? cat.replace(emojiMatch[0], '').trim() : cat;
+                    const banner = categories[cat].banner;
+                    const catId = 'cat-' + cat.replace(/\s/g, '-').replace(/[^\w-]/g, '');
+
+                    return `
+                    <section class="menu-section">
+                        ${banner ? `
+                        <div class="cat-banner">
+                            <div class="cat-banner-skeleton" id="bsk-${catId}"></div>
+                            <img
+                                src="${banner}"
+                                alt="${catName}"
+                                loading="lazy"
+                                onload="this.classList.add('loaded'); document.getElementById('bsk-${catId}').classList.add('hidden')"
+                                onerror="this.style.display='none'; document.getElementById('bsk-${catId}').style.display='none'"
+                            >
+                            <div class="cat-banner-overlay">
+                                ${emoji ? `<span class="section-emoji">${emoji}</span>` : ''}
+                                <span class="section-title">${catName}</span>
+                            </div>
+                        </div>
+                        ` : `
+                        <div class="section-header">
+                            <div class="section-title-wrap">
+                                ${emoji ? `<span class="section-emoji">${emoji}</span>` : ''}
+                                <span class="section-title">${catName}</span>
+                            </div>
+                            <div class="section-line"></div>
+                        </div>
+                        `}
+                        ${categories[cat].items.map(item => `
+                            <div class="item-card" onclick="handleItemLogic(${item.id})">
+                                <div class="info-side">
+                                    <span class="item-name">${item.name}</span>
+                                    ${item.note ? `<span style="display:block; color:#94a3b8; font-size:0.78rem; margin-top:4px;">${item.note}</span>` : ''}
+                                    <span class="price-val">${item.prices.join(' : ')} <span style="font-size:0.75rem; color:#64748b;">EGP</span></span>
+                                </div>
+                                ${item.image ? `
+                                <div class="item-img-wrap">
+                                    <div class="img-skeleton" id="sk-${item.id}"></div>
+                                    <img
+                                        src="${item.image}"
+                                        alt="${item.name}"
+                                        loading="lazy"
+                                        onload="this.classList.add('loaded'); document.getElementById('sk-${item.id}').classList.add('hidden')"
+                                        onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'>☕</div>'"
+                                    >
+                                </div>` : ''}
+                            </div>
+                        `).join('')}
+                    </section>`;
+                }).join('');
+
+
+            } catch (e) {
+                // ✅ FIX 5: show error state with retry button
+                skeleton.style.display = 'none';
+                container.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-wifi"></i>
+                        <p>تعذّر تحميل القائمة<br><span style="font-size:0.75rem; opacity:0.6;">تحقق من الاتصال بالإنترنت</span></p>
+                        <div class="retry-btn" onclick="initMenu('${url}')">إعادة المحاولة</div>
+                    </div>
+                `;
+            }
+        }
+
+        function handleItemLogic(id) {
+            const item = menuData.find(i => i.id === id);
+            if (item.prices.length > 1) { showPriceSelection(item); }
+            else if (item.flavors.length > 0) { showFlavorSelection(item, item.prices[0]); }
+            else { addToBasket(item.name, item.prices[0]); }
+        }
+
+        function showPriceSelection(item) {
+            const container = document.getElementById('selection-options-container');
+            document.getElementById('selection-title').innerText = "اختر الحجم";
+            container.innerHTML = item.prices.map((p, index) => {
+                const label = index === 0 ? "عادي" : "دبل / كبير";
+                return `<div class="choice-btn" onclick="afterPriceSelect(${item.id}, '${p}')"><span>${label}</span><span>${p} EGP</span></div>`;
+            }).join('');
+            document.getElementById('selection-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function afterPriceSelect(id, selectedPrice) {
+            const item = menuData.find(i => i.id === id);
+            closeModal('selection-modal');
+            if (item.flavors.length > 0) { showFlavorSelection(item, selectedPrice); }
+            else { addToBasket(item.name, selectedPrice); }
+        }
+
+        function showFlavorSelection(item, price) {
+            const container = document.getElementById('selection-options-container');
+            document.getElementById('selection-title').innerText = "اختر النكهة";
+            container.innerHTML = item.flavors.map(f => `
+                <div class="choice-btn" onclick="addToBasket('${item.name} (${f})', '${price}'); closeModal('selection-modal');">
+                    <span>${f}</span><i class="fas fa-plus-circle" style="color:var(--volt-blue)"></i>
+                </div>
+            `).join('');
+            document.getElementById('selection-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function addToBasket(name, price) {
+            const num = parseFloat(price.replace(/[^\d.]/g, '')) || 0;
+            basket.push({ name, price: num });
+            updateBasketUI();
+            document.getElementById('cart-fab').style.display = 'flex';
+        }
+
+        function updateBasketUI() {
+            document.getElementById('cart-count').innerText = basket.length;
+            const list = document.getElementById('cart-items-list');
+            const totalRow = document.getElementById('cart-total-row');
+
+            // ✅ FIX 6: empty state when no items
+            if (basket.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-basket-shopping"></i>
+                        <p>السلة فاضية دلوقتي</p>
+                        <p style="font-size:0.7rem; color:#475569;">اختار من المنيو وهيتضاف هنا</p>
+                    </div>
+                `;
+                totalRow.style.display = 'none';
+                return;
+            }
+
+            totalRow.style.display = 'flex';
+            list.innerHTML = basket.map((item, index) => `
+                <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.05); align-items:center;">
+                    <span style="font-size:0.95rem;">${item.name}</span>
+                    <div style="display:flex; align-items:center;">
+                        <b style="color:var(--volt-blue); margin-left:15px; font-family:'OMEGLE'; font-size:1.1rem;">${item.price}</b>
+                        <i class="fas fa-trash-alt" style="color:#ef4444; cursor:pointer; padding:5px;" onclick="removeFromBasket(${index})"></i>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = basket.reduce((s, i) => s + i.price, 0);
+            document.getElementById('total-amount').innerText = total + " EGP";
+        }
+
+        function removeFromBasket(index) {
+            basket.splice(index, 1);
+            if (basket.length === 0) {
+                document.getElementById('cart-fab').style.display = 'none';
+            }
+            updateBasketUI();
+        }
+
+        function showCart() {
+            updateBasketUI();
+            document.getElementById('cart-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Particles
+        const canvas = document.getElementById('spark-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+        class Spark {
+            constructor() { this.init(); }
+            init() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.1 + 0.2; this.speedY = -(Math.random() * 0.3);
+                this.opacity = Math.random(); this.fade = Math.random() * 0.01;
+            }
+            update() { this.y += this.speedY; this.opacity -= this.fade; if (this.opacity <= 0) this.init(); }
+            draw() { ctx.fillStyle = `rgba(0, 210, 255, ${this.opacity})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+        }
+        for (let i = 0; i < 40; i++) particles.push(new Spark());
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+        animate();
+    </script>
+</body>
+</html>
