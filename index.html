@@ -15,59 +15,30 @@
         input[type=number]::-webkit-inner-spin-button { -webkit-appearance:none; appearance:none; margin:0; }
         input[type=number] { -moz-appearance:textfield; appearance:textfield; }
         :root {
-            --primary: #0077b6;
-            --dark: #03045e;
-            --sea: #001d3d;
-            --cyan: #48cae4;
-            --gold: #ffc300;
-            --green: #2d6a4f;
-            --red: #c1121f;
-            --bg: #f0f4f8;
-            --card: #ffffff;
-            --text: #1a1a2e;
-            --text2: #555;
-            --border: #e0e7ef;
+            --primary: #0077b6; --dark: #03045e; --sea: #001d3d; --cyan: #48cae4;
+            --gold: #ffc300; --green: #2d6a4f; --red: #c1121f; --bg: #f0f4f8;
+            --card: #ffffff; --text: #1a1a2e; --text2: #555; --border: #e0e7ef;
         }
-        body.dark-mode {
-            --bg: #0d1117;
-            --card: #161b22;
-            --text: #e6edf3;
-            --text2: #8b949e;
-            --border: #30363d;
-        }
+        body.dark-mode { --bg:#0d1117; --card:#161b22; --text:#e6edf3; --text2:#8b949e; --border:#30363d; }
         body { font-family:'Cairo',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background 0.3s,color 0.3s; }
         body.modal-open { overflow:hidden; }
-
-        /* ===== LOADING BAR ===== */
         #fbStatus { display:none; position:fixed; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--cyan),var(--gold)); z-index:9999; animation:slide 1.5s infinite; }
         @keyframes slide { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
-
-        /* ===== HEADER ===== */
         .header { background:linear-gradient(135deg,var(--sea),var(--dark)); color:white; padding:12px 20px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 20px rgba(0,0,0,0.3); position:sticky; top:0; z-index:100; }
         .header-title { font-size:1.1rem; font-weight:900; color:var(--cyan); }
         .header-sub { font-size:0.75rem; color:rgba(255,255,255,0.6); }
         .header-btns { display:flex; gap:8px; align-items:center; }
         .btn-icon { background:none; border:1px solid rgba(255,255,255,0.2); border-radius:10px; padding:6px 10px; cursor:pointer; font-size:0.9rem; color:white; font-family:'Cairo',sans-serif; }
         .btn-icon:hover { background:rgba(255,255,255,0.1); }
-
-        /* ===== PIN SCREEN — معطل مؤقتاً ===== */
-
-        /* ===== MAIN LAYOUT ===== */
         .container { max-width:700px; margin:0 auto; padding:15px; }
-
-        /* ===== DATE + TABS ===== */
         .top-bar { background:var(--card); border-radius:16px; padding:12px 16px; margin-bottom:12px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; border:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,0.05); }
         .top-bar input[type=date] { border:1px solid var(--border); border-radius:10px; padding:8px 12px; font-family:'Cairo',sans-serif; font-size:0.9rem; background:var(--bg); color:var(--text); flex:1; min-width:130px; }
         .tab-bar { display:flex; gap:8px; background:var(--card); border-radius:16px; padding:8px; margin-bottom:12px; border:1px solid var(--border); }
         .tab-btn { flex:1; padding:10px; border:none; border-radius:10px; cursor:pointer; font-family:'Cairo',sans-serif; font-weight:800; font-size:0.85rem; transition:all 0.2s; background:none; color:var(--text2); }
         .tab-btn.active { background:var(--primary); color:white; box-shadow:0 3px 10px rgba(0,119,182,0.3); }
-
-        /* ===== CARDS ===== */
         .card { background:var(--card); border-radius:20px; padding:18px; margin-bottom:12px; border:1px solid var(--border); box-shadow:0 2px 15px rgba(0,0,0,0.06); }
         .card-title { font-size:1rem; font-weight:900; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
         .section-title { font-size:0.85rem; font-weight:800; color:var(--text2); margin-bottom:10px; padding-bottom:6px; border-bottom:2px solid var(--border); }
-
-        /* ===== BUTTONS ===== */
         .btn { width:100%; padding:13px; border:none; border-radius:14px; cursor:pointer; font-family:'Cairo',sans-serif; font-weight:800; font-size:0.95rem; transition:all 0.2s; margin-bottom:8px; }
         .btn:active { transform:scale(0.97); }
         .btn-blue { background:linear-gradient(135deg,var(--primary),#023e8a); color:white; }
@@ -76,13 +47,9 @@
         .btn-gold { background:linear-gradient(135deg,var(--gold),#e85d04); color:white; }
         .btn-navy { background:linear-gradient(135deg,#2b2d42,#1a1a2e); color:white; }
         .btn-sm { padding:8px 14px; width:auto; font-size:0.82rem; margin:0; border-radius:10px; }
-
-        /* ===== TOTAL BAR ===== */
         .total-bar { background:var(--sea); color:white; padding:14px 20px; border-radius:16px; display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border:2px solid var(--cyan); }
         .total-bar span:first-child { font-size:0.9rem; font-weight:700; }
         .total-bar .total-val { font-size:1.3rem; font-weight:900; color:var(--cyan); }
-
-        /* ===== FARMER LIST ===== */
         .farmer-row { display:flex; justify-content:space-between; align-items:center; padding:12px 14px; border-bottom:1px solid var(--border); cursor:pointer; transition:background 0.15s; border-radius:10px; }
         .farmer-row:hover { background:rgba(72,202,228,0.05); }
         .farmer-name { font-weight:800; font-size:0.95rem; }
@@ -91,15 +58,11 @@
         .farmer-bal .bal-num { font-weight:900; font-size:1rem; color:var(--primary); }
         .farmer-bal .bal-num.neg { color:var(--red); }
         .farmer-bal small { font-size:0.7rem; color:var(--text2); display:block; }
-
-        /* ===== SEARCH ===== */
         .search-wrap { position:relative; margin-bottom:12px; }
         .search-wrap input { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:12px; font-family:'Cairo',sans-serif; font-size:0.9rem; background:var(--bg); color:var(--text); }
         .search-results { position:absolute; top:100%; right:0; left:0; background:var(--card); border:1px solid var(--border); border-radius:12px; z-index:200; max-height:200px; overflow-y:auto; box-shadow:0 8px 25px rgba(0,0,0,0.15); }
         .search-item { padding:10px 14px; cursor:pointer; font-weight:700; border-bottom:1px solid var(--border); }
         .search-item:hover { background:rgba(72,202,228,0.1); }
-
-        /* ===== MODALS ===== */
         .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; padding:15px; backdrop-filter:blur(4px); }
         .modal-content { background:var(--card); border-radius:24px; padding:25px; width:100%; max-width:500px; max-height:90vh; overflow-y:auto; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
         .close-x { position:absolute; top:15px; left:15px; font-size:1.4rem; cursor:pointer; color:var(--text2); line-height:1; background:none; border:none; font-family:inherit; }
@@ -109,20 +72,14 @@
         .form-group input, .form-group select, .form-group textarea { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:12px; font-family:'Cairo',sans-serif; font-size:0.9rem; background:var(--bg); color:var(--text); }
         .form-group textarea { resize:vertical; min-height:60px; }
         .input-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-
-        /* ===== INVOICE TABLE ===== */
         .invoice-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
         .invoice-table th { background:var(--sea); color:white; padding:8px 6px; text-align:center; }
         .invoice-table td { padding:6px 4px; border:1px solid var(--border); text-align:center; }
         .invoice-table td input { width:100%; border:none; background:transparent; font-family:'Cairo',sans-serif; font-size:0.82rem; text-align:center; color:var(--text); padding:2px; }
         .invoice-table td input:focus { outline:2px solid var(--cyan); border-radius:4px; }
         .invoice-total-row td { font-weight:900; background:rgba(72,202,228,0.1); }
-
-        /* ===== TOAST ===== */
         #toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--sea); color:white; padding:10px 22px; border-radius:20px; font-weight:800; font-size:0.9rem; opacity:0; transition:all 0.3s; z-index:9999; white-space:nowrap; border:1px solid var(--cyan); pointer-events:none; }
         #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-
-        /* ===== STATS GRID ===== */
         .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
         .stat-box { background:var(--bg); border-radius:14px; padding:12px; text-align:center; border:1px solid var(--border); cursor:pointer; }
         .stat-box .stat-label { font-size:0.72rem; color:var(--text2); font-weight:700; }
@@ -131,45 +88,28 @@
         .stat-box.debt .stat-val { color:var(--red); }
         .stat-box.invoices .stat-val { color:var(--green); }
         .stat-box.inv-debt .stat-val { color:var(--gold); }
-
-        /* ===== DETAIL MODAL TABS ===== */
         .detail-tabs { display:flex; gap:6px; margin-bottom:14px; }
         .detail-tab { flex:1; padding:9px; border:2px solid var(--border); border-radius:10px; cursor:pointer; font-family:'Cairo',sans-serif; font-weight:800; font-size:0.78rem; background:none; color:var(--text2); transition:all 0.2s; }
         .detail-tab.active { border-color:var(--primary); background:var(--primary); color:white; }
-
-        /* ===== HISTORY TABLE ===== */
         .hist-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
         .hist-table th { background:var(--sea); color:white; padding:8px; text-align:center; position:sticky; top:0; }
         .hist-table td { padding:8px 6px; border:1px solid var(--border); text-align:center; }
         .hist-table tr:hover td { background:rgba(72,202,228,0.05); cursor:pointer; }
-
-        /* ===== CONFIRM MODAL ===== */
         #customConfirmModal { z-index:9000; }
         #customConfirmModal .modal-content { max-width:360px; text-align:center; }
-
-        /* ===== DARK MODE ===== */
         body.dark-mode .pin-key { color:white; }
-        body.dark-mode .form-group input,
-        body.dark-mode .form-group select,
-        body.dark-mode .form-group textarea { border-color:var(--border); }
+        body.dark-mode .form-group input, body.dark-mode .form-group select, body.dark-mode .form-group textarea { border-color:var(--border); }
         body.dark-mode .top-bar input[type=date] { color-scheme:dark; }
         body.dark-mode .invoice-table td input { color:var(--text); }
-
-        /* ===== MANAGE LIST ===== */
         .manage-item { display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid var(--border); }
         .manage-item:last-child { border-bottom:none; }
     </style>
 </head>
 <body>
-
 <div id="fbStatus"></div>
 <div id="toast"></div>
 
-
-
-<!-- ===== MAIN APP ===== -->
 <div id="mainApp">
-    <!-- Header -->
     <div class="header">
         <div>
             <div class="header-title">🐟 AL-MAJD | المزارعين</div>
@@ -180,1286 +120,643 @@
             <button class="btn-icon" onclick="toggleDark()" id="btnDark">🌙</button>
         </div>
     </div>
-
     <div class="container">
-        <!-- Date -->
         <div class="top-bar">
-            <label style="font-weight:800;font-size:0.85rem;">📅 التاريخ:</label>
+            <label style="font-weight:800;font-size:0.85rem">📅 التاريخ:</label>
             <input type="date" id="globalDate" onchange="onDateChange()">
             <button class="btn btn-sm btn-blue" onclick="openAddFarmerModal()">➕ مزارع جديد</button>
         </div>
-
-        <!-- Totals -->
         <div class="total-bar">
             <span id="totalLabel">إجمالي البوكس بالخارج:</span>
-            <div style="display:flex;align-items:center;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px">
                 <span class="total-val" id="totalVal">0</span>
                 <button id="btnRefreshTop" style="padding:5px 9px;font-size:1rem;background:none;border:2px solid var(--cyan);border-radius:10px;cursor:pointer;color:var(--cyan);line-height:1;" onclick="refreshData()">🔄</button>
             </div>
         </div>
-
-        <!-- Tabs -->
         <div class="tab-bar">
             <button class="tab-btn active" data-tab="boxes" onclick="switchMainTab('boxes')">📦 البوكس</button>
             <button class="tab-btn" data-tab="finance" onclick="switchMainTab('finance')">💰 المالية</button>
             <button class="tab-btn" data-tab="invoices" onclick="switchMainTab('invoices')">🧾 الفواتير</button>
         </div>
-
-        <!-- ===== BOXES TAB ===== -->
         <div id="tab-boxes">
             <div class="card">
                 <div class="card-title">📦 كشف البوكس</div>
-                <div class="search-wrap">
-                    <input type="text" id="searchBoxes" placeholder="🔍 ابحث عن سيد..." oninput="filterFarmers('boxes')" autocomplete="off">
-                </div>
+                <div class="search-wrap"><input type="text" id="searchBoxes" placeholder="🔍 ابحث عن سيد..." oninput="filterFarmers('boxes')" autocomplete="off"></div>
                 <div id="boxesList"></div>
             </div>
         </div>
-
-        <!-- ===== FINANCE TAB ===== -->
-        <div id="tab-finance" style="display:none;">
+        <div id="tab-finance" style="display:none">
             <div class="card">
                 <div class="card-title">💰 كشف المالية</div>
-                <div class="search-wrap">
-                    <input type="text" id="searchFinance" placeholder="🔍 ابحث عن سيد..." oninput="filterFarmers('finance')" autocomplete="off">
-                </div>
+                <div class="search-wrap"><input type="text" id="searchFinance" placeholder="🔍 ابحث عن سيد..." oninput="filterFarmers('finance')" autocomplete="off"></div>
                 <div id="financeList"></div>
             </div>
         </div>
-
-        <!-- ===== INVOICES TAB ===== -->
-        <div id="tab-invoices" style="display:none;">
+        <div id="tab-invoices" style="display:none">
             <div class="card">
                 <div class="card-title">🧾 الفواتير</div>
                 <button class="btn btn-gold" onclick="openNewInvoiceModal()">➕ فاتورة جديدة</button>
-                <div class="search-wrap" style="margin-top:10px;">
-                    <input type="text" id="searchInvoices" placeholder="🔍 ابحث باسم المزارع..." oninput="filterInvoices()" autocomplete="off">
-                </div>
+                <div class="search-wrap" style="margin-top:10px"><input type="text" id="searchInvoices" placeholder="🔍 ابحث باسم المزارع..." oninput="filterInvoices()" autocomplete="off"></div>
                 <div id="invoicesList"></div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ===== MODAL: إضافة/تعديل مزارع ===== -->
-<div id="farmerModal" class="modal">
-    <div class="modal-content" style="max-width:400px;">
-        <button class="close-x" onclick="hideModal('farmerModal')">×</button>
-        <h3 id="farmerModalTitle">➕ إضافة مزارع جديد</h3>
-        <div class="form-group">
-            <label>اسم المزارع / العميل</label>
-            <input type="text" id="farmerName" placeholder="اكتب الاسم..." onkeydown="if(event.key==='Enter')saveFarmer()">
-        </div>
+<div id="farmerModal" class="modal"><div class="modal-content" style="max-width:400px"><button class="close-x" onclick="hideModal('farmerModal')">×</button><h3 id="farmerModalTitle">➕ إضافة مزارع جديد</h3><div class="form-group"><label>اسم المزارع / العميل</label><input type="text" id="farmerName" placeholder="اكتب الاسم..." onkeydown="if(event.key==='Enter')saveFarmer()"></div><button class="btn btn-blue" onclick="saveFarmer()">💾 حفظ</button></div></div>
 
-        <button class="btn btn-blue" onclick="saveFarmer()">💾 حفظ</button>
-    </div>
-</div>
+<div id="boxModal" class="modal"><div class="modal-content" style="max-width:400px"><button class="close-x" onclick="hideModal('boxModal')">×</button><h3 id="boxModalTitle">📦 تسجيل حركة بوكس</h3><div class="form-group"><label>المزارع</label><input type="text" id="boxFarmerName" readonly style="background:var(--bg)"></div><div class="form-group"><label>النوع</label><select id="boxType" onchange="onBoxTypeChange()"><option value="out">📤 سروح للأرض (صادر)</option><option value="in">📥 سمك راجع (وارد)</option></select></div><div class="form-group"><label>العدد</label><input type="number" id="boxAmount" placeholder="0" min="0" onkeydown="if(event.key==='Enter')saveBoxTx()"></div><div class="form-group" id="boxFarighGroup" style="display:none"><label>الفارغ</label><input type="number" id="boxFarighAmount" placeholder="0" min="0" onkeydown="if(event.key==='Enter')saveBoxTx()"></div><button class="btn btn-blue" onclick="saveBoxTx()">💾 حفظ</button></div></div>
 
-<!-- ===== MODAL: تسجيل حركة بوكس ===== -->
-<div id="boxModal" class="modal">
-    <div class="modal-content" style="max-width:400px;">
-        <button class="close-x" onclick="hideModal('boxModal')">×</button>
-        <h3 id="boxModalTitle">📦 تسجيل حركة بوكس</h3>
-        <div class="form-group">
-            <label>المزارع</label>
-            <input type="text" id="boxFarmerName" readonly style="background:var(--bg);">
-        </div>
-        <div class="form-group">
-            <label>النوع</label>
-            <select id="boxType" onchange="onBoxTypeChange()">
-                <option value="out">📤 سروح للأرض (صادر)</option>
-                <option value="in">📥 سمك راجع (وارد)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>العدد</label>
-            <input type="number" id="boxAmount" placeholder="0" min="0" onkeydown="if(event.key==='Enter')saveBoxTx()">
-        </div>
-        <div class="form-group" id="boxFarighGroup" style="display:none;">
-            <label>الفارغ</label>
-            <input type="number" id="boxFarighAmount" placeholder="0" min="0" onkeydown="if(event.key==='Enter')saveBoxTx()">
-        </div>
-        <button class="btn btn-blue" onclick="saveBoxTx()">💾 حفظ</button>
-    </div>
-</div>
+<div id="financeModal" class="modal"><div class="modal-content" style="max-width:400px"><button class="close-x" onclick="hideModal('financeModal')">×</button><h3 id="financeModalTitle">💰 تسجيل حركة مالية</h3><div class="form-group"><label>المزارع</label><input type="text" id="finFarmerName" readonly style="background:var(--bg)"><input type="hidden" id="finSubtype" value="jar"></div><div class="form-group" id="finTypeGroup"><label>النوع</label><select id="finType"><option value="jar">💸 جر عادي (يزيد الدين)</option><option value="pay">✅ سداد (يقلل الدين)</option></select></div><div id="finInvBalInfo" style="display:none;background:var(--bg);border-radius:12px;padding:10px 14px;margin-bottom:12px;text-align:center"><small style="color:var(--text2);font-weight:700">رصيد الفواتير المتاح</small><br><strong id="finInvBalVal" style="color:var(--green);font-size:1.1rem">0</strong></div><div class="form-group"><label>المبلغ</label><input type="number" id="finAmount" placeholder="0" min="0" onkeydown="if(event.key==='Enter')saveFinTx()"></div><button class="btn btn-blue" onclick="saveFinTx()">💾 حفظ</button></div></div>
 
-<!-- ===== MODAL: تسجيل حركة مالية ===== -->
-<div id="financeModal" class="modal">
-    <div class="modal-content" style="max-width:400px;">
-        <button class="close-x" onclick="hideModal('financeModal')">×</button>
-        <h3 id="financeModalTitle">💰 تسجيل حركة مالية</h3>
-        <div class="form-group">
-            <label>المزارع</label>
-            <input type="text" id="finFarmerName" readonly style="background:var(--bg);">
-            <input type="hidden" id="finSubtype" value="jar">
-        </div>
-        <div class="form-group" id="finTypeGroup">
-            <label>النوع</label>
-            <select id="finType">
-                <option value="jar">💸 جر عادي (يزيد الدين)</option>
-                <option value="pay">✅ سداد (يقلل الدين)</option>
-            </select>
-        </div>
-        <div id="finInvBalInfo" style="display:none;background:var(--bg);border-radius:12px;padding:10px 14px;margin-bottom:12px;text-align:center;">
-            <small style="color:var(--text2);font-weight:700;">رصيد الفواتير المتاح</small><br>
-            <strong id="finInvBalVal" style="color:var(--green);font-size:1.1rem;">0</strong>
-        </div>
-        <div class="form-group">
-            <label>المبلغ</label>
-            <input type="number" id="finAmount" placeholder="0" min="0" onkeydown="if(event.key==='Enter')saveFinTx()">
-        </div>
-        <button class="btn btn-blue" onclick="saveFinTx()">💾 حفظ</button>
-    </div>
-</div>
+<div id="finOptionsModal" class="modal"><div class="modal-content" style="max-width:320px;text-align:center"><button class="close-x" onclick="hideModal('finOptionsModal')">×</button><input type="hidden" id="finOptCurrentName"><div style="font-size:1.5rem;margin-bottom:6px">💰</div><h3 id="finOptName" style="border:none;margin-bottom:16px"></h3><div style="display:grid;grid-template-columns:1fr auto;gap:6px;margin-bottom:8px"><button class="btn btn-red" style="margin:0;" id="btnFinJar">💸 جر / سداد</button><button id="btnFinJarSt" style="padding:8px 10px;border:1px solid var(--cyan);border-radius:10px;background:none;color:var(--cyan);cursor:pointer;font-family:'Cairo',sans-serif;font-weight:800;font-size:0.8rem">📋</button></div><div style="display:grid;grid-template-columns:1fr auto;gap:6px"><button class="btn btn-green" style="margin:0;" id="btnFinInvjar">🧾 جر من ح الفواتير</button><button id="btnFinInvjarSt" style="padding:8px 10px;border:1px solid var(--cyan);border-radius:10px;background:none;color:var(--cyan);cursor:pointer;font-family:'Cairo',sans-serif;font-weight:800;font-size:0.8rem">📋</button></div></div></div>
 
-<!-- ===== MODAL: خيارات المالية ===== -->
-<div id="finOptionsModal" class="modal">
-    <div class="modal-content" style="max-width:320px;text-align:center;">
-        <button class="close-x" onclick="hideModal('finOptionsModal')">×</button>
-        <input type="hidden" id="finOptCurrentName">
-        <div style="font-size:1.5rem;margin-bottom:6px;">💰</div>
-        <h3 id="finOptName" style="border:none;margin-bottom:16px;"></h3>
-        <div style="display:grid;grid-template-columns:1fr auto;gap:6px;margin-bottom:8px;">
-            <button class="btn btn-red" style="margin:0;" id="btnFinJar">💸 جر / سداد</button>
-            <button id="btnFinJarSt" style="padding:8px 10px;border:1px solid var(--cyan);border-radius:10px;background:none;color:var(--cyan);cursor:pointer;font-family:'Cairo',sans-serif;font-weight:800;font-size:0.8rem;">📋</button>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr auto;gap:6px;">
-            <button class="btn btn-green" style="margin:0;" id="btnFinInvjar">🧾 جر من ح الفواتير</button>
-            <button id="btnFinInvjarSt" style="padding:8px 10px;border:1px solid var(--cyan);border-radius:10px;background:none;color:var(--cyan);cursor:pointer;font-family:'Cairo',sans-serif;font-weight:800;font-size:0.8rem;">📋</button>
-        </div>
-    </div>
-</div>
+<div id="invjarStModal" class="modal"><div class="modal-content" style="max-width:560px"><button class="close-x" onclick="hideModal('invjarStModal')">×</button><h3 id="invjarStTitle">🧾 ح الفواتير</h3><div style="max-height:380px;overflow-y:auto"><table style="width:100%;border-collapse:collapse;font-size:0.82rem"><thead style="position:sticky;top:0;z-index:10"><tr style="background:var(--sea);color:white"><th style="padding:10px;border:1px solid #ccc">التاريخ</th><th style="padding:10px;border:1px solid #ccc">البيان</th><th style="padding:10px;border:1px solid #ccc">فاتورة ➕</th><th style="padding:10px;border:1px solid #ccc">جر ➖</th><th style="padding:10px;border:1px solid #ccc">الباقي</th></tr></thead><tbody id="invjarStBody"></tbody></table></div><button class="btn btn-green" style="margin-top:14px;" onclick="openFinModal(currentFarmer,'invjar')">🧾 تسجيل جر</button></div></div>
 
-<!-- ===== MODAL: كشف حساب الفواتير ===== -->
-<div id="invjarStModal" class="modal">
-    <div class="modal-content" style="max-width:560px;">
-        <button class="close-x" onclick="hideModal('invjarStModal')">×</button>
-        <h3 id="invjarStTitle">🧾 ح الفواتير</h3>
-        <div style="max-height:380px;overflow-y:auto;">
-            <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
-                <thead style="position:sticky;top:0;z-index:10;">
-                    <tr style="background:var(--sea);color:white;">
-                        <th style="padding:10px;border:1px solid #ccc;">التاريخ</th>
-                        <th style="padding:10px;border:1px solid #ccc;">البيان</th>
-                        <th style="padding:10px;border:1px solid #ccc;">فاتورة ➕</th>
-                        <th style="padding:10px;border:1px solid #ccc;">جر ➖</th>
-                        <th style="padding:10px;border:1px solid #ccc;">الباقي</th>
-                    </tr>
-                </thead>
-                <tbody id="invjarStBody"></tbody>
-            </table>
-        </div>
-        <button class="btn btn-green" style="margin-top:14px;" onclick="openFinModal(currentFarmer,'invjar')">🧾 تسجيل جر</button>
-    </div>
-</div>
+<div id="jarStModal" class="modal"><div class="modal-content" style="max-width:500px"><button class="close-x" onclick="hideModal('jarStModal')">×</button><h3 id="jarStTitle">💸 كشف الجر</h3><div style="max-height:380px;overflow-y:auto"><table style="width:100%;border-collapse:collapse;font-size:0.85rem"><thead style="position:sticky;top:0;z-index:10"><tr style="background:var(--sea);color:white"><th style="padding:10px;border:1px solid #ccc">التاريخ</th><th style="padding:10px;border:1px solid #ccc">جر 💸</th><th style="padding:10px;border:1px solid #ccc">سداد ✅</th><th style="padding:10px;border:1px solid #ccc">الباقي</th></tr></thead><tbody id="jarStBody"></tbody></table></div><button class="btn btn-blue" style="margin-top:14px;" onclick="openFinModal(currentFarmer)">💸 تسجيل حركة</button></div></div>
 
-<!-- ===== MODAL: كشف الجر التفصيلي ===== -->
-<div id="jarStModal" class="modal">
-    <div class="modal-content" style="max-width:500px;">
-        <button class="close-x" onclick="hideModal('jarStModal')">×</button>
-        <h3 id="jarStTitle">💸 كشف الجر</h3>
-        <div style="max-height:380px;overflow-y:auto;">
-            <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
-                <thead style="position:sticky;top:0;z-index:10;">
-                    <tr style="background:var(--sea);color:white;">
-                        <th style="padding:10px;border:1px solid #ccc;">التاريخ</th>
-                        <th style="padding:10px;border:1px solid #ccc;">جر 💸</th>
-                        <th style="padding:10px;border:1px solid #ccc;">سداد ✅</th>
-                        <th style="padding:10px;border:1px solid #ccc;">الباقي</th>
-                    </tr>
-                </thead>
-                <tbody id="jarStBody"></tbody>
-            </table>
-        </div>
-        <button class="btn btn-blue" style="margin-top:14px;" onclick="openFinModal(currentFarmer)">💸 تسجيل حركة</button>
-    </div>
-</div>
-
-<!-- ===== MODAL: فاتورة جديدة ===== -->
 <div id="invoiceModal" class="modal">
-    <div class="modal-content" style="max-width:560px;">
-        <button class="close-x" onclick="hideModal('invoiceModal')">×</button>
-        <h3>🧾 فاتورة جديدة</h3>
-        <div class="form-group">
-            <label>السيد</label>
-            <div class="search-wrap" style="margin-bottom:0;">
-                <input type="text" id="invFarmer" placeholder="ابحث..." oninput="showFarmerSearch('invFarmer','invFarmerSearch')" autocomplete="off">
-                <div id="invFarmerSearch" class="search-results" style="display:none;"></div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>التاريخ</label>
-            <input type="date" id="invDate">
-        </div>
-        <!-- أسطر الفاتورة -->
-        <div style="overflow-x:auto; margin-bottom:10px;">
-            <table class="invoice-table">
-                <thead>
-                    <tr>
-                        <th style="width:25px;">#</th>
-                        <th>المبلغ</th>
-                        <th>كيلو</th>
-                        <th>فئة</th>
-                        <th>الصنف</th>
-                        <th>عدد</th>
-                        <th>ملاحظات</th>
-                        <th style="width:25px;"></th>
-                    </tr>
-                </thead>
-                <tbody id="invRows"></tbody>
-                <tfoot>
-                    <tr class="invoice-total-row">
-                        <td style="font-weight:900;text-align:right;padding:8px;font-size:0.8rem;">إجمالي:</td>
-                        <td id="invTotal" style="font-weight:900;color:var(--green);font-size:1rem;">0</td>
-                        <td colspan="3"></td>
-                        <td id="invCountTotal" style="font-weight:900;color:var(--primary);">0</td>
-                        <td colspan="2"></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-        <button class="btn btn-sm btn-navy" onclick="addInvRow()" style="margin-bottom:10px;">➕ إضافة سطر</button>
+<div class="modal-content" style="max-width:560px;padding:16px">
+<button class="close-x" onclick="hideModal('invoiceModal')">×</button>
+<h3 id="invModalTitle">🧾 فاتورة جديدة</h3>
 
-        <!-- ===== قسم المنصرف ===== -->
-        <div style="border:2px dashed var(--border);border-radius:14px;padding:12px;margin-bottom:12px;">
-            <div style="font-size:0.85rem;font-weight:900;color:var(--text2);margin-bottom:8px;">📤 المنصرف</div>
-            <div style="overflow-x:auto;">
-                <table class="invoice-table" style="margin-bottom:6px;">
-                    <thead>
-                        <tr>
-                            <th style="width:25px;">#</th>
-                            <th>المبلغ</th>
-                            <th>البيان</th>
-                            <th style="width:25px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="expRows"></tbody>
-                    <tfoot>
-                        <tr class="invoice-total-row">
-                            <td colspan="1" style="font-weight:900;text-align:right;padding:8px;">الإجمالي:</td>
-                            <td id="expTotal" style="font-weight:900;color:var(--red);">0</td>
-                            <td colspan="2"></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <button class="btn btn-sm btn-navy" onclick="addExpRow()" style="margin-bottom:6px;">➕ إضافة منصرف</button>
-        </div>
-
-        <!-- جر فواتير -->
-        <div style="border:2px dashed #f0a500;border-radius:14px;padding:12px;margin-bottom:12px;background:rgba(255,195,0,0.04);">
-            <div style="font-size:0.85rem;font-weight:900;color:var(--gold);margin-bottom:8px;">💸 جر من ح الفواتير</div>
-            <div style="display:flex;align-items:center;gap:10px;">
-                <input type="number" id="invJarAmount" placeholder="0" min="0" oninput="calcExpTotal()" style="flex:1;padding:9px 12px;border:1px solid var(--border);border-radius:10px;font-family:'Cairo',sans-serif;font-size:0.9rem;background:var(--bg);color:var(--text);">
-                <span style="font-size:0.8rem;color:var(--text2);white-space:nowrap;">يُخصم من الإجمالي</span>
-            </div>
-        </div>
-
-        <!-- الصافي -->
-        <div style="background:var(--sea);color:white;border-radius:12px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-            <span style="font-weight:800;font-size:0.9rem;">الصافي:</span>
-            <span id="invNet" style="font-weight:900;font-size:1.1rem;color:var(--cyan);">0</span>
-        </div>
-
-        <div class="form-group">
-            <label>ملاحظات عامة</label>
-            <textarea id="invNotes" placeholder="..."></textarea>
-        </div>
-        <button class="btn btn-gold" onclick="saveInvoice()">💾 حفظ الفاتورة</button>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+  <div class="form-group" style="margin:0">
+    <label>📅 التاريخ</label>
+    <input type="date" id="invDate" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:12px;font-family:'Cairo',sans-serif;font-size:0.9rem;background:var(--bg);color:var(--text)">
+  </div>
+  <div class="form-group" style="margin:0">
+    <label>👤 السيد</label>
+    <div style="position:relative">
+      <input type="text" id="invFarmer" placeholder="ابحث..." oninput="showFarmerSearch('invFarmer','invFarmerSearch')" autocomplete="off" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:12px;font-family:'Cairo',sans-serif;font-size:0.9rem;background:var(--bg);color:var(--text)">
+      <div id="invFarmerSearch" class="search-results" style="display:none"></div>
     </div>
+  </div>
 </div>
 
-<!-- ===== MODAL: كشف البوكس التفصيلي ===== -->
-<div id="boxStModal" class="modal">
-    <div class="modal-content" style="max-width:500px;">
-        <button class="close-x" onclick="hideModal('boxStModal')">×</button>
-        <h3 id="boxStTitle">كشف البوكس</h3>
-        <div style="max-height:380px;overflow-y:auto;">
-            <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
-                <thead style="position:sticky;top:0;z-index:10;">
-                    <tr style="background:var(--sea);color:white;">
-                        <th style="padding:10px;border:1px solid #ccc;">التاريخ</th>
-                        <th style="padding:10px;border:1px solid #ccc;">سروح 📤</th>
-                        <th style="padding:10px;border:1px solid #ccc;">سمك 🐟</th>
-                        <th style="padding:10px;border:1px solid #ccc;">فارغ 📦</th>
-                        <th style="padding:10px;border:1px solid #ccc;">الباقي</th>
-                    </tr>
-                </thead>
-                <tbody id="boxStBody"></tbody>
-            </table>
-        </div>
-        <button class="btn btn-blue" style="margin-top:14px;" onclick="openBoxModal(currentFarmer);hideModal('boxStModal')">📦 تسجيل حركة</button>
-    </div>
+<div style="background:var(--sea);color:white;border-radius:14px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border:1px solid var(--cyan)">
+  <div style="font-size:0.8rem;font-weight:700;opacity:0.8">إجمالي | عدد</div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <span style="font-size:0.9rem;font-weight:900;color:var(--cyan)" id="invCountTotal">0</span>
+    <span style="font-size:1.2rem;font-weight:900;color:var(--cyan)" id="invTotal">0</span>
+  </div>
 </div>
 
-<!-- ===== MODAL: تفاصيل المزارع ===== -->
-<div id="farmerDetailModal" class="modal">
-    <div class="modal-content" style="max-width:560px;">
-        <button class="close-x" onclick="hideModal('farmerDetailModal')">×</button>
-        <h3 id="detailTitle">تفاصيل المزارع</h3>
-        <div class="stats-grid" id="detailStats"></div>
-        <div class="detail-tabs">
-            <button class="detail-tab active" onclick="switchDetailTab('boxes')">📦 البوكس</button>
-            <button class="detail-tab" onclick="switchDetailTab('finance')">💸 الجر</button>
-            <button class="detail-tab" onclick="switchDetailTab('invoices')">🧾 الفواتير</button>
-        </div>
-        <div style="max-height:280px;overflow-y:auto;" id="detailContent"></div>
-        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
-            <button class="btn btn-sm btn-blue" onclick="openBoxModal(currentFarmer)" style="flex:1;">📦 حركة بوكس</button>
-            <button class="btn btn-sm btn-green" onclick="openFinModal(currentFarmer)" style="flex:1;">💰 حركة مالية</button>
-            <button class="btn btn-sm btn-gold" onclick="openNewInvoiceForFarmer(currentFarmer)" style="flex:1;">🧾 فاتورة</button>
-        </div>
-    </div>
+<div style="font-size:0.82rem;font-weight:900;color:var(--text2);margin-bottom:8px">📦 الأصناف</div>
+<div id="invRows" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px"></div>
+<button class="btn btn-navy" onclick="addInvRow()" style="margin-bottom:14px;padding:11px;font-size:0.9rem">➕ إضافة صنف</button>
+
+<div style="border:2px dashed var(--border);border-radius:14px;padding:12px;margin-bottom:12px">
+  <div style="font-size:0.85rem;font-weight:900;color:var(--text2);margin-bottom:8px">📤 المنصرف</div>
+  <div id="expRows" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <button class="btn btn-navy btn-sm" onclick="addExpRow()" style="flex:1;padding:9px">➕ إضافة منصرف</button>
+    <div style="margin-right:10px;font-size:0.85rem;font-weight:900;color:var(--red);white-space:nowrap">الإجمالي: <span id="expTotal">0</span></div>
+  </div>
 </div>
 
-<!-- ===== MODAL: عرض فاتورة ===== -->
-<div id="viewInvoiceModal" class="modal">
-    <div class="modal-content" style="max-width:560px;">
-        <button class="close-x" onclick="hideModal('viewInvoiceModal')">×</button>
-        <h3 id="viewInvTitle">فاتورة</h3>
-        <div id="viewInvContent"></div>
-        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
-            <button class="btn btn-sm btn-navy" onclick="editCurrentInvoice()" style="flex:1;">✏️ تعديل</button>
-            <button class="btn btn-sm btn-red" onclick="deleteCurrentInvoice()" style="flex:1;">🗑️ حذف</button>
-        </div>
-    </div>
+<div style="border:2px dashed #f0a500;border-radius:14px;padding:12px;margin-bottom:12px;background:rgba(255,195,0,0.04)">
+  <div style="font-size:0.85rem;font-weight:900;color:var(--gold);margin-bottom:8px">💸 جر من ح الفواتير</div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <input type="number" id="invJarAmount" placeholder="0" min="0" oninput="calcExpTotal()" style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-family:'Cairo',sans-serif;font-size:1rem;background:var(--bg);color:var(--text)">
+    <span style="font-size:0.8rem;color:var(--text2);white-space:nowrap">يُخصم من الإجمالي</span>
+  </div>
 </div>
 
-<!-- ===== MODAL: إدارة المزارعين ===== -->
-<div id="manageFarmersModal" class="modal">
-    <div class="modal-content" style="max-width:400px;">
-        <button class="close-x" onclick="hideModal('manageFarmersModal')">×</button>
-        <h3>⚙️ إدارة المزارعين</h3>
-        <div id="manageList" style="max-height:350px;overflow-y:auto;"></div>
-    </div>
+<div style="background:var(--sea);color:white;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+  <span style="font-weight:800;font-size:0.95rem">الصافي:</span>
+  <span id="invNet" style="font-weight:900;font-size:1.2rem;color:var(--cyan)">0</span>
 </div>
 
-<!-- ===== MODAL: تأكيد ===== -->
-<div id="customConfirmModal" class="modal" style="z-index:9000;">
-    <div class="modal-content">
-        <div id="ccIcon" style="font-size:2.5rem;margin-bottom:10px;">⚠️</div>
-        <h3 id="ccTitle" style="border:none;margin-bottom:8px;"></h3>
-        <p id="ccMsg" style="color:var(--text2);font-size:0.9rem;margin-bottom:20px;font-weight:600;"></p>
-        <div style="display:flex;gap:10px;">
-            <button id="ccOk" class="btn btn-blue" style="flex:1;padding:12px;margin:0;">تأكيد ✅</button>
-            <button id="ccDel" class="btn btn-red" style="flex:1;padding:12px;margin:0;display:none;">🗑️ حذف</button>
-            <button onclick="closeConfirm()" class="btn btn-navy" style="flex:1;padding:12px;margin:0;background:#6c757d;">إلغاء</button>
-        </div>
-    </div>
+<div class="form-group">
+  <label>ملاحظات عامة</label>
+  <textarea id="invNotes" placeholder="..." style="font-size:1rem;padding:10px 12px"></textarea>
 </div>
+
+<button class="btn btn-gold" onclick="saveInvoice()" style="font-size:1rem;padding:14px">💾 حفظ الفاتورة</button>
+</div>
+</div>
+
+<div id="boxStModal" class="modal"><div class="modal-content" style="max-width:500px"><button class="close-x" onclick="hideModal('boxStModal')">×</button><h3 id="boxStTitle">كشف البوكس</h3><div style="max-height:380px;overflow-y:auto"><table style="width:100%;border-collapse:collapse;font-size:0.85rem"><thead style="position:sticky;top:0;z-index:10"><tr style="background:var(--sea);color:white"><th style="padding:10px;border:1px solid #ccc">التاريخ</th><th style="padding:10px;border:1px solid #ccc">سروح 📤</th><th style="padding:10px;border:1px solid #ccc">سمك 🐟</th><th style="padding:10px;border:1px solid #ccc">فارغ 📦</th><th style="padding:10px;border:1px solid #ccc">الباقي</th></tr></thead><tbody id="boxStBody"></tbody></table></div><button class="btn btn-blue" style="margin-top:14px;" onclick="openBoxModal(currentFarmer);hideModal('boxStModal')">📦 تسجيل حركة</button></div></div>
+
+<div id="farmerDetailModal" class="modal"><div class="modal-content" style="max-width:560px"><button class="close-x" onclick="hideModal('farmerDetailModal')">×</button><h3 id="detailTitle">تفاصيل المزارع</h3><div class="stats-grid" id="detailStats"></div><div class="detail-tabs"><button class="detail-tab active" onclick="switchDetailTab('boxes')">📦 البوكس</button><button class="detail-tab" onclick="switchDetailTab('finance')">💸 الجر</button><button class="detail-tab" onclick="switchDetailTab('invoices')">🧾 الفواتير</button></div><div style="max-height:280px;overflow-y:auto;" id="detailContent"></div><div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn btn-sm btn-blue" onclick="openBoxModal(currentFarmer)" style="flex:1">📦 حركة بوكس</button><button class="btn btn-sm btn-green" onclick="openFinModal(currentFarmer)" style="flex:1">💰 حركة مالية</button><button class="btn btn-sm btn-gold" onclick="openNewInvoiceForFarmer(currentFarmer)" style="flex:1">🧾 فاتورة</button></div></div></div>
+
+<div id="viewInvoiceModal" class="modal"><div class="modal-content" style="max-width:560px"><button class="close-x" onclick="hideModal('viewInvoiceModal')">×</button><h3 id="viewInvTitle">فاتورة</h3><div id="viewInvContent"></div><div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn btn-sm btn-blue" onclick="saveInvoicePDF()" style="flex:1">📄 PDF</button><button class="btn btn-sm btn-navy" onclick="editCurrentInvoice()" style="flex:1">✏️ تعديل</button><button class="btn btn-sm btn-red" onclick="deleteCurrentInvoice()" style="flex:1">🗑️ حذف</button></div></div></div>
+
+<div id="manageFarmersModal" class="modal"><div class="modal-content" style="max-width:400px"><button class="close-x" onclick="hideModal('manageFarmersModal')">×</button><h3>⚙️ إدارة المزارعين</h3><div id="manageList" style="max-height:350px;overflow-y:auto"></div></div></div>
+
+<div id="customConfirmModal" class="modal" style="z-index:9000"><div class="modal-content"><div id="ccIcon" style="font-size:2.5rem;margin-bottom:10px">⚠️</div><h3 id="ccTitle" style="border:none;margin-bottom:8px"></h3><p id="ccMsg" style="color:var(--text2);font-size:0.9rem;margin-bottom:20px;font-weight:600"></p><div style="display:flex;gap:10px"><button id="ccOk" class="btn btn-blue" style="flex:1;padding:12px;margin:0">تأكيد ✅</button><button id="ccDel" class="btn btn-red" style="flex:1;padding:12px;margin:0;display:none">🗑️ حذف</button><button onclick="closeConfirm()" class="btn btn-navy" style="flex:1;padding:12px;margin:0;background:#6c757d">إلغاء</button></div></div></div>
 
 <script>
-    // ===========================
-    // 🔥 Firebase
-    // ===========================
     const firebaseConfig = {
-        apiKey: "AIzaSyAT6K9NHp2eDmvnK-ynWSXbfC9-zqsyzJ0",
-        authDomain: "al-majd-eg.firebaseapp.com",
-        databaseURL: "https://al-majd-eg-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "al-majd-eg",
-        storageBucket: "al-majd-eg.firebasestorage.app",
-        messagingSenderId: "484607003806",
-        appId: "1:484607003806:web:66508c560930963183bf8f"
+        apiKey:"AIzaSyAT6K9NHp2eDmvnK-ynWSXbfC9-zqsyzJ0",authDomain:"al-majd-eg.firebaseapp.com",
+        databaseURL:"https://al-majd-eg-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId:"al-majd-eg",storageBucket:"al-majd-eg.firebasestorage.app",
+        messagingSenderId:"484607003806",appId:"1:484607003806:web:66508c560930963183bf8f"
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    function fbLoad(on) { document.getElementById('fbStatus').style.display = on ? 'block' : 'none'; }
+    function fbLoad(on){document.getElementById('fbStatus').style.display=on?'block':'none';}
+    let IS_VIEWER_MODE=false,farmersStore=[],boxTxStore=[],finTxStore=[],invoicesStore=[];
+    let currentFarmer='',currentDetailTab='boxes',currentMainTab='boxes',currentViewInvoiceId=null;
 
-    // ===========================
-    // 🔐 PIN — معطل مؤقتاً
-    // ===========================
-    let IS_VIEWER_MODE = false;
-
-    // ===========================
-    // 🗃️ STATE
-    // ===========================
-    let farmersStore = [];
-    let boxTxStore = [];
-    let finTxStore = [];
-    let invoicesStore = [];
-    let currentFarmer = '';
-    let currentDetailTab = 'boxes';
-    let currentMainTab = 'boxes';
-    let currentViewInvoiceId = null;
-
-    // ===========================
-    // 🚀 INIT
-    // ===========================
-    function initApp() {
-        const today = new Date();
-        const dStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-        document.getElementById('globalDate').value = dStr;
-        document.getElementById('headerDate').innerText = dStr;
-        document.getElementById('invDate').value = dStr;
-        if (localStorage.getItem('farmers_dark') === '1') { document.body.classList.add('dark-mode'); document.getElementById('btnDark').innerText = '☀️'; }
+    function initApp(){
+        const today=new Date();
+        const dStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+        document.getElementById('globalDate').value=dStr;
+        document.getElementById('headerDate').innerText=dStr;
+        document.getElementById('invDate').value=dStr;
+        if(localStorage.getItem('farmers_dark')==='1'){document.body.classList.add('dark-mode');document.getElementById('btnDark').innerText='☀️';}
         fetchAll();
     }
-
-    function toggleDark() {
-        document.body.classList.toggle('dark-mode');
-        const on = document.body.classList.contains('dark-mode');
-        document.getElementById('btnDark').innerText = on ? '☀️' : '🌙';
-        localStorage.setItem('farmers_dark', on ? '1' : '0');
+    function toggleDark(){document.body.classList.toggle('dark-mode');const on=document.body.classList.contains('dark-mode');document.getElementById('btnDark').innerText=on?'☀️':'🌙';localStorage.setItem('farmers_dark',on?'1':'0');}
+    function onDateChange(){document.getElementById('headerDate').innerText=document.getElementById('globalDate').value;}
+    async function refreshData(){
+        ['btnRefresh','btnRefreshTop'].forEach(id=>{const b=document.getElementById(id);if(b)b.innerText='⏳';});
+        await fetchAll();showToast('✅ تم تحديث البيانات');
+        const b1=document.getElementById('btnRefresh');if(b1)b1.innerText='🔄';
+        const b2=document.getElementById('btnRefreshTop');if(b2)b2.innerText='🔄';
     }
-
-    function onDateChange() {
-        document.getElementById('headerDate').innerText = document.getElementById('globalDate').value;
-    }
-
-    async function refreshData() {
-        ['btnRefresh','btnRefreshTop'].forEach(id => { const b = document.getElementById(id); if(b) b.innerText = '⏳'; });
-        await fetchAll();
-        showToast('✅ تم تحديث البيانات');
-        const b1 = document.getElementById('btnRefresh'); if(b1) b1.innerText = '🔄';
-        const b2 = document.getElementById('btnRefreshTop'); if(b2) b2.innerText = '🔄';
-    }
-
-    // ===========================
-    // 📡 FETCH
-    // ===========================
-    async function fetchAll() {
+    async function fetchAll(){
         fbLoad(true);
-        try {
-            const [fSnap, bSnap, finSnap, invSnap] = await Promise.all([
-                db.ref('farmers').get(),
-                db.ref('farmerBoxTx').get(),
-                db.ref('farmerFinTx').get(),
-                db.ref('farmerInvoices').get()
-            ]);
-            farmersStore = Object.entries(fSnap.val() || {}).map(([k,v]) => ({...v, _key:k}));
-            boxTxStore   = Object.entries(bSnap.val()  || {}).map(([k,v]) => ({...v, _key:k}));
-            finTxStore   = Object.entries(finSnap.val()|| {}).map(([k,v]) => ({...v, _key:k}));
-            invoicesStore= Object.entries(invSnap.val()|| {}).map(([k,v]) => ({...v, _key:k}));
+        try{
+            const[fSnap,bSnap,finSnap,invSnap]=await Promise.all([db.ref('farmers').get(),db.ref('farmerBoxTx').get(),db.ref('farmerFinTx').get(),db.ref('farmerInvoices').get()]);
+            farmersStore=Object.entries(fSnap.val()||{}).map(([k,v])=>({...v,_key:k}));
+            boxTxStore=Object.entries(bSnap.val()||{}).map(([k,v])=>({...v,_key:k}));
+            finTxStore=Object.entries(finSnap.val()||{}).map(([k,v])=>({...v,_key:k}));
+            invoicesStore=Object.entries(invSnap.val()||{}).map(([k,v])=>({...v,_key:k}));
             renderAll();
-        } catch(e) { showToast('❌ خطأ في تحميل البيانات'); }
+        }catch(e){showToast('❌ خطأ في تحميل البيانات');}
         fbLoad(false);
     }
-
-    function renderAll() {
-        renderBoxes();
-        renderFinance();
-        renderInvoices();
-        updateTotals();
+    function renderAll(){renderBoxes();renderFinance();renderInvoices();updateTotals();}
+    function getFarmerBoxBalance(name){let bal=0;boxTxStore.filter(t=>t.farmer===name).forEach(t=>{if(t.type==='out')bal+=(parseFloat(t.amount)||0);else bal-=(parseFloat(t.amount)||0);});return bal;}
+    function renderBoxes(filter=''){
+        const list=document.getElementById('boxesList');const farmers=farmersStore.filter(f=>!filter||f.name.includes(filter));
+        if(!farmers.length){list.innerHTML=`<p style="text-align:center;padding:20px;color:var(--text2)">لا يوجد مزارعين</p>`;return;}
+        list.innerHTML=farmers.map(f=>{const bal=getFarmerBoxBalance(f.name);const neg=bal<0;return`<div class="farmer-row" style="cursor:default"><div style="display:flex;align-items:center;gap:8px;flex:1;" onclick="openBoxModal('${f.name}')"><div class="farmer-name" style="cursor:pointer">${f.name}</div><button onclick="event.stopPropagation();openBoxStatement('${f.name}')" style="padding:3px 8px;font-size:0.72rem;border:1px solid var(--cyan);border-radius:8px;background:none;color:var(--cyan);cursor:pointer;font-family:'Cairo',sans-serif;font-weight:800;white-space:nowrap">📋 كشف</button></div><div class="farmer-bal" onclick="openBoxModal('${f.name}')" style="cursor:pointer"><div class="bal-num ${neg?'neg':''}">${Math.round(bal).toLocaleString('en-US')}</div><small>بوكس</small></div></div>`;}).join('');
     }
-
-    // ===========================
-    // 📦 BOXES
-    // ===========================
-    function getFarmerBoxBalance(name) {
-        let bal = 0;
-        boxTxStore.filter(t => t.farmer === name).forEach(t => {
-            if (t.type === 'out') bal += (parseFloat(t.amount)||0);
-            else bal -= (parseFloat(t.amount)||0);
-        });
-        return bal;
+    function filterFarmers(tab){const val=document.getElementById('search'+tab.charAt(0).toUpperCase()+tab.slice(1)).value.trim();if(tab==='boxes')renderBoxes(val);else renderFinance(val);}
+    function getFarmerFinBalance(name){
+        let jar=0,invBal=0;
+        finTxStore.filter(t=>t.farmer===name).forEach(t=>{if(t.type==='jar')jar+=(parseFloat(t.amount)||0);else if(t.type==='pay')jar-=(parseFloat(t.amount)||0);else if(t.type==='invjar')invBal-=(parseFloat(t.amount)||0);});
+        invoicesStore.filter(i=>i.farmer===name).forEach(i=>{invBal+=(parseFloat(i.total)||0);});
+        return{jar,invBal};
     }
-
-    function renderBoxes(filter='') {
-        const list = document.getElementById('boxesList');
-        const farmers = farmersStore.filter(f => !filter || f.name.includes(filter));
-        if (!farmers.length) { list.innerHTML = `<p style="text-align:center;padding:20px;color:var(--text2);">لا يوجد مزارعين</p>`; return; }
-        list.innerHTML = farmers.map(f => {
-            const bal = getFarmerBoxBalance(f.name);
-            const neg = bal < 0;
-            return `<div class="farmer-row" style="cursor:default;">
-                <div style="display:flex;align-items:center;gap:8px;flex:1;" onclick="openBoxModal('${f.name}')">
-                    <div class="farmer-name" style="cursor:pointer;">${f.name}</div>
-                    <button onclick="event.stopPropagation();openBoxStatement('${f.name}')" style="padding:3px 8px;font-size:0.72rem;border:1px solid var(--cyan);border-radius:8px;background:none;color:var(--cyan);cursor:pointer;font-family:'Cairo',sans-serif;font-weight:800;white-space:nowrap;">📋 كشف</button>
-                </div>
-                <div class="farmer-bal" onclick="openBoxModal('${f.name}')" style="cursor:pointer;">
-                    <div class="bal-num ${neg?'neg':''}">${Math.round(bal).toLocaleString('en-US')}</div>
-                    <small>بوكس</small>
-                </div>
-            </div>`;
-        }).join('');
+    function showFinOptions(name){
+        document.getElementById('finOptName').innerText=name;document.getElementById('finOptCurrentName').value=name;showModal('finOptionsModal');
+        document.getElementById('btnFinJar').onclick=()=>openFinModal(name,'jar');document.getElementById('btnFinInvjar').onclick=()=>openFinModal(name,'invjar');
+        document.getElementById('btnFinJarSt').onclick=()=>{hideModal('finOptionsModal');openJarStatement(name);};
+        document.getElementById('btnFinInvjarSt').onclick=()=>{hideModal('finOptionsModal');openInvjarStatement(name);};
     }
-
-    function filterFarmers(tab) {
-        const val = document.getElementById('search'+tab.charAt(0).toUpperCase()+tab.slice(1)).value.trim();
-        if (tab === 'boxes') renderBoxes(val);
-        else renderFinance(val);
-    }
-
-    // ===========================
-    // 💰 FINANCE
-    // ===========================
-    function getFarmerFinBalance(name) {
-        let jar = 0, invBal = 0;
-        finTxStore.filter(t => t.farmer === name).forEach(t => {
-            if (t.type === 'jar') jar += (parseFloat(t.amount)||0);
-            else if (t.type === 'pay') jar -= (parseFloat(t.amount)||0);
-            else if (t.type === 'invjar') invBal -= (parseFloat(t.amount)||0);
-        });
-        invoicesStore.filter(i => i.farmer === name).forEach(i => {
-            invBal += (parseFloat(i.total)||0);
-        });
-        return { jar, invBal };
-    }
-
-    function showFinOptions(name) {
-        document.getElementById('finOptName').innerText = name;
-        document.getElementById('finOptCurrentName').value = name;
-        showModal('finOptionsModal');
-        document.getElementById('btnFinJar').onclick = () => openFinModal(name, 'jar');
-        document.getElementById('btnFinInvjar').onclick = () => openFinModal(name, 'invjar');
-        document.getElementById('btnFinJarSt').onclick = () => { hideModal('finOptionsModal'); openJarStatement(name); };
-        document.getElementById('btnFinInvjarSt').onclick = () => { hideModal('finOptionsModal'); openInvjarStatement(name); };
-    }
-
-    function openJarStatement(name) {
-        currentFarmer = name;
-        const txs = finTxStore.filter(t => t.farmer===name && (t.type==='jar'||t.type==='pay')).sort((a,b) => a.date>b.date?1:-1);
-        let bal = 0;
-        const rows = txs.map(tx => {
-            const isJar = tx.type === 'jar';
-            const amt = parseFloat(tx.amount)||0;
-            bal += isJar ? amt : -amt;
-            return `<tr>
-                <td style="padding:9px;border:1px solid var(--border);direction:ltr;color:var(--text);">${tx.date}</td>
-                <td style="padding:9px;border:1px solid var(--border);color:var(--red);font-weight:600;cursor:pointer;" onclick="finTxDelete('${tx._key}','${name}')">${isJar ? amt.toLocaleString('en-US') : '-'}</td>
-                <td style="padding:9px;border:1px solid var(--border);color:var(--green);font-weight:600;cursor:pointer;" onclick="finTxDelete('${tx._key}','${name}')">${!isJar ? amt.toLocaleString('en-US') : '-'}</td>
-                <td style="padding:9px;border:1px solid var(--border);font-weight:900;background:var(--bg);color:var(--text);">${Math.round(bal).toLocaleString('en-US')}</td>
-            </tr>`;
-        });
-        document.getElementById('jarStTitle').innerText = '💸 كشف الجر — ' + name;
-        document.getElementById('jarStBody').innerHTML = rows.length
-            ? rows.join('')
-            : `<tr><td colspan="4" style="padding:20px;text-align:center;color:var(--text2);">لا توجد حركات</td></tr>`;
+    function openJarStatement(name){
+        currentFarmer=name;const txs=finTxStore.filter(t=>t.farmer===name&&(t.type==='jar'||t.type==='pay')).sort((a,b)=>a.date>b.date?1:-1);
+        let bal=0;const rows=txs.map(tx=>{const isJar=tx.type==='jar';const amt=parseFloat(tx.amount)||0;bal+=isJar?amt:-amt;return`<tr><td style="padding:9px;border:1px solid var(--border);direction:ltr;color:var(--text)">${tx.date}</td><td style="padding:9px;border:1px solid var(--border);color:var(--red);font-weight:600;cursor:pointer;" onclick="finTxDelete('${tx._key}','${name}')">${isJar?amt.toLocaleString('en-US'):'-'}</td><td style="padding:9px;border:1px solid var(--border);color:var(--green);font-weight:600;cursor:pointer;" onclick="finTxDelete('${tx._key}','${name}')">${!isJar?amt.toLocaleString('en-US'):'-'}</td><td style="padding:9px;border:1px solid var(--border);font-weight:900;background:var(--bg);color:var(--text)">${Math.round(bal).toLocaleString('en-US')}</td></tr>`;});
+        document.getElementById('jarStTitle').innerText='💸 كشف الجر — '+name;
+        document.getElementById('jarStBody').innerHTML=rows.length?rows.join(''):`<tr><td colspan="4" style="padding:20px;text-align:center;color:var(--text2)">لا توجد حركات</td></tr>`;
         showModal('jarStModal');
     }
-
-    function finTxDelete(key, name) {
-        customConfirm('هل تريد حذف هذه الحركة؟', async () => {
-            fbLoad(true);
-            await db.ref('farmerFinTx/'+key).remove();
-            await fetchAll();
-            openJarStatement(name);
-            showToast('تم الحذف 🗑️');
-            fbLoad(false);
-        }, '🗑️', 'حذف الحركة');
-    }
-
-    function showFinStOptions(name) {
-        document.getElementById('finOptName').innerText = name;
-        document.getElementById('finOptCurrentName').value = name;
-        showModal('finOptionsModal');
-        document.getElementById('btnFinJar').onclick = () => openFinModal(name, 'jar');
-        document.getElementById('btnFinInvjar').onclick = () => openFinModal(name, 'invjar');
-        document.getElementById('btnFinJarSt').onclick = () => { hideModal('finOptionsModal'); openJarStatement(name); };
-        document.getElementById('btnFinInvjarSt').onclick = () => { hideModal('finOptionsModal'); openInvjarStatement(name); };
-    }
-
-    function openInvjarStatement(name) {
-        currentFarmer = name;
-        // كل فواتير المزارع + حركات جر الفواتير
-        const invs = invoicesStore.filter(i => i.farmer===name).sort((a,b) => a.date>b.date?1:-1);
-        const jars = finTxStore.filter(t => t.farmer===name && t.type==='invjar').sort((a,b) => a.date>b.date?1:-1);
-        // ندمج الاتنين ونرتبهم بالتاريخ
-        const all = [
-            ...invs.map(i => ({date:i.date, type:'inv', amount:parseFloat(i.total)||0, merchant:i.merchant||''})),
-            ...jars.map(j => ({date:j.date, type:'invjar', amount:parseFloat(j.amount)||0}))
-        ].sort((a,b) => a.date>b.date?1:-1);
-        let bal = 0;
-        const rows = all.map(r => {
-            const isInv = r.type === 'inv';
-            if (isInv) bal += r.amount; else bal -= r.amount;
-            return `<tr>
-                <td style="padding:9px;border:1px solid var(--border);direction:ltr;color:var(--text);">${r.date}</td>
-                <td style="padding:9px;border:1px solid var(--border);font-size:0.78rem;color:var(--text2);">${isInv ? (r.merchant||'فاتورة') : 'جر'}</td>
-                <td style="padding:9px;border:1px solid var(--border);color:var(--green);font-weight:600;">${isInv ? r.amount.toLocaleString('en-US') : '-'}</td>
-                <td style="padding:9px;border:1px solid var(--border);color:var(--red);font-weight:600;">${!isInv ? r.amount.toLocaleString('en-US') : '-'}</td>
-                <td style="padding:9px;border:1px solid var(--border);font-weight:900;background:var(--bg);color:var(--text);">${Math.round(bal).toLocaleString('en-US')}</td>
-            </tr>`;
-        });
-        document.getElementById('invjarStTitle').innerText = '🧾 ح الفواتير — ' + name;
-        document.getElementById('invjarStBody').innerHTML = rows.length
-            ? rows.join('')
-            : `<tr><td colspan="5" style="padding:20px;text-align:center;color:var(--text2);">لا توجد حركات</td></tr>`;
+    function finTxDelete(key,name){customConfirm('هل تريد حذف هذه الحركة؟',async()=>{fbLoad(true);await db.ref('farmerFinTx/'+key).remove();await fetchAll();openJarStatement(name);showToast('تم الحذف 🗑️');fbLoad(false);},'🗑️','حذف الحركة');}
+    function showFinStOptions(name){showFinOptions(name);}
+    function openInvjarStatement(name){
+        currentFarmer=name;const invs=invoicesStore.filter(i=>i.farmer===name).sort((a,b)=>a.date>b.date?1:-1);const jars=finTxStore.filter(t=>t.farmer===name&&t.type==='invjar').sort((a,b)=>a.date>b.date?1:-1);
+        const all=[...invs.map(i=>({date:i.date,type:'inv',amount:parseFloat(i.total)||0,merchant:i.merchant||''})),...jars.map(j=>({date:j.date,type:'invjar',amount:parseFloat(j.amount)||0}))].sort((a,b)=>a.date>b.date?1:-1);
+        let bal=0;const rows=all.map(r=>{const isInv=r.type==='inv';if(isInv)bal+=r.amount;else bal-=r.amount;return`<tr><td style="padding:9px;border:1px solid var(--border);direction:ltr;color:var(--text)">${r.date}</td><td style="padding:9px;border:1px solid var(--border);font-size:0.78rem;color:var(--text2)">${isInv?(r.merchant||'فاتورة'):'جر'}</td><td style="padding:9px;border:1px solid var(--border);color:var(--green);font-weight:600">${isInv?r.amount.toLocaleString('en-US'):'-'}</td><td style="padding:9px;border:1px solid var(--border);color:var(--red);font-weight:600">${!isInv?r.amount.toLocaleString('en-US'):'-'}</td><td style="padding:9px;border:1px solid var(--border);font-weight:900;background:var(--bg);color:var(--text)">${Math.round(bal).toLocaleString('en-US')}</td></tr>`;});
+        document.getElementById('invjarStTitle').innerText='🧾 ح الفواتير — '+name;
+        document.getElementById('invjarStBody').innerHTML=rows.length?rows.join(''):`<tr><td colspan="5" style="padding:20px;text-align:center;color:var(--text2)">لا توجد حركات</td></tr>`;
         showModal('invjarStModal');
     }
-
-    function renderFinance(filter='') {
-        const list = document.getElementById('financeList');
-        const farmers = farmersStore.filter(f => !filter || f.name.includes(filter));
-        if (!farmers.length) { list.innerHTML = `<p style="text-align:center;padding:20px;color:var(--text2);">لا يوجد مزارعين</p>`; return; }
-        list.innerHTML = farmers.map(f => {
-            const {jar, invBal} = getFarmerFinBalance(f.name);
-            return `<div class="farmer-row" style="cursor:default;">
-                <div style="display:flex;align-items:center;gap:8px;flex:1;" onclick="showFinOptions('${f.name}')">
-                    <div class="farmer-name" style="cursor:pointer;">${f.name}</div>
-
-                </div>
-                <div class="farmer-bal" onclick="showFinOptions('${f.name}')" style="text-align:left;cursor:pointer;">
-                    <div style="color:var(--red);font-size:0.82rem;font-weight:800;">جر: ${Math.round(jar).toLocaleString('en-US')}</div>
-                    <div style="color:var(--green);font-size:0.82rem;font-weight:800;">فواتير: ${Math.round(invBal).toLocaleString('en-US')}</div>
-                </div>
-            </div>`;
-        }).join('');
+    function renderFinance(filter=''){
+        const list=document.getElementById('financeList');const farmers=farmersStore.filter(f=>!filter||f.name.includes(filter));
+        if(!farmers.length){list.innerHTML=`<p style="text-align:center;padding:20px;color:var(--text2)">لا يوجد مزارعين</p>`;return;}
+        list.innerHTML=farmers.map(f=>{const{jar,invBal}=getFarmerFinBalance(f.name);return`<div class="farmer-row" style="cursor:default"><div style="display:flex;align-items:center;gap:8px;flex:1;" onclick="showFinOptions('${f.name}')"><div class="farmer-name" style="cursor:pointer">${f.name}</div></div><div class="farmer-bal" onclick="showFinOptions('${f.name}')" style="text-align:left;cursor:pointer"><div style="color:var(--red);font-size:0.82rem;font-weight:800">جر: ${Math.round(jar).toLocaleString('en-US')}</div><div style="color:var(--green);font-size:0.82rem;font-weight:800">فواتير: ${Math.round(invBal).toLocaleString('en-US')}</div></div></div>`;}).join('');
     }
-
-    // ===========================
-    // 🧾 INVOICES
-    // ===========================
-    function renderInvoices(filter='') {
-        const list = document.getElementById('invoicesList');
-        let invs = [...invoicesStore].sort((a,b) => b.date > a.date ? 1 : -1);
-        if (filter) invs = invs.filter(i => i.farmer && i.farmer.includes(filter));
-        if (!invs.length) { list.innerHTML = `<p style="text-align:center;padding:20px;color:var(--text2);">لا توجد فواتير</p>`; return; }
-        list.innerHTML = invs.map(inv => `
-            <div class="farmer-row" onclick="viewInvoice('${inv._key}')">
-                <div>
-                    <div class="farmer-name">${inv.farmer||'—'}</div>
-                    <div class="farmer-meta">${inv.date||''}</div>
-                </div>
-                <div class="farmer-bal">
-                    <div class="bal-num" style="color:var(--green);">${Math.round(inv.total||0).toLocaleString('en-US')}</div>
-                    <small>جنيه</small>
-                </div>
-            </div>`).join('');
+    function renderInvoices(filter=''){
+        const list=document.getElementById('invoicesList');let invs=[...invoicesStore].sort((a,b)=>b.date>a.date?1:-1);
+        if(filter)invs=invs.filter(i=>i.farmer&&i.farmer.includes(filter));
+        if(!invs.length){list.innerHTML=`<p style="text-align:center;padding:20px;color:var(--text2)">لا توجد فواتير</p>`;return;}
+        list.innerHTML=invs.map(inv=>`<div class="farmer-row" onclick="viewInvoice('${inv._key}')"><div><div class="farmer-name">${inv.farmer||'—'}</div><div class="farmer-meta">${inv.date||''}</div></div><div class="farmer-bal"><div class="bal-num" style="color:var(--green)">${Math.round(inv.total||0).toLocaleString('en-US')}</div><small>جنيه</small></div></div>`).join('');
     }
-
-    function filterInvoices() {
-        const val = document.getElementById('searchInvoices').value.trim();
-        renderInvoices(val);
+    function filterInvoices(){renderInvoices(document.getElementById('searchInvoices').value.trim());}
+    function updateTotals(){
+        const tab=currentMainTab;const totalEl=document.getElementById('totalVal');const labelEl=document.getElementById('totalLabel');
+        if(tab==='boxes'){let total=0;farmersStore.forEach(f=>{total+=Math.max(0,getFarmerBoxBalance(f.name));});labelEl.innerText='إجمالي البوكس بالخارج:';totalEl.innerText=Math.round(total).toLocaleString('en-US');}
+        else if(tab==='finance'){let totalJar=0;farmersStore.forEach(f=>{totalJar+=Math.max(0,getFarmerFinBalance(f.name).jar);});labelEl.innerText='إجمالي الجر:';totalEl.innerText=Math.round(totalJar).toLocaleString('en-US');}
+        else{let totalInv=invoicesStore.reduce((s,i)=>s+(parseFloat(i.total)||0),0);labelEl.innerText='إجمالي الفواتير:';totalEl.innerText=Math.round(totalInv).toLocaleString('en-US');}
     }
-
-    // ===========================
-    // 📊 TOTALS
-    // ===========================
-    function updateTotals() {
-        const tab = currentMainTab;
-        const totalEl = document.getElementById('totalVal');
-        const labelEl = document.getElementById('totalLabel');
-        if (tab === 'boxes') {
-            let total = 0;
-            farmersStore.forEach(f => { total += Math.max(0, getFarmerBoxBalance(f.name)); });
-            labelEl.innerText = 'إجمالي البوكس بالخارج:';
-            totalEl.innerText = Math.round(total).toLocaleString('en-US');
-        } else if (tab === 'finance') {
-            let totalJar = 0;
-            farmersStore.forEach(f => { totalJar += Math.max(0, getFarmerFinBalance(f.name).jar); });
-            labelEl.innerText = 'إجمالي الجر:';
-            totalEl.innerText = Math.round(totalJar).toLocaleString('en-US');
-        } else {
-            let totalInv = invoicesStore.reduce((s,i) => s + (parseFloat(i.total)||0), 0);
-            labelEl.innerText = 'إجمالي الفواتير:';
-            totalEl.innerText = Math.round(totalInv).toLocaleString('en-US');
-        }
+    function switchMainTab(tab){
+        currentMainTab=tab;
+        ['boxes','finance','invoices'].forEach(t=>{document.getElementById('tab-'+t).style.display=t===tab?'block':'none';document.querySelectorAll(`.tab-btn[data-tab="${t}"]`).forEach(b=>b.classList.toggle('active',t===tab));});
+        updateTotals();history.pushState({tab},'');
     }
-
-    // ===========================
-    // 🔀 TABS
-    // ===========================
-    function switchMainTab(tab) {
-        currentMainTab = tab;
-        ['boxes','finance','invoices'].forEach(t => {
-            document.getElementById('tab-'+t).style.display = t === tab ? 'block' : 'none';
-            document.querySelectorAll(`.tab-btn[data-tab="${t}"]`).forEach(b => b.classList.toggle('active', t === tab));
-        });
-        updateTotals();
-        history.pushState({tab}, '');
-    }
-
-    // ===========================
-    // 👤 FARMER DETAIL
-    // ===========================
-    function openBoxStatement(name) {
-        currentFarmer = name;
-        const txs = boxTxStore.filter(t => t.farmer === name).sort((a,b) => a.date > b.date ? 1 : -1);
-        let runningBal = 0;
-        const rows = txs.map(tx => {
-            const out = tx.type==='out' ? parseFloat(tx.amount)||0 : 0;
-            const inn = tx.type==='in'  ? parseFloat(tx.amount)||0 : 0;
-            const farigh = tx.type==='in' ? (parseFloat(tx.farigh)||0) : 0;
-            runningBal += out - inn;
-            return `<tr>
-                <td style="padding:9px;border:1px solid var(--border);direction:ltr;color:var(--text);">${tx.date}</td>
-                <td style="padding:9px;border:1px solid var(--border);color:var(--green);font-weight:600;cursor:pointer;" onclick="boxTxOptions('${tx._key}','${name}')">${out||'-'}</td>
-                <td style="padding:9px;border:1px solid var(--border);color:var(--primary);font-weight:600;cursor:pointer;" onclick="boxTxOptions('${tx._key}','${name}')">${inn||'-'}</td>
-                <td style="padding:9px;border:1px solid var(--border);color:var(--text2);font-weight:600;">${farigh||'-'}</td>
-                <td style="padding:9px;border:1px solid var(--border);font-weight:900;background:var(--bg);color:var(--text);">${Math.round(runningBal).toLocaleString('en-US')}</td>
-            </tr>`;
-        });
-        document.getElementById('boxStTitle').innerText = '📦 ' + name;
-        document.getElementById('boxStBody').innerHTML = rows.length
-            ? rows.join('')
-            : `<tr><td colspan="5" style="padding:20px;text-align:center;color:var(--text2);">لا توجد حركات</td></tr>`;
+    function openBoxStatement(name){
+        currentFarmer=name;const txs=boxTxStore.filter(t=>t.farmer===name).sort((a,b)=>a.date>b.date?1:-1);
+        let runningBal=0;const rows=txs.map(tx=>{const out=tx.type==='out'?parseFloat(tx.amount)||0:0;const inn=tx.type==='in'?parseFloat(tx.amount)||0:0;const farigh=tx.type==='in'?(parseFloat(tx.farigh)||0):0;runningBal+=out-inn;return`<tr><td style="padding:9px;border:1px solid var(--border);direction:ltr;color:var(--text)">${tx.date}</td><td style="padding:9px;border:1px solid var(--border);color:var(--green);font-weight:600;cursor:pointer;" onclick="boxTxOptions('${tx._key}','${name}')">${out||'-'}</td><td style="padding:9px;border:1px solid var(--border);color:var(--primary);font-weight:600;cursor:pointer;" onclick="boxTxOptions('${tx._key}','${name}')">${inn||'-'}</td><td style="padding:9px;border:1px solid var(--border);color:var(--text2);font-weight:600">${farigh||'-'}</td><td style="padding:9px;border:1px solid var(--border);font-weight:900;background:var(--bg);color:var(--text)">${Math.round(runningBal).toLocaleString('en-US')}</td></tr>`;});
+        document.getElementById('boxStTitle').innerText='📦 '+name;
+        document.getElementById('boxStBody').innerHTML=rows.length?rows.join(''):`<tr><td colspan="5" style="padding:20px;text-align:center;color:var(--text2)">لا توجد حركات</td></tr>`;
         showModal('boxStModal');
     }
-
-    function boxTxOptions(key, name, type, amt) {
-        if (!amt) return;
-        customConfirm(`هل تريد حذف هذه الحركة؟`, async () => {
-            fbLoad(true);
-            await db.ref('farmerBoxTx/'+key).remove();
-            await fetchAll();
-            openBoxStatement(name);
-            showToast('تم الحذف 🗑️');
-            fbLoad(false);
-        }, '🗑️', 'حذف الحركة');
+    function boxTxOptions(key,name){customConfirm('هل تريد حذف هذه الحركة؟',async()=>{fbLoad(true);await db.ref('farmerBoxTx/'+key).remove();await fetchAll();openBoxStatement(name);showToast('تم الحذف 🗑️');fbLoad(false);},'🗑️','حذف الحركة');}
+    function openFarmerDetail(name,tab='boxes'){currentFarmer=name;currentDetailTab=tab;document.getElementById('detailTitle').innerText='👤 '+name;renderDetailStats(name);renderDetailContent(name,tab);document.querySelectorAll('.detail-tab').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick').includes("'"+tab+"'")));showModal('farmerDetailModal');}
+    function renderDetailStats(name){
+        const boxBal=getFarmerBoxBalance(name);const{jar,invBal}=getFarmerFinBalance(name);
+        document.getElementById('detailStats').innerHTML=`<div class="stat-box boxes"><div class="stat-label">📦 رصيد البوكس</div><div class="stat-val">${Math.round(boxBal).toLocaleString('en-US')}</div></div><div class="stat-box debt"><div class="stat-label">💸 رصيد الجر</div><div class="stat-val">${Math.round(jar).toLocaleString('en-US')}</div></div><div class="stat-box invoices"><div class="stat-label">🧾 رصيد الفواتير</div><div class="stat-val">${Math.round(invBal).toLocaleString('en-US')}</div></div><div class="stat-box inv-debt"><div class="stat-label">📋 عدد الفواتير</div><div class="stat-val">${invoicesStore.filter(i=>i.farmer===name).length}</div></div>`;
     }
-
-    function openFarmerDetail(name, tab='boxes') {
-        currentFarmer = name;
-        currentDetailTab = tab;
-        document.getElementById('detailTitle').innerText = '👤 ' + name;
-        renderDetailStats(name);
-        renderDetailContent(name, tab);
-        document.querySelectorAll('.detail-tab').forEach(b => b.classList.toggle('active', b.getAttribute('onclick').includes("'"+tab+"'")));
-        showModal('farmerDetailModal');
-    }
-
-    function renderDetailStats(name) {
-        const boxBal = getFarmerBoxBalance(name);
-        const {jar, invBal} = getFarmerFinBalance(name);
-        document.getElementById('detailStats').innerHTML = `
-            <div class="stat-box boxes"><div class="stat-label">📦 رصيد البوكس</div><div class="stat-val">${Math.round(boxBal).toLocaleString('en-US')}</div></div>
-            <div class="stat-box debt"><div class="stat-label">💸 رصيد الجر</div><div class="stat-val">${Math.round(jar).toLocaleString('en-US')}</div></div>
-            <div class="stat-box invoices"><div class="stat-label">🧾 رصيد الفواتير</div><div class="stat-val">${Math.round(invBal).toLocaleString('en-US')}</div></div>
-            <div class="stat-box inv-debt"><div class="stat-label">📋 عدد الفواتير</div><div class="stat-val">${invoicesStore.filter(i=>i.farmer===name).length}</div></div>
-        `;
-    }
-
-    function switchDetailTab(tab) {
-        currentDetailTab = tab;
-        document.querySelectorAll('.detail-tab').forEach(b => b.classList.toggle('active', b.getAttribute('onclick').includes("'"+tab+"'")));
-        renderDetailContent(currentFarmer, tab);
-    }
-
-    function renderDetailContent(name, tab) {
-        const el = document.getElementById('detailContent');
-        if (tab === 'boxes') {
-            const txs = boxTxStore.filter(t => t.farmer === name).sort((a,b) => b.date > a.date ? 1 : -1);
-            if (!txs.length) { el.innerHTML = `<p style="text-align:center;padding:20px;color:var(--text2);">لا توجد حركات</p>`; return; }
-            let bal = 0;
-            const rows = txs.map(t => {
-                const out = t.type==='out' ? parseFloat(t.amount)||0 : 0;
-                const inn = t.type==='in'  ? parseFloat(t.amount)||0 : 0;
-                bal += out - inn;
-                return `<tr onclick="txOptions('box','${t._key}','${name}')">
-                    <td>${t.date}</td>
-                    <td style="color:var(--green)">${out||'-'}</td>
-                    <td style="color:var(--red)">${inn||'-'}</td>
-                    <td style="font-weight:900;">${Math.round(bal)}</td>
-                </tr>`;
-            });
-            el.innerHTML = `<table class="hist-table"><thead><tr><th>التاريخ</th><th>صادر</th><th>وارد</th><th>الباقي</th></tr></thead><tbody>${rows.join('')}</tbody></table>`;
-        } else if (tab === 'finance') {
-            const txs = finTxStore.filter(t => t.farmer === name).sort((a,b) => b.date > a.date ? 1 : -1);
-            if (!txs.length) { el.innerHTML = `<p style="text-align:center;padding:20px;color:var(--text2);">لا توجد حركات</p>`; return; }
-            const typeLabel = (t) => t==='jar'?'جر':t==='pay'?'سداد':'جر فواتير';
-            el.innerHTML = `<table class="hist-table"><thead><tr><th>التاريخ</th><th>النوع</th><th>المبلغ</th><th>ملاحظة</th></tr></thead><tbody>${
-                txs.map(t => `<tr onclick="txOptions('fin','${t._key}','${name}')">
-                    <td>${t.date}</td>
-                    <td>${typeLabel(t.type)}</td>
-                    <td style="font-weight:800;">${Math.round(parseFloat(t.amount)||0).toLocaleString('en-US')}</td>
-                    <td style="font-size:0.75rem;color:var(--text2);">${t.note||'—'}</td>
-                </tr>`).join('')
-            }</tbody></table>`;
-        } else {
-            const invs = invoicesStore.filter(i => i.farmer === name).sort((a,b) => b.date > a.date ? 1 : -1);
-            if (!invs.length) { el.innerHTML = `<p style="text-align:center;padding:20px;color:var(--text2);">لا توجد فواتير</p>`; return; }
-            el.innerHTML = `<table class="hist-table"><thead><tr><th>التاريخ</th><th>السيد</th><th>الإجمالي</th></tr></thead><tbody>${
-                invs.map(i => `<tr onclick="viewInvoice('${i._key}')">
-                    <td>${i.date}</td>
-                    <td>${i.merchant||'—'}</td>
-                    <td style="font-weight:900;color:var(--green);">${Math.round(i.total||0).toLocaleString('en-US')}</td>
-                </tr>`).join('')
-            }</tbody></table>`;
+    function switchDetailTab(tab){currentDetailTab=tab;document.querySelectorAll('.detail-tab').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick').includes("'"+tab+"'")));renderDetailContent(currentFarmer,tab);}
+    function renderDetailContent(name,tab){
+        const el=document.getElementById('detailContent');
+        if(tab==='boxes'){
+            const txs=boxTxStore.filter(t=>t.farmer===name).sort((a,b)=>b.date>a.date?1:-1);if(!txs.length){el.innerHTML=`<p style="text-align:center;padding:20px;color:var(--text2)">لا توجد حركات</p>`;return;}
+            let bal=0;el.innerHTML=`<table class="hist-table"><thead><tr><th>التاريخ</th><th>صادر</th><th>وارد</th><th>الباقي</th></tr></thead><tbody>${txs.map(t=>{const out=t.type==='out'?parseFloat(t.amount)||0:0;const inn=t.type==='in'?parseFloat(t.amount)||0:0;bal+=out-inn;return`<tr onclick="txOptions('box','${t._key}','${name}')"><td>${t.date}</td><td style="color:var(--green)">${out||'-'}</td><td style="color:var(--red)">${inn||'-'}</td><td style="font-weight:900">${Math.round(bal)}</td></tr>`;}).join('')}</tbody></table>`;
+        }else if(tab==='finance'){
+            const txs=finTxStore.filter(t=>t.farmer===name).sort((a,b)=>b.date>a.date?1:-1);if(!txs.length){el.innerHTML=`<p style="text-align:center;padding:20px;color:var(--text2)">لا توجد حركات</p>`;return;}
+            const typeLabel=(t)=>t==='jar'?'جر':t==='pay'?'سداد':'جر فواتير';
+            el.innerHTML=`<table class="hist-table"><thead><tr><th>التاريخ</th><th>النوع</th><th>المبلغ</th><th>ملاحظة</th></tr></thead><tbody>${txs.map(t=>`<tr onclick="txOptions('fin','${t._key}','${name}')"><td>${t.date}</td><td>${typeLabel(t.type)}</td><td style="font-weight:800">${Math.round(parseFloat(t.amount)||0).toLocaleString('en-US')}</td><td style="font-size:0.75rem;color:var(--text2)">${t.note||'—'}</td></tr>`).join('')}</tbody></table>`;
+        }else{
+            const invs=invoicesStore.filter(i=>i.farmer===name).sort((a,b)=>b.date>a.date?1:-1);if(!invs.length){el.innerHTML=`<p style="text-align:center;padding:20px;color:var(--text2)">لا توجد فواتير</p>`;return;}
+            el.innerHTML=`<table class="hist-table"><thead><tr><th>التاريخ</th><th>السيد</th><th>الإجمالي</th></tr></thead><tbody>${invs.map(i=>`<tr onclick="viewInvoice('${i._key}')"><td>${i.date}</td><td>${i.merchant||'—'}</td><td style="font-weight:900;color:var(--green)">${Math.round(i.total||0).toLocaleString('en-US')}</td></tr>`).join('')}</tbody></table>`;
         }
     }
-
-    // ===========================
-    // 🧾 INVOICE ACTIONS
-    // ===========================
-    let invRowCount = 0;
-    function addInvRow() {
+    let invRowCount=0;
+    // ===== Invoice rows - card style for mobile =====
+    function addInvRow(){
         invRowCount++;
-        const idx = invRowCount;
-        const tr = document.createElement('tr');
-        tr.id = 'invRow'+idx;
-        tr.innerHTML = `
-            <td>${idx}</td>
-            <td><input type="text" placeholder="0" class="inv-amount" readonly style="font-weight:800;color:var(--green);background:var(--bg);"></td>
-            <td><input type="number" placeholder="0" oninput="autoCalcRow(this)" class="inv-kilo" step="0.01"></td>
-            <td><input type="number" placeholder="0" oninput="autoCalcRow(this)" class="inv-price" step="0.01"></td>
-            <td><input type="text" placeholder="نوع السمك"></td>
-            <td><input type="number" placeholder="0" class="inv-count" oninput="calcInvTotal()"></td>
-            <td><input type="text" placeholder="..."></td>
-            <td><button onclick="removeInvRow(${idx})" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:1rem;">✕</button></td>`;
-        document.getElementById('invRows').appendChild(tr);
+        var idx=invRowCount;
+        var div=document.createElement('div');
+        div.id='invRow'+idx;
+        div.style.cssText='background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:10px 12px;position:relative';
+        div.innerHTML=
+          '<button onclick="removeInvRow('+idx+')" style="position:absolute;top:8px;left:8px;background:none;border:none;cursor:pointer;color:var(--red);font-size:1rem;line-height:1">✕</button>'
+         +'<div style="font-size:0.75rem;font-weight:800;color:var(--text2);margin-bottom:8px;text-align:center">صنف '+idx+'</div>'
+         +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">'
+           +'<div><div style="font-size:0.72rem;color:var(--text2);font-weight:700;margin-bottom:3px">الصنف</div>'
+           +'<input type="text" placeholder="نوع السمك" class="inv-type" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-family:Cairo,sans-serif;font-size:0.9rem;background:var(--card);color:var(--text)"></div>'
+           +'<div><div style="font-size:0.72rem;color:var(--text2);font-weight:700;margin-bottom:3px">عدد</div>'
+           +'<input type="number" placeholder="0" class="inv-count" oninput="calcInvTotal()" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-family:Cairo,sans-serif;font-size:0.9rem;background:var(--card);color:var(--text)"></div>'
+         +'</div>'
+         +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">'
+           +'<div><div style="font-size:0.72rem;color:var(--text2);font-weight:700;margin-bottom:3px">كيلو</div>'
+           +'<input type="number" placeholder="0" oninput="autoCalcRow(this)" class="inv-kilo" step="0.01" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-family:Cairo,sans-serif;font-size:0.9rem;background:var(--card);color:var(--text)"></div>'
+           +'<div><div style="font-size:0.72rem;color:var(--text2);font-weight:700;margin-bottom:3px">فئة</div>'
+           +'<input type="number" placeholder="0" oninput="autoCalcRow(this)" class="inv-price" step="0.01" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-family:Cairo,sans-serif;font-size:0.9rem;background:var(--card);color:var(--text)"></div>'
+           +'<div><div style="font-size:0.72rem;color:var(--text2);font-weight:700;margin-bottom:3px">المبلغ</div>'
+           +'<input type="text" placeholder="0" class="inv-amount" readonly style="width:100%;padding:9px 10px;border:1px solid var(--cyan);border-radius:10px;font-family:Cairo,sans-serif;font-size:0.9rem;font-weight:900;color:var(--green);background:var(--bg);text-align:center" data-raw="0"></div>'
+         +'</div>'
+         +'<div><div style="font-size:0.72rem;color:var(--text2);font-weight:700;margin-bottom:3px">ملاحظات</div>'
+         +'<input type="text" placeholder="..." style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-family:Cairo,sans-serif;font-size:0.9rem;background:var(--card);color:var(--text)"></div>';
+        document.getElementById('invRows').appendChild(div);
     }
-    function removeInvRow(idx) { const r = document.getElementById('invRow'+idx); if(r) r.remove(); calcInvTotal(); }
-    function autoCalcRow(inp) {
-        const tr = inp.closest('tr');
-        const kilo  = parseFloat(tr.querySelector('.inv-kilo')?.value)  || 0;
-        const price = parseFloat(tr.querySelector('.inv-price')?.value) || 0;
-        const amtInp = tr.querySelector('.inv-amount');
-        if (amtInp) {
-            const result = kilo && price ? kilo * price : 0;
-            amtInp.value = result ? Math.round(result).toLocaleString('en-US') : '';
-            amtInp.dataset.raw = result || 0;
-        }
+    function removeInvRow(idx){var r=document.getElementById('invRow'+idx);if(r)r.remove();calcInvTotal();}
+    function autoCalcRow(inp){
+        var card=inp.closest('[id^="invRow"]');
+        var kilo=parseFloat(card.querySelector('.inv-kilo').value)||0;
+        var price=parseFloat(card.querySelector('.inv-price').value)||0;
+        var amtInp=card.querySelector('.inv-amount');
+        var result=kilo&&price?kilo*price:0;
+        amtInp.value=result?Math.round(result).toLocaleString('en-US'):'';
+        amtInp.dataset.raw=result||0;
         calcInvTotal();
     }
-
-    function calcInvTotal() {
-        let total = 0, countTotal = 0;
-        document.querySelectorAll('#invRows tr').forEach(tr => {
-            const amtInp = tr.querySelector('.inv-amount');
-            const raw = parseFloat(amtInp?.dataset?.raw) || parseFloat(amtInp?.value?.replace(/,/g,'')) || 0;
-            total      += raw;
-            countTotal += parseFloat(tr.querySelector('.inv-count')?.value) || 0;
+    function calcInvTotal(){
+        var total=0,countTotal=0;
+        document.querySelectorAll('#invRows > div').forEach(function(card){
+            var amtInp=card.querySelector('.inv-amount');
+            var raw=parseFloat(amtInp?.dataset?.raw)||parseFloat(amtInp?.value?.replace(/,/g,''))||0;
+            total+=raw;
+            countTotal+=parseFloat(card.querySelector('.inv-count')?.value)||0;
         });
-        document.getElementById('invTotal').innerText = Math.round(total).toLocaleString('en-US');
-        const ctEl = document.getElementById('invCountTotal');
-        if (ctEl) ctEl.innerText = countTotal || '0';
-        calcExpTotal();
-        return total;
+        document.getElementById('invTotal').innerText=Math.round(total).toLocaleString('en-US');
+        var ctEl=document.getElementById('invCountTotal');if(ctEl)ctEl.innerText=countTotal||'0';
+        calcExpTotal();return total;
     }
-
-    let expRowCount = 0;
-    function addExpRow() {
+    let expRowCount=0;
+    function addExpRow(){
         expRowCount++;
-        const idx = expRowCount;
-        const tr = document.createElement('tr');
-        tr.id = 'expRow'+idx;
-        tr.innerHTML = `
-            <td>${idx}</td>
-            <td><input type="number" placeholder="0" oninput="calcExpTotal()" class="exp-amount" step="0.01"></td>
-            <td><input type="text" placeholder="البيان..."></td>
-            <td><button onclick="removeExpRow(${idx})" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:1rem;">✕</button></td>`;
-        document.getElementById('expRows').appendChild(tr);
+        var idx=expRowCount;
+        var div=document.createElement('div');
+        div.id='expRow'+idx;
+        div.style.cssText='display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:8px 10px';
+        div.innerHTML=
+          '<input type="number" placeholder="المبلغ" oninput="calcExpTotal()" class="exp-amount" step="0.01" style="padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-family:Cairo,sans-serif;font-size:0.9rem;background:var(--card);color:var(--text);width:100%">'
+         +'<input type="text" placeholder="البيان..." style="padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-family:Cairo,sans-serif;font-size:0.9rem;background:var(--card);color:var(--text);width:100%">'
+         +'<button onclick="removeExpRow('+idx+')" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:1.1rem;padding:4px">✕</button>';
+        document.getElementById('expRows').appendChild(div);
     }
-    function removeExpRow(idx) { const r = document.getElementById('expRow'+idx); if(r) r.remove(); calcExpTotal(); }
-    function calcExpTotal() {
-        let expTotal = 0;
-        document.querySelectorAll('#expRows tr').forEach(tr => {
-            expTotal += parseFloat(tr.querySelector('.exp-amount')?.value) || 0;
-        });
-        const jarAmt = parseFloat(document.getElementById('invJarAmount')?.value) || 0;
-        const invTotal = parseFloat(document.getElementById('invTotal')?.innerText.replace(/,/g,'')) || 0;
-        const etEl = document.getElementById('expTotal');
-        const netEl = document.getElementById('invNet');
-        if (etEl) etEl.innerText = expTotal.toLocaleString('en-US');
-        if (netEl) netEl.innerText = (invTotal - expTotal - jarAmt).toLocaleString('en-US');
+    function removeExpRow(idx){var r=document.getElementById('expRow'+idx);if(r)r.remove();calcExpTotal();}
+    function calcExpTotal(){
+        var expTotal=0;
+        document.querySelectorAll('#expRows > div').forEach(function(div){expTotal+=parseFloat(div.querySelector('.exp-amount')?.value)||0;});
+        var jarAmt=parseFloat(document.getElementById('invJarAmount')?.value)||0;
+        var invTotal=parseFloat(document.getElementById('invTotal')?.innerText.replace(/,/g,''))||0;
+        var etEl=document.getElementById('expTotal');var netEl=document.getElementById('invNet');
+        if(etEl)etEl.innerText=expTotal.toLocaleString('en-US');
+        if(netEl)netEl.innerText=(invTotal-expTotal-jarAmt).toLocaleString('en-US');
     }
-
-    function openNewInvoiceModal() {
-        document.getElementById('invFarmer').value = '';
-        document.getElementById('invNotes').value = '';
-        document.getElementById('invJarAmount').value = '';
-        document.getElementById('invRows').innerHTML = '';
-        document.getElementById('expRows').innerHTML = '';
-        document.getElementById('invTotal').innerText = '0';
-        document.getElementById('invCountTotal').innerText = '0';
-        document.getElementById('expTotal').innerText = '0';
-        document.getElementById('invNet').innerText = '0';
-        invRowCount = 0; expRowCount = 0;
-        addInvRow(); addInvRow(); addInvRow();
-        document.getElementById('invDate').value = document.getElementById('globalDate').value;
+    function openNewInvoiceModal(){
+        document.getElementById('invFarmer').value='';document.getElementById('invNotes').value='';document.getElementById('invJarAmount').value='';
+        document.getElementById('invRows').innerHTML='';document.getElementById('expRows').innerHTML='';
+        document.getElementById('invTotal').innerText='0';document.getElementById('invCountTotal').innerText='0';
+        document.getElementById('expTotal').innerText='0';document.getElementById('invNet').innerText='0';
+        invRowCount=0;expRowCount=0;addInvRow();addInvRow();addInvRow();
+        document.getElementById('invDate').value=document.getElementById('globalDate').value;
+        document.getElementById('invModalTitle').innerText='🧾 فاتورة جديدة';
         showModal('invoiceModal');
     }
-
-    function openNewInvoiceForFarmer(name) {
-        hideModal('farmerDetailModal');
-        openNewInvoiceModal();
-        document.getElementById('invFarmer').value = name;
-    }
-
-    async function saveInvoice() {
-        const farmer = document.getElementById('invFarmer').value.trim();
-        const date = document.getElementById('invDate').value;
-        const notes = document.getElementById('invNotes').value.trim();
-        const editKey = document.getElementById('invoiceModal').dataset.editKey || '';
-        if (!farmer || !date) { showToast('❗ ادخل اسم السيد والتاريخ'); return; }
-        const rows = [];
-        document.querySelectorAll('#invRows tr').forEach(tr => {
-            const inputs = tr.querySelectorAll('input');
-            const amount = parseFloat(inputs[0].value?.replace(/,/g,'') || inputs[0].dataset?.raw) || 0;
-            const kilo   = parseFloat(inputs[1].value) || 0;
-            const price  = parseFloat(inputs[2].value) || 0;
-            const type   = inputs[3].value.trim();
-            const count  = parseFloat(inputs[4].value) || 0;
-            const note   = inputs[5].value.trim();
-            if (type || amount) rows.push({type, price, kilo, count, amount, note});
+    function openNewInvoiceForFarmer(name){hideModal('farmerDetailModal');openNewInvoiceModal();document.getElementById('invFarmer').value=name;}
+    async function saveInvoice(){
+        const farmer=document.getElementById('invFarmer').value.trim();const date=document.getElementById('invDate').value;const notes=document.getElementById('invNotes').value.trim();const editKey=document.getElementById('invoiceModal').dataset.editKey||'';
+        if(!farmer||!date){showToast('❗ ادخل اسم السيد والتاريخ');return;}
+        const rows=[];
+        document.querySelectorAll('#invRows > div').forEach(function(card){
+            var amtInp=card.querySelector('.inv-amount');
+            var amount=parseFloat(amtInp?.dataset?.raw)||parseFloat(amtInp?.value?.replace(/,/g,''))||0;
+            var kilo=parseFloat(card.querySelector('.inv-kilo')?.value)||0;
+            var price=parseFloat(card.querySelector('.inv-price')?.value)||0;
+            var type=card.querySelector('.inv-type')?.value.trim()||'';
+            var count=parseFloat(card.querySelector('.inv-count')?.value)||0;
+            var noteInps=card.querySelectorAll('input[type=text]');
+            var note=noteInps[noteInps.length-1]?.value.trim()||'';
+            if(type||amount)rows.push({type,price,kilo,count,amount,note});
         });
-        const total = rows.reduce((s,r) => s + (parseFloat(r.amount) || 0), 0);
-        fbLoad(true);
-        const key = `${farmer}_${date}_${Date.now()}`.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_');
-        const expenseRows = [];
-        document.querySelectorAll('#expRows tr').forEach(tr => {
-            const amt = parseFloat(tr.querySelector('.exp-amount')?.value) || 0;
-            const note = tr.querySelectorAll('input')[1]?.value.trim() || '';
-            if (amt || note) expenseRows.push({amount: amt, note});
+        const total=rows.reduce((s,r)=>s+(parseFloat(r.amount)||0),0);fbLoad(true);
+        const key=`${farmer}_${date}_${Date.now()}`.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_');
+        const expenseRows=[];
+        document.querySelectorAll('#expRows > div').forEach(function(div){
+            var amt=parseFloat(div.querySelector('.exp-amount')?.value)||0;
+            var inputs=div.querySelectorAll('input[type=text]');
+            var note=inputs[0]?.value.trim()||'';
+            if(amt||note)expenseRows.push({amount:amt,note});
         });
-        const expTotal = expenseRows.reduce((s,r) => s + r.amount, 0);
-        const jarAmt = parseFloat(document.getElementById('invJarAmount').value) || 0;
-        const net = total - expTotal - jarAmt;
-        // لو تعديل — احذف السجل القديم
-        if (editKey) await db.ref('farmerInvoices/'+editKey).remove();
-        await db.ref('farmerInvoices/'+key).set({ farmer, date, rows, total, expenses: expenseRows, expTotal, jarAmount: jarAmt, net, notes, ts: Date.now() });
-        document.getElementById('invoiceModal').dataset.editKey = '';
-        document.querySelector('#invoiceModal h3').innerText = '🧾 فاتورة جديدة';
-        // لو في جر فواتير — احفظه في المالية تلقائي
-        if (jarAmt > 0) {
-            const jarKey = `${farmer}_${date}_invjar_${Date.now()}`.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_');
-            await db.ref('farmerFinTx/'+jarKey).set({ farmer, type:'invjar', amount: jarAmt, date, ts: Date.now() });
-        }
-        await fetchAll();
-        hideModal('invoiceModal');
-        showToast('✅ تم حفظ الفاتورة');
-        fbLoad(false);
+        const expTotal=expenseRows.reduce((s,r)=>s+r.amount,0);const jarAmt=parseFloat(document.getElementById('invJarAmount').value)||0;const net=total-expTotal-jarAmt;
+        if(editKey)await db.ref('farmerInvoices/'+editKey).remove();
+        await db.ref('farmerInvoices/'+key).set({farmer,date,rows,total,expenses:expenseRows,expTotal,jarAmount:jarAmt,net,notes,ts:Date.now()});
+        document.getElementById('invoiceModal').dataset.editKey='';document.getElementById('invModalTitle').innerText='🧾 فاتورة جديدة';
+        if(jarAmt>0){const jarKey=`${farmer}_${date}_invjar_${Date.now()}`.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_');await db.ref('farmerFinTx/'+jarKey).set({farmer,type:'invjar',amount:jarAmt,date,ts:Date.now()});}
+        await fetchAll();hideModal('invoiceModal');showToast('✅ تم حفظ الفاتورة');fbLoad(false);
     }
-
-    function viewInvoice(key) {
-        const inv = invoicesStore.find(i => i._key === key);
-        if (!inv) return;
-        currentViewInvoiceId = key;
-        document.getElementById('viewInvTitle').innerText = `🧾 ${inv.farmer} — ${inv.date}`;
-        const rows = (inv.rows||[]).filter(r => r.type||r.amount);
-        document.getElementById('viewInvContent').innerHTML = `
-            <div style="margin-bottom:10px;">
-                <strong>التاريخ:</strong> ${inv.date}
-            </div>
-            <div style="overflow-x:auto;">
-            <table class="invoice-table">
-                <thead><tr><th>#</th><th>المبلغ</th><th>كيلو</th><th>فئة</th><th>الصنف</th><th>عدد</th><th>ملاحظات</th></tr></thead>
-                <tbody>${rows.map((r,i) => `<tr>
-                    <td>${i+1}</td><td style="font-weight:800;color:var(--green);">${(r.amount||0).toLocaleString('en-US')}</td>
-                    <td>${r.kilo||'—'}</td><td>${r.price||'—'}</td><td>${r.type||'—'}</td>
-                    <td>${r.count||'—'}</td><td style="font-size:0.75rem;">${r.note||'—'}</td>
-                </tr>`).join('')}</tbody>
-                <tfoot><tr class="invoice-total-row">
-                    <td style="text-align:right;font-weight:900;padding:8px;font-size:0.8rem;">إجمالي:</td>
-                    <td style="font-weight:900;color:var(--green);font-size:1rem;">${Math.round(inv.total||0).toLocaleString('en-US')}</td>
-                    <td colspan="3"></td>
-                    <td style="font-weight:900;color:var(--primary);">${(inv.rows||[]).reduce((s,r)=>s+(parseFloat(r.count)||0),0)||''}</td>
-                    <td></td>
-                </tr></tfoot>
-            </table></div>
-            ${inv.expenses && inv.expenses.length ? `
-            <div style="margin-top:10px;border:2px dashed var(--border);border-radius:10px;padding:10px;">
-                <div style="font-weight:900;font-size:0.85rem;color:var(--text2);margin-bottom:6px;">📤 المنصرف</div>
-                <table class="invoice-table">
-                    <thead><tr><th>#</th><th>المبلغ</th><th>البيان</th></tr></thead>
-                    <tbody>${inv.expenses.map((e,i) => `<tr><td>${i+1}</td><td style="color:var(--red);font-weight:800;">${(e.amount||0).toLocaleString('en-US')}</td><td>${e.note||'—'}</td></tr>`).join('')}</tbody>
-                </table>
-            </div>` : ''}
-            ${inv.jarAmount ? `
-            <div style="margin-top:8px;border:2px dashed #f0a500;border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-weight:900;color:var(--gold);">💸 جر من ح الفواتير:</span>
-                <span style="font-weight:900;color:var(--gold);">${Math.round(inv.jarAmount).toLocaleString('en-US')}</span>
-            </div>` : ''}
-            ${(inv.expenses?.length || inv.jarAmount) ? `
-            <div style="background:var(--sea);color:white;border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;margin-top:8px;font-weight:900;">
-                <span>الصافي:</span><span style="color:var(--cyan);">${Math.round(inv.net||0).toLocaleString('en-US')}</span>
-            </div>` : ''}
-            ${inv.notes ? `<div style="margin-top:8px;font-size:0.85rem;color:var(--text2);">ملاحظات: ${inv.notes}</div>` : ''}
-        `;
+    function viewInvoice(key){
+        const inv=invoicesStore.find(i=>i._key===key);if(!inv)return;currentViewInvoiceId=key;
+        document.getElementById('viewInvTitle').innerText=`🧾 ${inv.farmer} — ${inv.date}`;
+        const rows=(inv.rows||[]).filter(r=>r.type||r.amount);
+        document.getElementById('viewInvContent').innerHTML=`<div style="margin-bottom:10px"><strong>التاريخ:</strong> ${inv.date}</div><div style="overflow-x:auto"><table class="invoice-table"><thead><tr><th>#</th><th>المبلغ</th><th>كيلو</th><th>فئة</th><th>الصنف</th><th>عدد</th><th>ملاحظات</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td style="font-weight:800;color:var(--green)">${(r.amount||0).toLocaleString('en-US')}</td><td>${r.kilo||'—'}</td><td>${r.price||'—'}</td><td>${r.type||'—'}</td><td>${r.count||'—'}</td><td style="font-size:0.75rem">${r.note||'—'}</td></tr>`).join('')}</tbody><tfoot><tr class="invoice-total-row"><td style="text-align:right;font-weight:900;padding:8px;font-size:0.8rem">إجمالي:</td><td style="font-weight:900;color:var(--green);font-size:1rem">${Math.round(inv.total||0).toLocaleString('en-US')}</td><td colspan="3"></td><td style="font-weight:900;color:var(--primary)">${(inv.rows||[]).reduce((s,r)=>s+(parseFloat(r.count)||0),0)||''}</td><td></td></tr></tfoot></table></div>${inv.expenses&&inv.expenses.length?`<div style="margin-top:10px;border:2px dashed var(--border);border-radius:10px;padding:10px"><div style="font-weight:900;font-size:0.85rem;color:var(--text2);margin-bottom:6px">📤 المنصرف</div><table class="invoice-table"><thead><tr><th>#</th><th>المبلغ</th><th>البيان</th></tr></thead><tbody>${inv.expenses.map((e,i)=>`<tr><td>${i+1}</td><td style="color:var(--red);font-weight:800">${(e.amount||0).toLocaleString('en-US')}</td><td>${e.note||'—'}</td></tr>`).join('')}</tbody></table></div>`:''} ${inv.jarAmount?`<div style="margin-top:8px;border:2px dashed #f0a500;border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:900;color:var(--gold)">💸 جر من ح الفواتير:</span><span style="font-weight:900;color:var(--gold)">${Math.round(inv.jarAmount).toLocaleString('en-US')}</span></div>`:''} ${(inv.expenses?.length||inv.jarAmount)?`<div style="background:var(--sea);color:white;border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;margin-top:8px;font-weight:900"><span>الصافي:</span><span style="color:var(--cyan)">${Math.round(inv.net||0).toLocaleString('en-US')}</span></div>`:''} ${inv.notes?`<div style="margin-top:8px;font-size:0.85rem;color:var(--text2)">ملاحظات: ${inv.notes}</div>`:''}`;
         showModal('viewInvoiceModal');
     }
-
-    function editCurrentInvoice() {
-        const inv = invoicesStore.find(i => i._key === currentViewInvoiceId);
-        if (!inv) return;
-        // افتح مودال الفاتورة وعبيه بالبيانات الموجودة
-        document.getElementById('invFarmer').value = inv.farmer || '';
-        document.getElementById('invDate').value = inv.date || '';
-        document.getElementById('invNotes').value = inv.notes || '';
-        document.getElementById('invJarAmount').value = inv.jarAmount || '';
-        // سطور الفاتورة
-        document.getElementById('invRows').innerHTML = '';
-        document.getElementById('expRows').innerHTML = '';
-        invRowCount = 0; expRowCount = 0;
-        (inv.rows || []).forEach(r => {
+    function editCurrentInvoice(){
+        const inv=invoicesStore.find(i=>i._key===currentViewInvoiceId);if(!inv)return;
+        document.getElementById('invFarmer').value=inv.farmer||'';document.getElementById('invDate').value=inv.date||'';document.getElementById('invNotes').value=inv.notes||'';document.getElementById('invJarAmount').value=inv.jarAmount||'';
+        document.getElementById('invRows').innerHTML='';document.getElementById('expRows').innerHTML='';invRowCount=0;expRowCount=0;
+        (inv.rows||[]).forEach(function(r){
             addInvRow();
-            const tr = document.getElementById('invRow' + invRowCount);
-            if (!tr) return;
-            const inputs = tr.querySelectorAll('input');
-            // ترتيب: مبلغ(readonly)، كيلو، فئة، صنف، عدد، ملاحظات
-            const amt = parseFloat(r.amount) || 0;
-            inputs[0].value = amt ? Math.round(amt).toLocaleString('en-US') : '';
-            inputs[0].dataset.raw = amt;
-            inputs[1].value = r.kilo  || '';
-            inputs[2].value = r.price || '';
-            inputs[3].value = r.type  || '';
-            inputs[4].value = r.count || '';
-            inputs[5].value = r.note  || '';
+            var card=document.getElementById('invRow'+invRowCount);if(!card)return;
+            var amt=parseFloat(r.amount)||0;
+            var amtInp=card.querySelector('.inv-amount');
+            amtInp.value=amt?Math.round(amt).toLocaleString('en-US'):'';amtInp.dataset.raw=amt;
+            card.querySelector('.inv-kilo').value=r.kilo||'';
+            card.querySelector('.inv-price').value=r.price||'';
+            card.querySelector('.inv-type').value=r.type||'';
+            card.querySelector('.inv-count').value=r.count||'';
+            var noteInps=card.querySelectorAll('input[type=text]');
+            if(noteInps.length>1)noteInps[noteInps.length-1].value=r.note||'';
         });
-        (inv.expenses || []).forEach(e => {
+        (inv.expenses||[]).forEach(function(e){
             addExpRow();
-            const tr = document.getElementById('expRow' + expRowCount);
-            if (!tr) return;
-            const inputs = tr.querySelectorAll('input');
-            inputs[0].value = e.amount || '';
-            inputs[1].value = e.note   || '';
+            var div=document.getElementById('expRow'+expRowCount);if(!div)return;
+            div.querySelector('.exp-amount').value=e.amount||'';
+            var ti=div.querySelectorAll('input[type=text]');if(ti[0])ti[0].value=e.note||'';
         });
-        calcInvTotal();
-        // احفظ الـ key القديم عشان نحذفه بعد الحفظ
-        document.getElementById('invoiceModal').dataset.editKey = currentViewInvoiceId;
-        document.querySelector('#invoiceModal h3').innerText = '✏️ تعديل فاتورة';
-        hideModal('viewInvoiceModal');
-        showModal('invoiceModal');
+        calcInvTotal();document.getElementById('invoiceModal').dataset.editKey=currentViewInvoiceId;
+        document.getElementById('invModalTitle').innerText='✏️ تعديل فاتورة';
+        hideModal('viewInvoiceModal');showModal('invoiceModal');
     }
-
-    function deleteCurrentInvoice() {
-        customConfirm('هل تريد حذف هذه الفاتورة؟', async () => {
-            fbLoad(true);
-            await db.ref('farmerInvoices/'+currentViewInvoiceId).remove();
-            await fetchAll();
-            hideModal('viewInvoiceModal');
-            showToast('تم حذف الفاتورة 🗑️');
-            fbLoad(false);
-        }, '🗑️', 'حذف الفاتورة');
+    function deleteCurrentInvoice(){customConfirm('هل تريد حذف هذه الفاتورة؟',async()=>{fbLoad(true);await db.ref('farmerInvoices/'+currentViewInvoiceId).remove();await fetchAll();hideModal('viewInvoiceModal');showToast('تم حذف الفاتورة 🗑️');fbLoad(false);},'🗑️','حذف الفاتورة');}
+    function onBoxTypeChange(){const type=document.getElementById('boxType').value;const name=document.getElementById('boxFarmerName').value;const date=document.getElementById('globalDate').value;document.getElementById('boxFarighGroup').style.display=type==='in'?'block':'none';const existing=boxTxStore.find(t=>t.farmer===name&&t.date===date&&t.type===type);document.getElementById('boxAmount').value=existing?existing.amount:'';document.getElementById('boxFarighAmount').value=(type==='in'&&existing)?(existing.farigh||''):'';}
+    function openBoxModal(name){
+        const date=document.getElementById('globalDate').value;const todayOut=boxTxStore.find(t=>t.farmer===name&&t.date===date&&t.type==='out');const todayIn=boxTxStore.find(t=>t.farmer===name&&t.date===date&&t.type==='in');
+        document.getElementById('boxFarmerName').value=name;const defaultType=todayIn?'in':'out';document.getElementById('boxType').value=defaultType;
+        document.getElementById('boxAmount').value=defaultType==='out'?(todayOut?todayOut.amount:''):(todayIn?todayIn.amount:'');
+        document.getElementById('boxFarighAmount').value=todayIn?(todayIn.farigh||''):'';document.getElementById('boxFarighGroup').style.display=defaultType==='in'?'block':'none';
+        document.getElementById('boxModalTitle').innerText=`📦 بوكس — ${name}`;hideModal('farmerDetailModal');showModal('boxModal');setTimeout(()=>document.getElementById('boxAmount').focus(),200);
     }
-
-    // ===========================
-    // 📦 BOX MODAL
-    // ===========================
-    function onBoxTypeChange() {
-        const type = document.getElementById('boxType').value;
-        const name = document.getElementById('boxFarmerName').value;
-        const date = document.getElementById('globalDate').value;
-        document.getElementById('boxFarighGroup').style.display = type === 'in' ? 'block' : 'none';
-        // جيب القيمة الموجودة لو موجودة
-        const existing = boxTxStore.find(t => t.farmer===name && t.date===date && t.type===type);
-        document.getElementById('boxAmount').value = existing ? existing.amount : '';
-        document.getElementById('boxFarighAmount').value = (type==='in' && existing) ? (existing.farigh||'') : '';
+    async function saveBoxTx(){
+        if(IS_VIEWER_MODE){showToast('👁️ وضع المشاهدة');return;}
+        const farmer=document.getElementById('boxFarmerName').value;const type=document.getElementById('boxType').value;const amount=parseFloat(document.getElementById('boxAmount').value);
+        const farigh=type==='in'?(parseFloat(document.getElementById('boxFarighAmount').value)||0):0;const date=document.getElementById('globalDate').value;
+        if(!amount||amount<=0){showToast('❗ ادخل العدد');return;}fbLoad(true);const ts=Date.now();
+        const key=`${farmer}_${date}_${type}`.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_');const existing=boxTxStore.find(t=>t.farmer===farmer&&t.date===date&&t.type===type);const savedTs=existing?existing.ts:ts;
+        await db.ref('farmerBoxTx/'+key).set({farmer,type,amount,farigh,date,ts:savedTs});await fetchAll();hideModal('boxModal');showToast('✅ تم حفظ حركة البوكس');fbLoad(false);
     }
-
-    function openBoxModal(name) {
-        const date = document.getElementById('globalDate').value;
-        // جيب القيم الموجودة في نفس اليوم لو موجودة
-        const todayOut = boxTxStore.find(t => t.farmer===name && t.date===date && t.type==='out');
-        const todayIn  = boxTxStore.find(t => t.farmer===name && t.date===date && t.type==='in');
-        document.getElementById('boxFarmerName').value = name;
-        // لو عنده سمك راجع اليوم افتح على in، غير كده out
-        const defaultType = todayIn ? 'in' : 'out';
-        document.getElementById('boxType').value = defaultType;
-        document.getElementById('boxAmount').value = defaultType==='out' ? (todayOut ? todayOut.amount : '') : (todayIn ? todayIn.amount : '');
-        document.getElementById('boxFarighAmount').value = todayIn ? (todayIn.farigh || '') : '';
-        document.getElementById('boxFarighGroup').style.display = defaultType==='in' ? 'block' : 'none';
-        document.getElementById('boxModalTitle').innerText = `📦 بوكس — ${name}`;
-        hideModal('farmerDetailModal');
-        showModal('boxModal');
-        setTimeout(() => document.getElementById('boxAmount').focus(), 200);
-    }
-
-    async function saveBoxTx() {
-        if (IS_VIEWER_MODE) { showToast('👁️ وضع المشاهدة'); return; }
-        const farmer = document.getElementById('boxFarmerName').value;
-        const type = document.getElementById('boxType').value;
-        const amount = parseFloat(document.getElementById('boxAmount').value);
-        const farigh = type === 'in' ? (parseFloat(document.getElementById('boxFarighAmount').value) || 0) : 0;
-        const date = document.getElementById('globalDate').value;
-        if (!amount || amount <= 0) { showToast('❗ ادخل العدد'); return; }
-        fbLoad(true);
-        const ts = Date.now();
-        // مفتاح ثابت لنفس المزارع+التاريخ+النوع — يضمن تعديل نفس السجل
-        const key = `${farmer}_${date}_${type}`.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_');
-        const existing = boxTxStore.find(t => t.farmer===farmer && t.date===date && t.type===type);
-        const savedTs = existing ? existing.ts : ts;
-        await db.ref('farmerBoxTx/'+key).set({ farmer, type, amount, farigh, date, ts: savedTs });
-        await fetchAll();
-        hideModal('boxModal');
-        showToast('✅ تم حفظ حركة البوكس');
-        fbLoad(false);
-    }
-
-    // ===========================
-    // 💰 FINANCE MODAL
-    // ===========================
-    function openFinModal(name, subtype) {
-        subtype = subtype || 'jar';
-        const date = document.getElementById('globalDate').value;
-        document.getElementById('finFarmerName').value = name;
-        if (subtype === 'invjar') {
-            document.getElementById('finSubtype').value = 'invjar';
-            document.getElementById('finType').value = 'jar';
-            document.getElementById('financeModalTitle').innerText = `🧾 جر من ح الفواتير — ${name}`;
-            const {invBal} = getFarmerFinBalance(name);
-            document.getElementById('finInvBalInfo').style.display = 'block';
-            document.getElementById('finInvBalVal').innerText = Math.round(invBal).toLocaleString('en-US');
-            document.getElementById('finTypeGroup').style.display = 'none';
-            // جيب القيمة الموجودة لو موجودة
-            const existing = finTxStore.find(t => t.farmer===name && t.date===date && t.type==='invjar');
-            document.getElementById('finAmount').value = existing ? existing.amount : '';
-        } else {
-            document.getElementById('finSubtype').value = 'jar';
-            document.getElementById('financeModalTitle').innerText = `💸 جر / سداد — ${name}`;
-            document.getElementById('finInvBalInfo').style.display = 'none';
-            document.getElementById('finTypeGroup').style.display = 'block';
-            // جيب القيمة حسب النوع المختار
-            const existingJar = finTxStore.find(t => t.farmer===name && t.date===date && t.type==='jar');
-            const existingPay = finTxStore.find(t => t.farmer===name && t.date===date && t.type==='pay');
-            document.getElementById('finType').value = 'jar';
-            document.getElementById('finAmount').value = existingJar ? existingJar.amount : '';
-            // لما يغير النوع يحدث المبلغ تلقائي
-            document.getElementById('finType').onchange = () => {
-                const t = document.getElementById('finType').value;
-                const ex = finTxStore.find(tx => tx.farmer===name && tx.date===date && tx.type===t);
-                document.getElementById('finAmount').value = ex ? ex.amount : '';
-            };
+    function openFinModal(name,subtype){
+        subtype=subtype||'jar';const date=document.getElementById('globalDate').value;document.getElementById('finFarmerName').value=name;
+        if(subtype==='invjar'){
+            document.getElementById('finSubtype').value='invjar';document.getElementById('finType').value='jar';document.getElementById('financeModalTitle').innerText=`🧾 جر من ح الفواتير — ${name}`;
+            const{invBal}=getFarmerFinBalance(name);document.getElementById('finInvBalInfo').style.display='block';document.getElementById('finInvBalVal').innerText=Math.round(invBal).toLocaleString('en-US');document.getElementById('finTypeGroup').style.display='none';
+            const existing=finTxStore.find(t=>t.farmer===name&&t.date===date&&t.type==='invjar');document.getElementById('finAmount').value=existing?existing.amount:'';
+        }else{
+            document.getElementById('finSubtype').value='jar';document.getElementById('financeModalTitle').innerText=`💸 جر / سداد — ${name}`;document.getElementById('finInvBalInfo').style.display='none';document.getElementById('finTypeGroup').style.display='block';
+            const existingJar=finTxStore.find(t=>t.farmer===name&&t.date===date&&t.type==='jar');document.getElementById('finType').value='jar';document.getElementById('finAmount').value=existingJar?existingJar.amount:'';
+            document.getElementById('finType').onchange=()=>{const t=document.getElementById('finType').value;const ex=finTxStore.find(tx=>tx.farmer===name&&tx.date===date&&tx.type===t);document.getElementById('finAmount').value=ex?ex.amount:'';};
         }
-        showModal('financeModal');
-        setTimeout(() => document.getElementById('finAmount').focus(), 200);
+        showModal('financeModal');setTimeout(()=>document.getElementById('finAmount').focus(),200);
     }
-
-    async function saveFinTx() {
-        if (IS_VIEWER_MODE) { showToast('👁️ وضع المشاهدة'); return; }
-        const farmer = document.getElementById('finFarmerName').value;
-        const subtype = document.getElementById('finSubtype').value;
-        const type = subtype === 'invjar' ? 'invjar' : document.getElementById('finType').value;
-        const amount = parseFloat(document.getElementById('finAmount').value);
-        const date = document.getElementById('globalDate').value;
-        if (!amount || amount <= 0) { showToast('❗ ادخل المبلغ'); return; }
-        fbLoad(true);
-        // مفتاح ثابت — يمنع التكرار في نفس اليوم
-        const existing = finTxStore.find(t => t.farmer===farmer && t.date===date && t.type===type);
-        const savedTs = existing ? existing.ts : Date.now();
-        const key = `${farmer}_${date}_${type}`.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_');
-        await db.ref('farmerFinTx/'+key).set({ farmer, type, amount, date, ts: savedTs });
-        await fetchAll();
-        hideModal('financeModal');
-        showToast('✅ تم حفظ الحركة');
-        fbLoad(false);
+    async function saveFinTx(){
+        if(IS_VIEWER_MODE){showToast('👁️ وضع المشاهدة');return;}
+        const farmer=document.getElementById('finFarmerName').value;const subtype=document.getElementById('finSubtype').value;const type=subtype==='invjar'?'invjar':document.getElementById('finType').value;
+        const amount=parseFloat(document.getElementById('finAmount').value);const date=document.getElementById('globalDate').value;if(!amount||amount<=0){showToast('❗ ادخل المبلغ');return;}fbLoad(true);
+        const existing=finTxStore.find(t=>t.farmer===farmer&&t.date===date&&t.type===type);const savedTs=existing?existing.ts:Date.now();
+        const key=`${farmer}_${date}_${type}`.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_');
+        await db.ref('farmerFinTx/'+key).set({farmer,type,amount,date,ts:savedTs});await fetchAll();hideModal('financeModal');showToast('✅ تم حفظ الحركة');fbLoad(false);
     }
-
-    // ===========================
-    // 👤 FARMER CRUD
-    // ===========================
-    function openAddFarmerModal() {
-        document.getElementById('farmerName').value = '';
-        document.getElementById('farmerModalTitle').innerText = '➕ إضافة مزارع جديد';
-        showModal('farmerModal');
-        setTimeout(() => document.getElementById('farmerName').focus(), 200);
+    function openAddFarmerModal(){document.getElementById('farmerName').value='';document.getElementById('farmerModalTitle').innerText='➕ إضافة مزارع جديد';showModal('farmerModal');setTimeout(()=>document.getElementById('farmerName').focus(),200);}
+    async function saveFarmer(){
+        if(IS_VIEWER_MODE){showToast('👁️ وضع المشاهدة');return;}const name=document.getElementById('farmerName').value.trim();if(!name){showToast('❗ ادخل الاسم');return;}
+        if(farmersStore.some(f=>f.name===name)){showToast('❗ الاسم موجود بالفعل');return;}fbLoad(true);
+        const key=name.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_')+'_'+Date.now();await db.ref('farmers/'+key).set({name,ts:Date.now()});await fetchAll();hideModal('farmerModal');showToast('✅ تم إضافة المزارع');fbLoad(false);
     }
-
-    async function saveFarmer() {
-        if (IS_VIEWER_MODE) { showToast('👁️ وضع المشاهدة'); return; }
-        const name = document.getElementById('farmerName').value.trim();
-        if (!name) { showToast('❗ ادخل الاسم'); return; }
-        if (farmersStore.some(f => f.name === name)) { showToast('❗ الاسم موجود بالفعل'); return; }
-        fbLoad(true);
-        const key = name.replace(/[^a-zA-Z0-9\u0600-\u06FF_-]/g,'_') + '_' + Date.now();
-        await db.ref('farmers/'+key).set({ name, ts: Date.now() });
-        await fetchAll();
-        hideModal('farmerModal');
-        showToast('✅ تم إضافة المزارع');
-        fbLoad(false);
+    function txOptions(txType,key,farmer){
+        if(IS_VIEWER_MODE){showToast('👁️ وضع المشاهدة');return;}
+        customConfirm('هل تريد حذف هذه الحركة؟',async()=>{fbLoad(true);const path=txType==='box'?'farmerBoxTx':'farmerFinTx';await db.ref(path+'/'+key).remove();await fetchAll();renderDetailContent(farmer,currentDetailTab);renderDetailStats(farmer);showToast('تم الحذف 🗑️');fbLoad(false);},'🗑️','حذف الحركة');
     }
-
-    // ===========================
-    // 🗑️ TX OPTIONS
-    // ===========================
-    function txOptions(txType, key, farmer) {
-        if (IS_VIEWER_MODE) { showToast('👁️ وضع المشاهدة'); return; }
-        customConfirm('هل تريد حذف هذه الحركة؟', async () => {
-            fbLoad(true);
-            const path = txType === 'box' ? 'farmerBoxTx' : 'farmerFinTx';
-            await db.ref(path+'/'+key).remove();
-            await fetchAll();
-            renderDetailContent(farmer, currentDetailTab);
-            renderDetailStats(farmer);
-            showToast('تم الحذف 🗑️');
-            fbLoad(false);
-        }, '🗑️', 'حذف الحركة');
+    function showFarmerSearch(inputId,resultsId){const val=document.getElementById(inputId).value.trim();const res=document.getElementById(resultsId);if(!val){res.style.display='none';return;}const matches=farmersStore.filter(f=>f.name.includes(val));if(!matches.length){res.style.display='none';return;}res.style.display='block';res.innerHTML=matches.map(f=>`<div class="search-item" onclick="selectFarmerInInvoice('${f.name}','${inputId}','${resultsId}')">${f.name}</div>`).join('');}
+    function selectFarmerInInvoice(name,inputId,resultsId){document.getElementById(inputId).value=name;document.getElementById(resultsId).style.display='none';}
+    async function saveInvoiceImage(){const el=document.getElementById('viewInvContent');const canvas=await html2canvas(el,{scale:2,backgroundColor:'#fff'});const a=document.createElement('a');a.href=canvas.toDataURL();const inv=invoicesStore.find(i=>i._key===currentViewInvoiceId);a.download='فاتورة_'+(inv?inv.farmer:'')+'_'+(inv?inv.date:'')+'.png';a.click();showToast('✅ تم حفظ الصورة');}
+    function showModal(id){document.querySelectorAll('.modal').forEach(m=>{if(m.id!==id&&m.id!=='customConfirmModal')m.style.display='none';});document.getElementById(id).style.display='flex';document.body.classList.add('modal-open');history.pushState({modal:id},'');}
+    function hideModal(id){document.getElementById(id).style.display='none';const any=Array.from(document.querySelectorAll('.modal')).some(m=>m.style.display==='flex');if(!any)document.body.classList.remove('modal-open');}
+    function customConfirm(msg,onOk,icon,title,onSecond){
+        icon=icon||'⚠️';title=title||'تأكيد';document.getElementById('ccIcon').innerText=icon;document.getElementById('ccTitle').innerText=title;document.getElementById('ccMsg').innerText=msg;
+        const delBtn=document.getElementById('ccDel');if(onSecond){delBtn.style.display='';delBtn.onclick=function(){closeConfirm();onSecond();};}else{delBtn.style.display='none';}
+        document.getElementById('ccOk').innerText=onSecond?'✏️ تعديل':'تأكيد ✅';document.getElementById('ccOk').style.background='';
+        const doOk=function(){closeConfirm();onOk();};document.getElementById('ccOk').onclick=doOk;
+        document.getElementById('customConfirmModal').style.display='flex';document.body.classList.add('modal-open');
+        const onKey=function(e){if(e.key==='Enter'){document.removeEventListener('keydown',onKey);doOk();}};document.addEventListener('keydown',onKey);
     }
-
-    // ===========================
-    // 🔍 FARMER SEARCH IN INVOICE
-    // ===========================
-    function showFarmerSearch(inputId, resultsId) {
-        const val = document.getElementById(inputId).value.trim();
-        const res = document.getElementById(resultsId);
-        if (!val) { res.style.display = 'none'; return; }
-        const matches = farmersStore.filter(f => f.name.includes(val));
-        if (!matches.length) { res.style.display = 'none'; return; }
-        res.style.display = 'block';
-        res.innerHTML = matches.map(f => `<div class="search-item" onclick="selectFarmerInInvoice('${f.name}','${inputId}','${resultsId}')">${f.name}</div>`).join('');
-    }
-    function selectFarmerInInvoice(name, inputId, resultsId) {
-        document.getElementById(inputId).value = name;
-        document.getElementById(resultsId).style.display = 'none';
-    }
-
-    // ===========================
-    // 🖼️ SAVE INVOICE IMAGE
-    // ===========================
-    async function saveInvoiceImage() {
-        const el = document.getElementById('viewInvContent');
-        const canvas = await html2canvas(el, {scale:2, backgroundColor:'#fff'});
-        const a = document.createElement('a');
-        a.href = canvas.toDataURL();
-        const inv = invoicesStore.find(i => i._key === currentViewInvoiceId);
-        a.download = 'فاتورة_'+(inv ? inv.farmer : '')+'_'+(inv ? inv.date : '')+'.png';
-        a.click();
-        showToast('✅ تم حفظ الصورة');
-    }
-
-
-    // ===========================
-    // 🪟 MODAL HELPERS
-    // ===========================
-    function showModal(id) {
-        document.querySelectorAll('.modal').forEach(m => { if(m.id !== id && m.id !== 'customConfirmModal') m.style.display = 'none'; });
-        document.getElementById(id).style.display = 'flex';
-        document.body.classList.add('modal-open');
-        history.pushState({modal:id}, '');
-    }
-    function hideModal(id) {
-        document.getElementById(id).style.display = 'none';
-        const any = Array.from(document.querySelectorAll('.modal')).some(m => m.style.display === 'flex');
-        if (!any) document.body.classList.remove('modal-open');
-    }
-
-    // ===========================
-    // ✅ CONFIRM
-    // ===========================
-    function customConfirm(msg, onOk, icon, title, onSecond) {
-        icon = icon || '⚠️'; title = title || 'تأكيد';
-        document.getElementById('ccIcon').innerText = icon;
-        document.getElementById('ccTitle').innerText = title;
-        document.getElementById('ccMsg').innerText = msg;
-        const delBtn = document.getElementById('ccDel');
-        if (onSecond) {
-            delBtn.style.display = '';
-            delBtn.onclick = function(){ closeConfirm(); onSecond(); };
-        } else {
-            delBtn.style.display = 'none';
-        }
-        document.getElementById('ccOk').innerText = onSecond ? '✏️ تعديل' : 'تأكيد ✅';
-        document.getElementById('ccOk').style.background = '';
-        const doOk = function(){ closeConfirm(); onOk(); };
-        document.getElementById('ccOk').onclick = doOk;
-        document.getElementById('customConfirmModal').style.display = 'flex';
-        document.body.classList.add('modal-open');
-        const onKey = function(e){ if(e.key==='Enter'){ document.removeEventListener('keydown',onKey); doOk(); } };
-        document.addEventListener('keydown', onKey);
-    }
-    function closeConfirm() {
-        document.getElementById('customConfirmModal').style.display = 'none';
-        const any = Array.from(document.querySelectorAll('.modal')).some(m => m.style.display === 'flex');
-        if (!any) document.body.classList.remove('modal-open');
-    }
-
-    // ===========================
-    // 🍞 TOAST
-    // ===========================
+    function closeConfirm(){document.getElementById('customConfirmModal').style.display='none';const any=Array.from(document.querySelectorAll('.modal')).some(m=>m.style.display==='flex');if(!any)document.body.classList.remove('modal-open');}
     let _toastTimer;
-    function showToast(msg) {
-        const t = document.getElementById('toast');
-        t.innerText = msg;
-        t.classList.add('show');
-        clearTimeout(_toastTimer);
-        _toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2800);
+    function showToast(msg){const t=document.getElementById('toast');t.innerText=msg;t.classList.add('show');clearTimeout(_toastTimer);_toastTimer=setTimeout(function(){t.classList.remove('show');},2800);}
+
+    async function saveInvoicePDF() {
+        var inv = invoicesStore.find(function(x){ return x._key === currentViewInvoiceId; });
+        if (!inv) return;
+        showToast('جاري انشاء PDF...');
+        var rows = (inv.rows||[]).filter(function(r){ return r.type||r.amount; });
+        var ct = 0; rows.forEach(function(r){ ct += parseFloat(r.count)||0; });
+        function n(v){ return Math.round(parseFloat(v)||0).toLocaleString('en-US'); }
+        var th  = 'padding:3px 2px;text-align:center;font-size:9px;height:17px;font-weight:700;color:#000;border:0.5px solid #000;background:#fff';
+        var td  = 'padding:2px 2px;text-align:center;font-size:9px;height:17px;color:#111;border:0.5px solid #000';
+        var tds = 'padding:2px 2px;text-align:center;font-size:10px;height:17px;font-weight:800;color:#000;border:0.5px solid #000';
+        var tdf = 'padding:2px 2px;text-align:center;font-size:9px;height:17px;font-weight:700;color:#000;border:0.5px solid #000;background:#fff';
+        var expenses = inv.expenses || [];
+        var rh = '';
+        var numRows = rows.length;
+        var summaryRows = 1;
+        if (inv.jarAmount) summaryRows++;
+        if (inv.jarAmount) summaryRows++;
+        else if (expenses.length > 0) summaryRows++;
+        var FIXED_ROWS = 20;
+        var itemRows  = Math.max(numRows, FIXED_ROWS - summaryRows);
+        var notesRowspan = itemRows + summaryRows;
+        var notesCellAdded = false;
+
+        for (var ri = 0; ri < itemRows; ri++) {
+            var r = rows[ri] || null;
+            rh += '<tr style="height:17px">';
+            if (r) {
+                rh += '<td style="'+tds+'">'+n(r.amount)+'</td>'
+                    +'<td style="'+td+'">'+(r.kilo||'')+'</td>'
+                    +'<td style="'+td+'">'+(r.price||'')+'</td>'
+                    +'<td style="'+td+';font-weight:600">'+(r.type||'')+'</td>'
+                    +'<td style="'+td+'">'+(r.count||'')+'</td>';
+            } else {
+                rh += '<td style="'+td+'"></td>'
+                    +'<td style="'+td+'"></td>'
+                    +'<td style="'+td+'"></td>'
+                    +'<td style="'+td+'"></td>'
+                    +'<td style="'+td+'"></td>';
+            }
+
+            // ===== التعديل هنا: شيلنا position:absolute وخلينا المنصرف يظهر في النص =====
+            if (!notesCellAdded) {
+                var expHtml = '';
+                if (expenses.length) {
+                    expHtml = '<div style="position:absolute;bottom:0;left:0;right:0;direction:rtl;background:#fff">';
+                    expHtml += '<div style="font-size:9px;font-weight:800;color:#c0392b;border-top:0.5px solid #ccc;padding:1px 3px;background:#fff8f8;text-align:center">المنصرف</div>';
+                    expenses.forEach(function(ex){
+                        expHtml += '<div style="display:flex;border-top:0.5px solid #eee;font-size:9px">'
+                            +'<span style="flex:0 0 40%;text-align:center;padding:1px 2px;color:#c0392b;font-weight:700;border-left:0.5px solid #eee">'+n(ex.amount)+'</span>'
+                            +'<span style="flex:1;padding:1px 3px;color:#333">'+(ex.note||'—')+'</span>'
+                            +'</div>';
+                    });
+                    expHtml += '</div>';
+                }
+                var cellHeight = notesRowspan * 17;
+                rh += '<td style="'+td+';text-align:right;font-size:9px;vertical-align:top;position:relative;padding:2px 3px;overflow:hidden;direction:rtl;height:'+cellHeight+'px" colspan="2" rowspan="'+notesRowspan+'">'
+                    +(r ? '<span style="color:#555">'+(r.note||'')+'</span>' : '')
+                    +expHtml
+                    +'</td>';
+                notesCellAdded = true;
+            }
+            // =============================================================================
+
+            rh += '</tr>';
+        }
+        rh += '<tr style="height:17px"><td style="'+tds+';font-size:12px;color:#1a7a45">'+n(inv.total)+'</td><td style="'+tdf+';font-weight:900;text-align:center" colspan="3">اجمالي</td><td style="'+tdf+';color:#0055a0">'+(ct||'')+'</td></tr>';
+        if (inv.jarAmount) { rh += '<tr style="height:17px"><td style="'+td+';font-weight:800;color:#e65100">'+n(inv.jarAmount)+'</td><td style="'+td+';color:#e65100;font-weight:900;text-align:center" colspan="3">المبلغ الواصل</td></tr>'; }
+        if (expenses.length || inv.jarAmount) {
+            rh += '<tr style="height:17px"><td style="'+tds+';color:#03045e;font-size:12px">'+n(inv.net)+'</td><td style="'+tdf+';color:#03045e;font-weight:900;text-align:center" colspan="3">الصافي</td><td style="'+tdf+';border:none"></td></tr>';
+        }
+
+        var copy = '<div style="flex:1;font-family:Cairo,sans-serif;direction:rtl;border:2px solid #000;border-radius:10px;overflow:hidden;background:#fff">'
+
+  + '<div style="position:relative;height:95px;-webkit-print-color-adjust:exact;print-color-adjust:exact">'
+    + '<svg width="100%" height="95" viewBox="0 0 520 95" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0">'
+      + '<defs>'
+        + '<linearGradient id="gH" x1="0%" y1="0%" x2="100%" y2="0%">'
+          + '<stop offset="0%"   stop-color="#020f2e"/>'
+          + '<stop offset="30%"  stop-color="#042c53"/>'
+          + '<stop offset="50%"  stop-color="#1a6bbf"/>'
+          + '<stop offset="70%"  stop-color="#042c53"/>'
+          + '<stop offset="100%" stop-color="#020f2e"/>'
+        + '</linearGradient>'
+        + '<linearGradient id="gV" x1="0%" y1="0%" x2="0%" y2="100%">'
+          + '<stop offset="0%"   stop-color="#fff" stop-opacity="0"/>'
+          + '<stop offset="90%"  stop-color="#fff" stop-opacity="0"/>'
+          + '<stop offset="100%" stop-color="#fff" stop-opacity="1"/>'
+        + '</linearGradient>'
+      + '</defs>'
+      + '<rect x="0" y="0" width="520" height="95" fill="url(#gH)"/>'
+      + '<rect x="0" y="0" width="520" height="95" fill="url(#gV)"/>'
+      + '<polygon points="173,0 173,95 203,47" fill="rgba(255,255,255,0.08)"/>'
+      + '<polygon points="347,0 347,95 317,47" fill="rgba(255,255,255,0.08)"/>'
+    + '</svg>'
+    + '<div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;margin-top:-8px">'
+      + '<div style="width:33.33%;display:flex;align-items:center;justify-content:center;padding:0 6px">'
+        + '<div style="text-align:center">'
+          + '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.85);white-space:nowrap">أ/ فتوح عبد الحميد</div>'
+          + '<div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-top:3px">'
+            + '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.0 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>'
+            + '<span style="font-size:13px;font-weight:900;color:#fff;direction:ltr">01000723828</span>'
+          + '</div>'
+        + '</div>'
+      + '</div>'
+      + '<div style="width:33.34%;display:flex;flex-direction:column;align-items:stretch;justify-content:center;padding:0 8px">'
+        + '<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.8);text-align:right;line-height:1;margin-bottom:1px">شركة</div>'
+        + '<div style="font-size:36px;font-weight:900;color:#fff;line-height:1;text-align:center;letter-spacing:0;white-space:nowrap">المجـد</div>'
+        + '<div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.8);text-align:center;line-height:1;margin-top:12px">لتجارة الأسماك</div>'
+      + '</div>'
+      + '<div style="width:33.33%;display:flex;align-items:center;justify-content:center;padding:0 6px">'
+        + '<div style="text-align:center">'
+          + '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.85);white-space:nowrap">أ/ يحيى فؤاد المهدي</div>'
+          + '<div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-top:3px">'
+            + '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.0 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>'
+            + '<span style="font-size:13px;font-weight:900;color:#fff;direction:ltr">01002622269</span>'
+          + '</div>'
+        + '</div>'
+      + '</div>'
+    + '</div>'
+  + '</div>'
+
+  + '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 10px;background:#fff;border-bottom:1px solid #000">'
+    + '<span style="font-size:12px;font-weight:900;color:#03045e">السيد / '+(inv.farmer||'')+'</span>'
+    + '<span style="font-size:10px;font-weight:700;color:#0055a0;background:#dde8f5;padding:2px 10px;border-radius:20px;border:0.5px solid #000">'+(inv.date||'')+'</span>'
+  + '</div>'
+
+  + '<div style="position:relative">'
+    + '<img src="log.png" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:220px;opacity:.13;z-index:1;object-fit:contain;pointer-events:none">'
+    + '<table style="width:100%;border-collapse:collapse;position:relative;z-index:2;table-layout:fixed">'
+      + '<thead><tr>'
+        + '<th style="'+th+'">المبلغ</th><th style="'+th+'">كيلو</th><th style="'+th+'">فئة</th>'
+        + '<th style="'+th+'">الصنف</th><th style="'+th+'">عدد</th><th style="'+th+'" colspan="2">ملاحظات</th>'
+      + '</tr></thead>'
+      + '<tbody>'+rh+'</tbody>'
+    + '</table>'
+  + '</div>'
+
+  + (inv.notes ? '<div style="padding:3px 10px;font-size:8px;color:#555;border-top:1px solid #000">ملاحظات: '+inv.notes+'</div>' : '')
+
+  + '<div style="text-align:center;font-size:8px;color:#000;font-weight:600;padding:4px 6px;border-top:1px solid #000;background:#fff">'
+    + 'بورصة كفر الشيخ — عنبر (ب) محل (45) | بورصة دمرو للأسماك · السهو والخطأ مردود للطرفين'
+  + '</div>'
+
++ '</div>';
+
+        var el = document.getElementById('pdfRender');
+        el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;display:block;background:#f0f2f5;width:760px;padding:14px;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact';
+        el.innerHTML = '<div style="display:flex;gap:14px;direction:rtl">'+copy+copy+'</div>';
+        await new Promise(function(r){ setTimeout(r, 800); });
+        try {
+            var canvas = await html2canvas(el, {scale:2.6, backgroundColor:'#f0f2f5', useCORS:true, logging:false});
+            var jsPDF = window.jspdf.jsPDF;
+            var pdf = new jsPDF('l','mm','a4');
+            pdf.addImage(canvas.toDataURL('image/jpeg',0.98),'JPEG',0,0,297,210);
+            pdf.save('فاتورة_'+(inv.farmer||'')+'_'+(inv.date||'')+'.pdf');
+            showToast('تم حفظ PDF');
+        } catch(e) { showToast('فشل انشاء PDF'); }
+        el.style.display = 'none';
+        el.innerHTML = '';
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        initApp();
-    });
+    window.addEventListener('DOMContentLoaded', () => { initApp(); });
 </script>
 
+<div id="pdfRender" style="position:fixed;top:-9999px;left:-9999px;direction:rtl;font-family:Cairo,sans-serif;font-size:11px;background:#fff;padding:8px;width:700px"></div>
 </body>
 </html>
