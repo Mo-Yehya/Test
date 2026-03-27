@@ -258,36 +258,33 @@
         }
         .cat-banner-skeleton.hidden { opacity: 0; pointer-events: none; }
 
-        /* Item card */
+        /* Item grid */
+        .items-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 5px;
+        }
         .item-card {
             background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(0,210,255,0.15);
-            border-radius: 20px; margin-bottom: 15px;
-            display: flex; align-items: stretch;
-            backdrop-filter: blur(15px); width: 100%;
-            transition: 0.25s; overflow: hidden; cursor: pointer; min-height: 90px;
+            border: 1px solid rgba(0,210,255,0.13);
+            border-radius: 16px;
+            display: flex; flex-direction: column;
+            overflow: hidden; cursor: pointer;
+            transition: 0.25s;
+            position: relative;
         }
         .item-card:active { transform: scale(0.97); background: rgba(0,210,255,0.08); }
-        .item-card .info-side {
-            flex: 1; padding: 18px;
-            display: flex; flex-direction: column; justify-content: center; gap: 6px;
-        }
-        .item-name { font-size: 1.05rem; font-weight: 400; line-height: 1.3; }
-        .price-val {
-            font-family: 'OMEGLE', sans-serif;
-            font-size: 1.25rem; color: var(--volt-blue); font-weight: 100;
-        }
         .item-img-wrap {
-            width: 95px; min-width: 95px; position: relative; overflow: hidden;
+            width: 100%; height: 100px; position: relative; overflow: hidden;
             background: rgba(0,210,255,0.04);
-            border-right: 1px solid rgba(0,210,255,0.12);
         }
         .item-img-wrap img {
             width: 100%; height: 100%; object-fit: cover; display: block;
-            transition: opacity 0.4s, transform 0.4s; opacity: 0;
+            transition: opacity 0.4s; opacity: 0;
         }
         .item-img-wrap img.loaded { opacity: 1; }
-        .item-img-wrap img:hover { transform: scale(1.06); }
         .img-skeleton {
             position: absolute; inset: 0;
             background: linear-gradient(135deg, rgba(0,210,255,0.06) 25%, rgba(0,210,255,0.12) 50%, rgba(0,210,255,0.06) 75%);
@@ -297,7 +294,24 @@
         .img-placeholder {
             position: absolute; inset: 0;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem; opacity: 0.25;
+            font-size: 2rem; opacity: 0.2;
+        }
+        .item-card .info-side {
+            padding: 10px 12px 12px;
+            display: flex; flex-direction: column; gap: 4px; flex: 1;
+        }
+        .item-name { font-size: 0.88rem; font-weight: 400; line-height: 1.3; color: #e2e8f0; }
+        .price-val {
+            font-family: 'OMEGLE', sans-serif;
+            font-size: 1rem; color: var(--volt-blue); font-weight: 100;
+        }
+        .item-add-btn {
+            position: absolute; bottom: 10px; left: 10px;
+            width: 26px; height: 26px; border-radius: 50%;
+            background: rgba(0,210,255,0.1); border: 1px solid rgba(0,210,255,0.3);
+            color: var(--volt-blue); font-size: 1.1rem;
+            display: flex; align-items: center; justify-content: center;
+            pointer-events: none;
         }
 
         .promo-note {
@@ -693,22 +707,26 @@
                             <div class="section-line"></div>
                         </div>
                         `}
+                        <div class="items-grid">
                         ${categories[cat].items.map(item => `
                             <div class="item-card" onclick="handleItemLogic(${item.id})">
-                                <div class="info-side">
-                                    <span class="item-name">${item.name}</span>
-                                    ${item.note ? `<span style="display:block; color:#94a3b8; font-size:0.78rem; margin-top:4px;">${item.note}</span>` : ''}
-                                    <span class="price-val">${item.prices.join(' : ')} <span style="font-size:0.75rem; color:#64748b;">EGP</span></span>
-                                </div>
-                                ${item.image ? `
                                 <div class="item-img-wrap">
                                     <div class="img-skeleton" id="sk-${item.id}"></div>
-                                    <img src="${item.image}" alt="${item.name}" loading="lazy"
-                                        onload="this.classList.add('loaded'); document.getElementById('sk-${item.id}').classList.add('hidden')"
-                                        onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'>☕</div>'">
-                                </div>` : ''}
+                                    ${item.image
+                                        ? `<img src="${item.image}" alt="${item.name}" loading="lazy"
+                                            onload="this.classList.add('loaded'); document.getElementById('sk-${item.id}').classList.add('hidden')"
+                                            onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'>☕</div>'">`
+                                        : `<div class="img-placeholder">☕</div>`}
+                                </div>
+                                <div class="info-side">
+                                    <span class="item-name">${item.name}</span>
+                                    ${item.note ? `<span style="color:#64748b; font-size:0.72rem;">${item.note}</span>` : ''}
+                                    <span class="price-val">${item.prices.join(' : ')} <span style="font-size:0.7rem; color:#64748b;">EGP</span></span>
+                                </div>
+                                <div class="item-add-btn">+</div>
                             </div>
                         `).join('')}
+                        </div>
                     </section>`;
                 }).join('');
 
