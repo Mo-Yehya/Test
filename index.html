@@ -217,7 +217,7 @@
             border-radius: 12px; flex-shrink: 0;
             filter: drop-shadow(0 0 6px rgba(0,210,255,0.3));
         }
-        .section-title { font-family: 'OMEGLE', sans-serif; font-size: 1.4rem; color: #fff; font-weight: 100; }
+        .section-title { font-family: 'OMEGLE', sans-serif; font-size: 1.7rem; color: #e2f8ff; font-weight: 100; opacity: 1; letter-spacing: 2px; }
 
         /* Category Banner */
         .cat-banner {
@@ -276,26 +276,8 @@
             position: relative;
         }
         .item-card:active { transform: scale(0.97); background: rgba(0,210,255,0.08); }
-        .item-img-wrap {
-            width: 100%; aspect-ratio: 1 / 1; position: relative; overflow: hidden;
-            background: rgba(0,210,255,0.04);
-        }
-        .item-img-wrap img {
-            width: 100%; height: 100%; object-fit: cover; display: block;
-            transition: opacity 0.4s; opacity: 0;
-        }
-        .item-img-wrap img.loaded { opacity: 1; }
-        .img-skeleton {
-            position: absolute; inset: 0;
-            background: linear-gradient(135deg, rgba(0,210,255,0.06) 25%, rgba(0,210,255,0.12) 50%, rgba(0,210,255,0.06) 75%);
-            background-size: 200% 200%; animation: shimmer 1.4s infinite; transition: opacity 0.3s;
-        }
-        .img-skeleton.hidden { opacity: 0; pointer-events: none; }
-        .img-placeholder {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; opacity: 0.2;
-        }
+        .img-skeleton { display: none; }
+        .img-placeholder { display: none; }
         .item-card .info-side {
             padding: 7px 8px 9px;
             display: flex; flex-direction: column; gap: 3px; flex: 1;
@@ -710,14 +692,6 @@
                         <div class="items-grid">
                         ${categories[cat].items.map(item => `
                             <div class="item-card" onclick="handleItemLogic(${item.id})">
-                                <div class="item-img-wrap">
-                                    <div class="img-skeleton" id="sk-${item.id}"></div>
-                                    ${item.image
-                                        ? `<img src="${item.image}" alt="${item.name}" loading="lazy"
-                                            onload="this.classList.add('loaded'); document.getElementById('sk-${item.id}').classList.add('hidden')"
-                                            onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'>☕</div>'">`
-                                        : `<div class="img-placeholder">☕</div>`}
-                                </div>
                                 <div class="info-side">
                                     <span class="item-name">${item.name}</span>
                                     ${item.note ? `<span style="color:#64748b; font-size:0.72rem;">${item.note}</span>` : ''}
