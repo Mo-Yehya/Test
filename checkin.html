@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>VOLT CAFE - تسجيل الحضور</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+:root {
+  --bg: #0a0a0a;
+  --bg2: #111111;
+  --bg3: #1a1a1a;
+  --bg4: #222222;
+  --orange: #FF6B00;
+  --orange2: #FF8C00;
+  --orange-glow: rgba(255,107,0,0.15);
+  --white: #ffffff;
+  --gray: #888888;
+  --danger: #FF3B3B;
+  --success: #00C853;
+  --border: rgba(255,107,0,0.15);
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Cairo', sans-serif;
+  overflow: hidden;
+}
+
+/* BACKGROUND */
+.bg-effects {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255,107,0,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,107,0,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(0,191,255,0.03) 0%, transparent 50%);
+}
+.bg-grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,107,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,107,0,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* MAIN WRAP */
+.wrap {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.logo-img {
+  width: 72px; height: 72px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 20px rgba(255,107,0,0.3));
+  animation: float 3s ease-in-out infinite;
+}
+.brand-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 38px;
+  color: var(--orange);
+  letter-spacing: 4px;
+  line-height: 1;
+  text-shadow: 0 0 30px rgba(255,107,0,0.4);
+}
+.branch-name {
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+/* CARD */
+.checkin-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,107,0,0.05);
+  animation: slideUp 0.5s ease;
+}
+
+/* STEP INDICATOR */
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.step-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--bg4);
+  transition: all 0.3s;
+}
+.step-dot.active {
+  background: var(--orange);
+  box-shadow: 0 0 10px var(--orange);
+  width: 24px;
+  border-radius: 4px;
+}
+.step-dot.done { background: var(--success); }
+
+/* PIN SCREEN */
+.screen { display: none; }
+.screen.active { display: block; }
+
+.screen-title {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 18px;
+}
+.screen-sub {
+  text-align: center;
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: -14px;
+  margin-bottom: 18px;
+}
+
+/* PIN DISPLAY */
+.pin-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+.pin-dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--gray2, #444);
+  transition: all 0.2s;
+}
+.pin-dot.filled {
+  background: var(--orange);
+  border-color: var(--orange);
+  box-shadow: 0 0 12px rgba(255,107,0,0.5);
+  transform: scale(1.1);
+}
+
+/* KEYPAD */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.key {
+  background: var(--bg3);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 18px 10px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  font-family: 'Cairo', sans-serif;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.key:active, .key.pressed {
+  background: var(--orange);
+  color: #000;
+  transform: scale(0.93);
+  border-color: var(--orange);
+}
+.key.del {
+  color: var(--danger);
+  font-size: 18px;
+  border-color: rgba(255,59,59,0.15);
+}
+.key.del:active { background: rgba(255,59,59,0.2); color: var(--danger); }
+.key.clear {
+  color: var(--gray);
+  font-size: 13px;
+}
+.key.submit {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: #000;
+  font-size: 15px;
+  font-weight: 900;
+  border-color: var(--orange);
+  box-shadow: 0 4px 20px rgba(255,107,0,0.3);
+  padding: 16px;
+}
+.key.submit:active { transform: scale(0.97); }
+.key.submit:disabled { opacity: 0.5; pointer-events: none; }
+
+/* RESULT SCREEN */
+.result-screen {
+  text-align: center;
+  padding: 10px 0;
+}
+.result-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  display: block;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.result-name {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+.result-title {
+  font-size: 13px;
+  color: var(--gray);
+  margin-bottom: 6px;
+}
+.result-time {
+  font-size: 13px;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.result-msg {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.result-msg.success { background: rgba(0,200,83,0.1); color: var(--success); border: 1px solid rgba(0,200,83,0.2); }
+.result-msg.warning { background: rgba(255,193,7,0.1); color: #FFC107; border: 1px solid rgba(255,193,7,0.2); }
+.result-msg.error { background: rgba(255,59,59,0.1); color: var(--danger); border: 1px solid rgba(255,59,59,0.2); }
+
+.btn-retry {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px;
+  color: var(--white);
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-retry:hover { border-color: var(--orange); color: var(--orange); }
+
+/* LOADING */
+.loading-screen {
+  text-align: center;
+  padding: 20px 0;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--bg4);
+  border-top-color: var(--orange);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 16px;
+}
+.loading-text { color: var(--gray); font-size: 13px; }
+
+/* LIVE TIME */
+.live-time {
+  position: fixed;
+  top: 16px; left: 50%; transform: translateX(-50%);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  color: var(--orange);
+  font-weight: 700;
+  z-index: 10;
+  letter-spacing: 1px;
+}
+
+/* COUNTDOWN */
+.countdown {
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: 8px;
+}
+
+/* ANIMATIONS */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.shake { animation: shake 0.4s ease; }
+
+/* MOBILE OPTIMIZE */
+@media (max-height: 700px) {
+  .logo-img { width: 52px; height: 52px; margin-bottom: 6px; }
+  .brand-name { font-size: 28px; }
+  .header { margin-bottom: 16px; }
+  .checkin-card { padding: 20px 18px; }
+  .key { padding: 14px 10px; font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-effects"></div>
+<div class="bg-grid"></div>
+
+<div class="live-time" id="live-clock">--:--:--</div>
+
+<div class="wrap">
+  <div class="header">
+    <img src="logo.png" class="logo-img" alt="VOLT Logo">
+    <div class="brand-name">VOLT</div>
+    <div class="branch-name">CAFE • MAIN BRANCH</div>
+  </div>
+
+  <div class="checkin-card">
+
+    <!-- STEP DOTS -->
+    <div class="steps">
+      <div class="step-dot active" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+      <div class="step-dot" id="dot-3"></div>
+    </div>
+
+    <!-- SCREEN 1: PIN ENTRY -->
+    <div class="screen active" id="screen-pin">
+      <div class="screen-title">أدخل كود الـ PIN</div>
+      <div class="screen-sub">كود مكوّن من 4 أرقام</div>
+
+      <div class="pin-dots" id="pin-dots">
+        <div class="pin-dot" id="d0"></div>
+        <div class="pin-dot" id="d1"></div>
+        <div class="pin-dot" id="d2"></div>
+        <div class="pin-dot" id="d3"></div>
+      </div>
+
+      <div class="keypad">
+        <div class="key" onclick="pressKey('1')">1</div>
+        <div class="key" onclick="pressKey('2')">2</div>
+        <div class="key" onclick="pressKey('3')">3</div>
+        <div class="key" onclick="pressKey('4')">4</div>
+        <div class="key" onclick="pressKey('5')">5</div>
+        <div class="key" onclick="pressKey('6')">6</div>
+        <div class="key" onclick="pressKey('7')">7</div>
+        <div class="key" onclick="pressKey('8')">8</div>
+        <div class="key" onclick="pressKey('9')">9</div>
+        <div class="key clear" onclick="clearPin()">مسح</div>
+        <div class="key" onclick="pressKey('0')">0</div>
+        <div class="key del" onclick="delPin()">⌫</div>
+        <div class="key submit" id="submit-btn" onclick="submitCheckin()">✅ تسجيل الحضور</div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: LOADING -->
+    <div class="screen" id="screen-loading">
+      <div class="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-text">جاري التحقق من بياناتك...</div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: RESULT -->
+    <div class="screen" id="screen-result">
+      <div class="result-screen">
+        <span class="result-icon" id="result-icon">✅</span>
+        <div class="result-name" id="result-name"></div>
+        <div class="result-title" id="result-job"></div>
+        <div class="result-time" id="result-time"></div>
+        <div class="result-msg" id="result-msg"></div>
+        <button class="btn-retry" onclick="resetScreen()">🔄 تسجيل موظف آخر</button>
+        <div class="countdown" id="countdown-text"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Firebase init
+const firebaseConfig = {
+  apiKey: "AIzaSyB2Twfnm6qg63KAqS3WXf5qPWMkUZRASXY",
+  authDomain: "volt-eg.firebaseapp.com",
+  databaseURL: "https://volt-eg-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "volt-eg",
+  storageBucket: "volt-eg.firebasestorage.app",
+  messagingSenderId: "1032256943794",
+  appId: "1:1032256943794:web:585c2138164c7176dd7bab"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// STATE
+let pin = '';
+let countdownTimer = null;
+
+// DEVICE ID
+function getDeviceId() {
+  let did = localStorage.getItem('volt_device_id');
+  if (!did) { did = 'dev_' + Math.random().toString(36).substr(2, 12); localStorage.setItem('volt_device_id', did); }
+  return did;
+}
+
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+
+// LIVE CLOCK
+setInterval(() => {
+  document.getElementById('live-clock').textContent =
+    new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}, 1000);
+
+// KEY PRESS
+function pressKey(d) {
+  if (pin.length >= 4) return;
+  pin += d;
+  updateDots();
+
+  // Visual feedback
+  if (pin.length === 4) {
+    setTimeout(() => submitCheckin(), 300);
+  }
+}
+
+function delPin() {
+  pin = pin.slice(0, -1);
+  updateDots();
+}
+
+function clearPin() {
+  pin = '';
+  updateDots();
+}
+
+function updateDots() {
+  for (let i = 0; i < 4; i++) {
+    const dot = document.getElementById('d' + i);
+    dot.classList.toggle('filled', i < pin.length);
+  }
+}
+
+// SWITCH SCREENS
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+
+  // Update dots
+  const dotMap = { pin: 0, loading: 1, result: 2 };
+  document.querySelectorAll('.step-dot').forEach((d, i) => {
+    d.classList.remove('active', 'done');
+    if (i < dotMap[id]) d.classList.add('done');
+    else if (i === dotMap[id]) d.classList.add('active');
+  });
+}
+
+// SUBMIT
+async function submitCheckin() {
+  if (pin.length !== 4) {
+    document.getElementById('pin-dots').classList.add('shake');
+    setTimeout(() => document.getElementById('pin-dots').classList.remove('shake'), 400);
+    return;
+  }
+
+  showScreen('loading');
+
+  try {
+    // Find employee by PIN
+    const empSnap = await db.collection('employees').where('pin', '==', pin).get();
+
+    if (empSnap.empty) {
+      showResult('error', '❌', '', '', '', 'كود PIN غير صحيح');
+      return;
+    }
+
+    const empDoc = empSnap.docs[0];
+    const emp = { id: empDoc.id, ...empDoc.data() };
+
+    // Check suspended
+    if (emp.status === 'suspended') {
+      showResult('error', '🚫', emp.name, emp.title, '', 'هذا الحساب موقوف - تواصل مع المدير');
+      return;
+    }
+
+    const today = todayStr();
+    const deviceId = getDeviceId();
+
+    // Check same employee today
+    const empToday = await db.collection('attendance')
+      .where('empId', '==', emp.id)
+      .where('date', '==', today)
+      .get();
+
+    if (!empToday.empty) {
+      const existing = empToday.docs[0].data();
+      showResult('warning', '⚠️', emp.name, emp.title, existing.timeStr || '', 'تم تسجيل حضورك اليوم مسبقاً');
+      return;
+    }
+
+    // Check same device today
+    const devToday = await db.collection('attendance')
+      .where('deviceId', '==', deviceId)
+      .where('date', '==', today)
+      .get();
+
+    if (!devToday.empty) {
+      showResult('error', '🚫', '', '', '', 'تم استخدام هذا الجهاز لتسجيل موظف آخر اليوم');
+      return;
+    }
+
+    // SAVE ATTENDANCE
+    const nowDate = new Date();
+    const timeStr = nowDate.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+
+    await db.collection('attendance').add({
+      empId: emp.id,
+      empName: emp.name,
+      empTitle: emp.title,
+      date: today,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timeStr,
+      deviceId
+    });
+
+    showResult('success', '✅', emp.name, emp.title, timeStr, 'تم تسجيل حضورك بنجاح!');
+    startCountdown(8);
+
+  } catch (e) {
+    console.error(e);
+    showResult('error', '❌', '', '', '', 'حدث خطأ، حاول مرة أخرى');
+  }
+}
+
+function showResult(type, icon, name, job, time, msg) {
+  document.getElementById('result-icon').textContent = icon;
+  document.getElementById('result-name').textContent = name;
+  document.getElementById('result-job').textContent = job;
+  document.getElementById('result-time').textContent = time ? `🕐 ${time}` : '';
+  const msgEl = document.getElementById('result-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'result-msg ' + type;
+  showScreen('result');
+}
+
+function startCountdown(secs) {
+  if (countdownTimer) clearInterval(countdownTimer);
+  const el = document.getElementById('countdown-text');
+  let remaining = secs;
+  el.textContent = `سيتم الإعادة تلقائياً خلال ${remaining} ثانية`;
+  countdownTimer = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(countdownTimer);
+      resetScreen();
+    } else {
+      el.textContent = `سيتم الإعادة تلقائياً خلال ${remaining} ثانية`;
+    }
+  }, 1000);
+}
+
+function resetScreen() {
+  if (countdownTimer) clearInterval(countdownTimer);
+  pin = '';
+  updateDots();
+  document.getElementById('countdown-text').textContent = '';
+  showScreen('pin');
+}
+
+// Keyboard support
+document.addEventListener('keydown', e => {
+  if (e.key >= '0' && e.key <= '9') pressKey(e.key);
+  else if (e.key === 'Backspace') delPin();
+  else if (e.key === 'Escape') clearPin();
+  else if (e.key === 'Enter') submitCheckin();
+});
+</script>
+</body>
+</html>
