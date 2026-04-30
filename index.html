@@ -358,7 +358,7 @@ html,body{height:100%;background:var(--bg);color:var(--white);font-family:var(--
   <div class="login-grid"></div>
   <div class="login-box">
     <div class="login-logo">
-      <div class="volt-text">VOLT</div>
+      <div style="display:flex;justify-content:center;margin-bottom:8px"><img src="logo.png" style="width:80px;height:80px;object-fit:contain;margin-bottom:8px"></div><div class="volt-text">VOLT</div>
       <div class="sub">STAFF SYSTEM • MAIN BRANCH</div>
     </div>
     <div class="login-form">
@@ -383,7 +383,7 @@ html,body{height:100%;background:var(--bg);color:var(--white);font-family:var(--
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="v-icon">V</div>
+      <div class="v-icon" style="background:transparent;padding:0"><img src="logo.png" style="width:42px;height:42px;object-fit:contain"></div>
       <div class="brand">
         <div class="brand-name">VOLT</div>
         <div class="branch">CAFE - MAIN BRANCH</div>
@@ -518,7 +518,7 @@ html,body{height:100%;background:var(--bg);color:var(--white);font-family:var(--
     <!-- CHECKIN -->
     <div class="section" id="sec-checkin">
       <div class="checkin-container">
-        <div class="checkin-logo">VOLT</div>
+        <div style="display:flex;justify-content:center;margin-bottom:12px"><img src="logo.png" style="width:90px;height:90px;object-fit:contain"></div><div class="checkin-logo">VOLT</div>
         <div class="checkin-sub">VOLT CAFE - MAIN BRANCH • تسجيل الحضور</div>
         <div class="pin-display" id="pin-display">____</div>
         <div class="pin-grid">
@@ -780,7 +780,7 @@ function generateQR() {
   const c = document.getElementById('qr-container');
   if (!c) return;
   c.innerHTML = '';
-  const url = window.location.href.split('#')[0] + '#checkin';
+  const url = window.location.href.replace('index.html','').replace(/#.*/,'') + 'checkin.html';
   try {
     new QRCode(c, { text: url, width: 180, height: 180, colorDark:'#FF6B00', colorLight:'#ffffff' });
   } catch(e) {
